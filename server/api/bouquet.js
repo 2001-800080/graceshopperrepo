@@ -9,7 +9,7 @@ router.get('/', async (req, res, next) => {
     if (getAllBouquets) {
       res.send(getAllBouquets)
     } else {
-      res.sendStatus(500)
+      res.sendStatus(404)
     }
   } catch (error) {
     next(error)
