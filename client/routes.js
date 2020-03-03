@@ -8,7 +8,8 @@ import {
   UserHome,
   AllBouquets,
   NotFoundPage,
-  Navbar
+  Navbar,
+  SingleBouquetPage
 } from './components'
 import {me} from './store'
 
@@ -27,6 +28,7 @@ class Routes extends Component {
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/" component={AllBouquets} />
+        <Route path="/bouquets/:id" component={SingleBouquetPage} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="*" exact={true} render={() => <NotFoundPage />} />

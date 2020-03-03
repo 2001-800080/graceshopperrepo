@@ -12,7 +12,7 @@ class AllBouquets extends Component {
     return (
       <div>
         <h1>All Bouquets</h1>
-        <div>
+        <div className="bouquet-grid">
           {this.props.bouquets.map(bouquet => (
             <div key={bouquet.id}>
               <Link to={`/bouquets/${bouquet.id}`}>
@@ -20,7 +20,6 @@ class AllBouquets extends Component {
                 <SingleBouquet bouquet={bouquet} />
               </Link>
               <img src={bouquet.imageUrl} width="200" height="200" />
-              <h4>${bouquet.price}</h4>
             </div>
           ))}
         </div>

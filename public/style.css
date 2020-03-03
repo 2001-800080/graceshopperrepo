@@ -19,3 +19,34 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.small-img {
+  width: 350px;
+  height: 350px;
+}
+
+.flowerGrid {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 450px;
+}
+
+.big-image {
+  width: 800px;
+  height: 800px;
+}
+.single-page {
+  display: flex;
+}
+.single-page-info {
+  font-size: 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.bouquet-grid {
+  display: flex;
+
+  flex-wrap: wrap;
+}
