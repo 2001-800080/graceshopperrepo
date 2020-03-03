@@ -1,12 +1,18 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {SingleBouquet} from './index'
 
 class AllBouquets extends Component {
   constructor() {
     super()
   }
   render() {
-    return <h1>All Bouquets</h1>
+    return (
+      <div>
+        <h1>All Bouquets</h1>
+        <SingleBouquet />
+      </div>
+    )
   }
 }
 
