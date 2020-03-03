@@ -28,8 +28,8 @@ const User = db.define('user', {
     type: Sequelize.STRING
   },
   address: {
-    type: Sequelize.STRING,
-    allowNull: false
+    type: Sequelize.STRING
+    // allowNull: false
   },
   phoneNumber: {
     type: Sequelize.INTEGER
@@ -39,11 +39,11 @@ const User = db.define('user', {
     defaultValue: false
   },
   cc: {
-    type: Sequelize.INTEGER,
-    validate: {
-      notEmpty: true
-    },
-    allowNull: false
+    type: Sequelize.INTEGER
+    // validate: {
+    //   notEmpty: true
+    // },
+    // allowNull: false
   }
 })
 
