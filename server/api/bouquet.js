@@ -1,11 +1,11 @@
 const router = require('express').Router()
-const {bouquet} = require('../db')
+const {Bouquet} = require('../db/models')
 
 //GET /api/bouquets
 
 router.get('/', async (req, res, next) => {
   try {
-    const getAllBouquets = await bouquet.findAll()
+    const getAllBouquets = await Bouquet.findAll()
     if (getAllBouquets) {
       res.send(getAllBouquets)
     } else {
@@ -20,9 +20,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const id = req.params.id
-    const findBouquetById = await bouquet.find({
-      where: {id: id}
-    })
+    const findBouquetById = await Bouquet.findByPk(id)
     res.send(findBouquetById)
   } catch (error) {
     next(error)
