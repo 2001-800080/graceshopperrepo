@@ -14,7 +14,7 @@ router.get('/', async (req, res, next) => {
   } catch (error) {
     next(error)
   }
-});
+})
 
 //GET /api/bouquets/:id
 router.get('/:id', async (req, res, next) => {
@@ -27,4 +27,6 @@ router.get('/:id', async (req, res, next) => {
   } catch (error) {
     next(error)
   }
-});
+})
+
+module.exports = router
