@@ -6,6 +6,7 @@ const User = db.define('user', {
   googleId: {
     type: Sequelize.STRING
   },
+  // suggest splitting this into first and last and then a virtual for firstname
   fullName: {
     type: Sequelize.STRING,
     allowNull: false
@@ -13,6 +14,7 @@ const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
     unique: true,
+    // may even be a validation for isEmail (?)
     allowNull: false
   },
   password: {

@@ -4,6 +4,7 @@ const Order = require('./order')
 const db = require('../db')
 const BouquetOrder = require('./BouquetOrders')
 
+// extra aliases are not necessary, just the through table
 Bouquet.belongsToMany(Order, {
   through: BouquetOrder,
   as: 'orders',

@@ -7165,7 +7165,7 @@ async function seed() {
   })
 
   const allUsers = await User.findAll({include: {model: Order, as: 'order'}})
-  await allUsers[0].addOrder(order)
+  await allUsers[0].addOrder(order) // addOrders([order1, order2])
   await allUsers[0].addOrder(order)
 
   const allBouquets = await Bouquet.findAll({

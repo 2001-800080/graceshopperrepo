@@ -2,6 +2,8 @@ const router = require('express').Router()
 const bouquetRoutes = require('./bouquet')
 module.exports = router
 
+// admin purposes and protection/security => gatekeeping middleware
+// looking into protecting your routes if users don't need to access them
 router.use('/users', require('./users'))
 router.use('/bouquets', bouquetRoutes)
 

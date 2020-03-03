@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
+// AE?FWE?FTQ@?!??!?!?
 const Item = db.define('item', {
   bouquetId: {
     type: Sequelize.INTEGER
