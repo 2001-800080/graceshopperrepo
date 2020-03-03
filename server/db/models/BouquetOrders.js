@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const BouquetOrders = db.define('BouquetOrder', {
+const BouquetOrder = db.define('BouquetOrder', {
   bouquetId: {
     type: Sequelize.INTEGER
   },
@@ -10,8 +10,4 @@ const BouquetOrders = db.define('BouquetOrder', {
   }
 })
 
-BouquetOrders.prototype.setBouquetId = function() {
-  //???
-}
-
-module.exports = BouquetOrders
+module.exports = BouquetOrder

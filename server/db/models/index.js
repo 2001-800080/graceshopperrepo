@@ -2,19 +2,19 @@ const User = require('./user')
 const Bouquet = require('./bouquet')
 const Order = require('./order')
 const db = require('../db')
-const BouquetOrders = require('./BouquetOrders')
+const BouquetOrder = require('./BouquetOrders')
 
 // User.belongsToMany(Bouquet, {through: 'Order'})
 // Bouquet.belongsToMany(User, {through: 'Order'})
 
 Bouquet.belongsToMany(Order, {
-  through: BouquetOrders,
+  through: BouquetOrder,
   as: 'orders',
   foreignKey: 'bouquetId',
   otherKey: 'orderId'
 })
 Order.belongsToMany(Bouquet, {
-  through: BouquetOrders,
+  through: BouquetOrder,
   as: 'bouquets',
   foreignKey: 'orderId',
   otherKey: 'bouquetId'
@@ -39,5 +39,5 @@ module.exports = {
   User,
   Order,
   Bouquet,
-  BouquetOrders
+  BouquetOrder
 }

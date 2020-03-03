@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Bouquet, Order} = require('../server/db/models')
+const {User, Bouquet, Order, BouquetOrder} = require('../server/db/models')
 
 const bouquets = [
   {
@@ -7175,6 +7175,8 @@ async function seed() {
   const allOrders = await Order.findAll({
     include: {model: Bouquet, as: 'bouquets'}
   })
+
+  const bouquetorder = await BouquetOrder.create({bouquetId: 1, orderId: 1})
 
   // await allUsers[0].addBouquet(allBouquets[0])
   // await allUsers[1].addBouquet(allBouquets[1])
