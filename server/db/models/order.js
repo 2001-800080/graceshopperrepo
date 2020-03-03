@@ -5,9 +5,6 @@ const Order = db.define('order', {
   userId: {
     type: Sequelize.INTEGER
   },
-  bouquetId: {
-    type: Sequelize.INTEGER
-  },
   date: {
     type: Sequelize.DATE
   },
@@ -21,14 +18,15 @@ const Order = db.define('order', {
     type: Sequelize.INTEGER
   },
   payment: {
-    type: Sequelize.INTEGER
-    // validate: {
-    //   notEmpty: true
-    // },
-    // allowNull: false
+    type: Sequelize.INTEGER,
+    validate: {
+      notEmpty: true
+    },
+    allowNull: false
   },
   status: {
-    type: Sequelize.ENUM('pending', 'complete')
+    type: Sequelize.ENUM('pending', 'complete'),
+    defaultValue: 'pending'
   },
   totalCost: {
     type: Sequelize.FLOAT

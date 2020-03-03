@@ -7157,7 +7157,6 @@ async function seed() {
   )
   const order = await Order.create({
     userId: 1,
-    bouquetId: 1,
     address: '123 Main St.',
     quantity: 1,
     payment: 3333,
@@ -7172,6 +7171,9 @@ async function seed() {
   const allBouquets = await Bouquet.findAll({
     include: {model: Order, as: 'orders'}
   })
+  await allBouquets[3].addOrder(order)
+  await allBouquets[3].addOrder(order)
+
   const allOrders = await Order.findAll({
     include: {model: Bouquet, as: 'bouquets'}
   })
@@ -7184,7 +7186,9 @@ async function seed() {
   // await allUsers[0].addBouquet(allBouquets[2])
   // await allUsers[1].addBouquet(allBouquets[4])
   // await allUsers[2].addBouquet(allBouquets[5])
-
+  console.log('order', Object.keys(Order.prototype))
+  console.log('bouquet', Object.keys(Bouquet.prototype))
+  console.log('bouquetorders', Object.keys(BouquetOrder.prototype))
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${bouquets.length} bouquets`)
   console.log(`seeded successfully`)
