@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Bouquet} = require('../server/db/models')
+const {User, Bouquet, Order} = require('../server/db/models')
 
 const bouquets = [
   {
@@ -7155,14 +7155,33 @@ async function seed() {
       return Bouquet.create(bouquet)
     })
   )
-  const allUsers = await User.findAll({include: {model: Bouquet}})
-  const allBouquets = await Bouquet.findAll({include: {model: User}})
-  await allUsers[0].addBouquet(allBouquets[0])
-  await allUsers[1].addBouquet(allBouquets[1])
-  await allUsers[2].addBouquet(allBouquets[2])
-  await allUsers[0].addBouquet(allBouquets[2])
-  await allUsers[1].addBouquet(allBouquets[4])
-  await allUsers[2].addBouquet(allBouquets[5])
+  const order = await Order.create({
+    userId: 1,
+    bouquetId: 1,
+    address: '123 Main St.',
+    quantity: 1,
+    payment: 3333,
+    status: 'pending',
+    totalCost: 3.99
+  })
+
+  const allUsers = await User.findAll({include: {model: Order, as: 'order'}})
+  await allUsers[0].addOrder(order)
+  await allUsers[0].addOrder(order)
+
+  const allBouquets = await Bouquet.findAll({
+    include: {model: Order, as: 'orders'}
+  })
+  const allOrders = await Order.findAll({
+    include: {model: Bouquet, as: 'bouquets'}
+  })
+
+  // await allUsers[0].addBouquet(allBouquets[0])
+  // await allUsers[1].addBouquet(allBouquets[1])
+  // await allUsers[2].addBouquet(allBouquets[2])
+  // await allUsers[0].addBouquet(allBouquets[2])
+  // await allUsers[1].addBouquet(allBouquets[4])
+  // await allUsers[2].addBouquet(allBouquets[5])
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${bouquets.length} bouquets`)

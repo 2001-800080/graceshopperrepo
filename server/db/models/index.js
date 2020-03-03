@@ -2,23 +2,25 @@ const User = require('./user')
 const Bouquet = require('./bouquet')
 const Order = require('./order')
 const db = require('../db')
+const BouquetOrders = require('./BouquetOrders')
 
 // User.belongsToMany(Bouquet, {through: 'Order'})
 // Bouquet.belongsToMany(User, {through: 'Order'})
 
 Bouquet.belongsToMany(Order, {
-  through: 'BouquetOrders',
+  through: BouquetOrders,
   as: 'orders',
   foreignKey: 'bouquetId',
   otherKey: 'orderId'
 })
 Order.belongsToMany(Bouquet, {
-  through: 'BouquetOrders',
+  through: BouquetOrders,
   as: 'bouquets',
   foreignKey: 'orderId',
   otherKey: 'bouquetId'
 })
-Order.belongsTo(User)
+Order.belongsTo(User, {as: 'user'})
+User.hasMany(Order, {as: 'order'})
 /**
  * If we had any associations to make, this would be a great place to put them!
  * ex. if we had another model called BlogPost, we might say:
@@ -36,5 +38,6 @@ module.exports = {
   db,
   User,
   Order,
-  Bouquet
+  Bouquet,
+  BouquetOrders
 }
