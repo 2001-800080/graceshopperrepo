@@ -5,7 +5,7 @@ const BouquetForGrid = props => {
   return (
     <div className="flower-grid">
       <img className="small-image" src={bouquet.imageUrl} alt="flower image" />
-      <p>{bouquet.price}</p>
+      <p>${bouquet.price}</p>
     </div>
   )
 }
