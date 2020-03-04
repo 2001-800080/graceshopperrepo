@@ -12,7 +12,7 @@ const Bouquet = db.define('bouquet', {
     allowNull: false,
     defaultValue: 5000,
     get() {
-      const pennies = this.getDataValue(price)
+      const pennies = this.getDataValue('price')
       return pennies / 100
     }
   },
@@ -27,7 +27,7 @@ const Bouquet = db.define('bouquet', {
     type: Sequelize.VIRTUAL,
     defaultValue: true,
     get() {
-      const isAvailable = this.getDataValue(available)
+      const isAvailable = this.getDataValue('available')
       if (isAvailable !== true) {
         return false
       }

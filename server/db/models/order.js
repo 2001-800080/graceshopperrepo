@@ -7,7 +7,7 @@ const Order = db.define('order', {
     type: Sequelize.VIRTUAL,
     defaultValue: 0,
     get() {
-      return this.getDataValue(quantity)
+      return this.getDataValue('quantity')
     }
   },
   phoneNumber: Sequelize.INTEGER,
@@ -18,7 +18,7 @@ const Order = db.define('order', {
   totalCost: {
     type: Sequelize.VIRTUAL,
     get() {
-      return this.getDataValue(totalCost)
+      return this.getDataValue('totalCost')
     }
   }
 })
