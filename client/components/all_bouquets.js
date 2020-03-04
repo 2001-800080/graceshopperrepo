@@ -11,7 +11,6 @@ export class AllBouquets extends Component {
   render() {
     return (
       <div>
-        <h1>All Bouquets</h1>
         <div className="bouquet-grid">
           {this.props.bouquets.map(bouquet => (
             <div className="single-bouquet-square" key={bouquet.id}>
