@@ -3,10 +3,6 @@ import React from 'react'
 import enzyme, {shallow} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import BouquetForGrid from './bouquet_for_grid'
-import configureMockStore from 'redux-mock-store'
-import thunkMiddleware from 'redux-thunk'
-const middlewares = [thunkMiddleware]
-const mockStore = configureMockStore(middlewares)
 
 const adapter = new Adapter()
 enzyme.configure({adapter})

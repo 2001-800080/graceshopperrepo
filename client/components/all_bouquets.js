@@ -4,7 +4,7 @@ import {BouquetForGrid, SingleBouquet} from './index'
 import {Link} from 'react-router-dom'
 import {getAllBouquets} from '../store/bouquet'
 
-class AllBouquets extends Component {
+export class AllBouquets extends Component {
   componentDidMount() {
     this.props.getAllBouquets()
   }
