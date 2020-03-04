@@ -17,9 +17,9 @@ router.get('/', async (req, res, next) => {
 })
 
 //GET /api/bouquets/:id
-router.get('/:id', async (req, res, next) => {
+router.get('/:bouquetId', async (req, res, next) => {
   try {
-    const id = req.params.id
+    const id = req.params.bouquetId
     const findBouquetById = await Bouquet.findByPk(id)
     res.send(findBouquetById)
   } catch (error) {
