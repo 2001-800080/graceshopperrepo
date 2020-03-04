@@ -2,7 +2,7 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Order = db.define('order', {
-  purcahseDate: Sequelize.DATE,
+  purchaseDate: Sequelize.DATE,
   quantity: {
     type: Sequelize.VIRTUAL,
     defaultValue: 0,
@@ -12,8 +12,8 @@ const Order = db.define('order', {
   },
   phoneNumber: Sequelize.INTEGER,
   isCart: {
-    type: Sequelize.ENUM('pending', 'complete'),
-    defaultValue: 'pending'
+    type: Sequelize.BOOLEAN,
+    defaultValue: true
   },
   totalCost: {
     type: Sequelize.VIRTUAL,

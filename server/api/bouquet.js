@@ -20,7 +20,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:bouquetId', async (req, res, next) => {
   try {
-    console.log('------------', req.sessionID)
+    // console.log('------------', req.sessionID)
     const id = req.params.bouquetId
     const findBouquetById = await Bouquet.findByPk(id)
     res.send(findBouquetById)
@@ -30,13 +30,25 @@ router.get('/:bouquetId', async (req, res, next) => {
 })
 
 //POST /api/:bouquetId/addToCart
-router.post('./:bouquetId/addToCart', async (req, res, next) => {
+router.post('/:bouquetId/addToCart', async (req, res, next) => {
   try {
     const id = req.params.bouquetId
-    // const findBouquetById = await Bouquet.findByPk(id)
+    const order = await Order.create({quantity: 1, isCart: true})
+    order.quantity++
+    order.save()
+    const bouquetorder = await BouquetOrder.create({
+      bouquetId: id,
+      orderId: order.id
+    })
+    const findBouquetById = await Bouquet.findByPk(id)
+    bouquetorder.quantity++
+    bouquetorder.cost = findBouquetById.price * bouquetorder.quantity * 100
+    bouquetorder.save()
+    res.json(bouquetorder)
+
     // const orderCreate = await BouquetOrder.create()
-    const guest = await User.create(req.body)
-    console.log('0000000000', guest)
+    // const guest = await User.create(req.body)
+    // console.log('0000000000', guest)
   } catch (error) {
     next(error)
   }
