@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {SingleBouquet} from './index'
+import {BouquetForGrid, SingleBouquet} from './index'
 import {Link} from 'react-router-dom'
 import {getAllBouquets} from '../store/bouquet'
 
@@ -15,13 +15,10 @@ class AllBouquets extends Component {
         <div className="bouquet-grid">
           {this.props.bouquets.map(bouquet => (
             <div className="single-bouquet-square" key={bouquet.id}>
-              <Link
-                className="single-bouquet-name"
-                to={`/${bouquet.id}`}
-              >
-                {bouquet.name} 
+              <Link className="single-bouquet-name" to={`/${bouquet.id}`}>
+                {bouquet.name}
               </Link>
-             <SingleBouquet bouquet={bouquet} />
+              <BouquetForGrid bouquet={bouquet} />
             </div>
           ))}
         </div>
@@ -38,7 +35,3 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllBouquets)
-
-{
-  /* <SingleBouquet bouquet={bouquet}/> */
-}

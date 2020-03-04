@@ -8,9 +8,7 @@ import {
   UserHome,
   AllBouquets,
   SingleBouquet,
-  NotFoundPage,
-  Navbar,
-  SingleBouquetPage
+  NotFoundPage
 } from './components'
 import {me} from './store'
 
