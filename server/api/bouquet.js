@@ -33,7 +33,7 @@ router.get('/:bouquetId', async (req, res, next) => {
 router.post('/:bouquetId/addToCart', async (req, res, next) => {
   try {
     const id = req.params.bouquetId
-    const order = await Order.create({quantity: 1, isCart: true})
+    const order = await Order.create()
     order.quantity++
     order.save()
     const bouquetorder = await BouquetOrder.create({
