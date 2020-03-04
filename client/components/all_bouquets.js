@@ -17,9 +17,8 @@ class AllBouquets extends Component {
             <div key={bouquet.id}>
               <Link to={`/bouquets/${bouquet.id}`}>
                 <h1>{bouquet.name}</h1>
-                <SingleBouquet bouquet={bouquet} />
               </Link>
-              <img src={bouquet.imageUrl} width="200" height="200" />
+              <SingleBouquet bouquet={bouquet} />
             </div>
           ))}
         </div>
