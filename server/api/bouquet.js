@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Bouquet} = require('../db/models')
+const {Bouquet, Order, BouquetOrder, User} = require('../db/models')
 
 //GET /api/bouquets
 
@@ -17,11 +17,26 @@ router.get('/', async (req, res, next) => {
 })
 
 //GET /api/bouquets/:bouquetId
+
 router.get('/:bouquetId', async (req, res, next) => {
   try {
+    console.log('------------', req.sessionID)
     const id = req.params.bouquetId
     const findBouquetById = await Bouquet.findByPk(id)
     res.send(findBouquetById)
+  } catch (error) {
+    next(error)
+  }
+})
+
+//POST /api/:bouquetId/addToCart
+router.post('./:bouquetId/addToCart', async (req, res, next) => {
+  try {
+    const id = req.params.bouquetId
+    // const findBouquetById = await Bouquet.findByPk(id)
+    // const orderCreate = await BouquetOrder.create()
+    const guest = await User.create(req.body)
+    console.log('0000000000', guest)
   } catch (error) {
     next(error)
   }
