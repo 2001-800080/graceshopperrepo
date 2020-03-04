@@ -5,18 +5,18 @@ const app = require('../index')
 const Bouquet = db.model('bouquet')
 
 describe('Bouquet routes', () => {
-  beforeEach(() => {
+  before(() => {
     return db.sync({force: true})
   })
 
-  describe('/api/bouquets/', () => {
-    beforeEach(() => {
-      return Bouquet.create({
-        name: 'Hannah Bouquet',
-        quantity: 54
-      })
+  beforeEach(async () => {
+    await Bouquet.create({
+      name: 'Hannah Bouquet',
+      quantity: 54
     })
+  })
 
+  describe('/api/bouquets/', () => {
     it('GET /api/bouquets', async () => {
       const res = await request(app)
         .get('/api/bouquets')
@@ -31,9 +31,8 @@ describe('Bouquet routes', () => {
       const response = await request(app)
         .get('/api/bouquets/1')
         .expect(200)
-      console.log(response)
 
-      // expect(response.body.quantity).to.equal(54)
+      expect(response.body.quantity).to.equal(54)
       expect(response.body.name).to.equal('Hannah Bouquet')
     })
   })

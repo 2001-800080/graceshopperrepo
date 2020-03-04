@@ -17,7 +17,8 @@ describe('User model', () => {
         cody = await User.create({
           email: 'cody@puppybook.com',
           password: 'bones',
-          fullName: 'Cody Pug'
+          firstName: 'Cody',
+          lastName: 'Pug'
         })
       })
 
