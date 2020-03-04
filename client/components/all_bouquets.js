@@ -15,9 +15,8 @@ class AllBouquets extends Component {
         <div>
           {this.props.bouquets.map(bouquet => (
             <div key={bouquet.id}>
-              <Link to={`/bouquets/${bouquet.id}`}>
+              <Link to={`/${bouquet.id}`}>
                 <h1>{bouquet.name}</h1>
-                <SingleBouquet bouquet={bouquet} />
               </Link>
               <img src={bouquet.imageUrl} width="200" height="200" />
               <h4>${bouquet.price}</h4>
@@ -37,3 +36,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllBouquets)
+
+{
+  /* <SingleBouquet bouquet={bouquet}/> */
+}
