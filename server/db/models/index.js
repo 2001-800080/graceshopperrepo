@@ -4,9 +4,6 @@ const Order = require('./order')
 const db = require('../db')
 const BouquetOrder = require('./BouquetOrders')
 
-// User.belongsToMany(Bouquet, {through: 'Order'})
-// Bouquet.belongsToMany(User, {through: 'Order'})
-
 Bouquet.belongsToMany(Order, {
   through: BouquetOrder,
   as: 'orders',

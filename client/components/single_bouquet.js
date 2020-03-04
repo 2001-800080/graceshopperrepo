@@ -7,12 +7,10 @@ class SingleBouquet extends Component {
     this.props.getBouquet(this.props.match.params.bouquetId)
   }
   render() {
-    console.log(this.props.match)
-
     return (
-      <div key={this.props.bouquet.id}>
+      <div className="flowerGrid">
         <h1>{this.props.bouquet.name}</h1>
-        <img src={this.props.bouquet.imageUrl} />
+        <img className="small-img" src={this.props.bouquet.imageUrl} alt="Flower Image" />
         <p>{this.props.bouquet.description}</p>
         <h4>${this.props.bouquet.price}</h4>
         <button type="button">Add to Cart</button>
