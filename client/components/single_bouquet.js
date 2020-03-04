@@ -7,6 +7,8 @@ class SingleBouquet extends Component {
     this.props.getBouquet(this.props.match.params.bouquetId)
   }
   render() {
+    console.log(this.props.match)
+
     return (
       <div key={this.props.bouquet.id}>
         <h1>{this.props.bouquet.name}</h1>

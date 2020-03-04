@@ -16,7 +16,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-//GET /api/bouquets/:id
+//GET /api/bouquets/:bouquetId
 router.get('/:bouquetId', async (req, res, next) => {
   try {
     const id = req.params.bouquetId
