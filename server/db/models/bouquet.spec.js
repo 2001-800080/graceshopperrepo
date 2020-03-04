@@ -19,16 +19,12 @@ describe('Bouquet model', () => {
     })
   }) // end describe('validations')
 
-  describe('price getter', async () => {
-    try {
+  describe('price getter', () => {
+    it('converts pennies to dollars in decimals', async () => {
       const createdBouquet = await Bouquet.create({
         name: 'Nuria Bouquet',
         price: 5000
       })
-    } catch (err) {
-      console.error(err)
-    }
-    it('converts pennies to dollars in decimals', () => {
       expect(createdBouquet.price).to.equal(50.0)
     })
   })
