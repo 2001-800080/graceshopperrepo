@@ -20,12 +20,12 @@ form div {
   display: inline-block;
 }
 
-.small-img {
+.small-image {
   width: 350px;
   height: 350px;
 }
 
-.flowerGrid {
+.flower-grid {
   display: flex;
   flex-direction: column;
   width: 400px;
@@ -33,8 +33,8 @@ form div {
 }
 
 .big-image {
-  width: 800px;
-  height: 800px;
+  width: 600px;
+  height: 600px;
 }
 .single-page {
   display: flex;
