@@ -50,3 +50,10 @@ form div {
   justify-content: space-evenly;
   flex-wrap: wrap;
 }
+.single-bouquet-square {
+  display: flex;
+  flex-direction: column;
+}
+.single-bouquet-name {
+  font-size: 2em;
+}

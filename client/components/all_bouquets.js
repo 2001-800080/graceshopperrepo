@@ -14,9 +14,12 @@ class AllBouquets extends Component {
         <h1>All Bouquets</h1>
         <div className="bouquet-grid">
           {this.props.bouquets.map(bouquet => (
-            <div key={bouquet.id}>
-              <Link to={`/bouquets/${bouquet.id}`}>
-                <h1>{bouquet.name}</h1>
+            <div className="single-bouquet-square" key={bouquet.id}>
+              <Link
+                className="single-bouquet-name"
+                to={`/bouquets/${bouquet.id}`}
+              >
+                {bouquet.name}
               </Link>
               <SingleBouquet bouquet={bouquet} />
             </div>
