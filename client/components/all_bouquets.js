@@ -17,11 +17,11 @@ class AllBouquets extends Component {
             <div className="single-bouquet-square" key={bouquet.id}>
               <Link
                 className="single-bouquet-name"
-                to={`/bouquets/${bouquet.id}`}
+                to={`/${bouquet.id}`}
               >
-                {bouquet.name}
+                {bouquet.name} 
               </Link>
-              <SingleBouquet bouquet={bouquet} />
+             <SingleBouquet bouquet={bouquet} />
             </div>
           ))}
         </div>
@@ -38,3 +38,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllBouquets)
+
+{
+  /* <SingleBouquet bouquet={bouquet}/> */
+}

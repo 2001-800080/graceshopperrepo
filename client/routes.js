@@ -7,6 +7,7 @@ import {
   Signup,
   UserHome,
   AllBouquets,
+  SingleBouquet,
   NotFoundPage,
   Navbar,
   SingleBouquetPage
@@ -28,7 +29,7 @@ class Routes extends Component {
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/" component={AllBouquets} />
-        <Route path="/bouquets/:id" component={SingleBouquetPage} />
+        <Route exact path="/:bouquetId" component={SingleBouquet} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="*" exact={true} render={() => <NotFoundPage />} />
