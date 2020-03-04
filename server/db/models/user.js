@@ -6,9 +6,19 @@ const User = db.define('user', {
   googleId: {
     type: Sequelize.STRING
   },
-  fullName: {
+  firstName: {
     type: Sequelize.STRING,
     allowNull: false
+  },
+  lastName: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  fullName: {
+    type: Sequelize.VIRTUAL,
+    get() {
+      return this.getDataValue(firstName)
+    }
   },
   email: {
     type: Sequelize.STRING,

@@ -2,11 +2,18 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const BouquetOrder = db.define('BouquetOrder', {
-  bouquetId: {
-    type: Sequelize.INTEGER
+  quantity: {
+    type: Sequelize.INTEGER,
+    validate: {
+      min: 0
+    }
   },
-  orderId: {
-    type: Sequelize.INTEGER
+  cost: {
+    type: Sequelize.INTEGER,
+    get() {
+      const pennies = this.getDataValue(cost)
+      return pennies / 100
+    }
   }
 })
 

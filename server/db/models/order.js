@@ -2,34 +2,24 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Order = db.define('order', {
-  userId: {
-    type: Sequelize.INTEGER
-  },
-  date: {
-    type: Sequelize.DATE
-  },
-  address: {
-    type: Sequelize.STRING
-  },
+  purcahseDate: Sequelize.DATE,
   quantity: {
-    type: Sequelize.INTEGER
+    type: Sequelize.VIRTUAL,
+    defaultValue: 0,
+    get() {
+      return this.getDataValue(quantity)
+    }
   },
-  phoneNumber: {
-    type: Sequelize.INTEGER
-  },
-  payment: {
-    type: Sequelize.INTEGER,
-    validate: {
-      notEmpty: true
-    },
-    allowNull: false
-  },
-  status: {
+  phoneNumber: Sequelize.INTEGER,
+  isCart: {
     type: Sequelize.ENUM('pending', 'complete'),
     defaultValue: 'pending'
   },
   totalCost: {
-    type: Sequelize.FLOAT
+    type: Sequelize.VIRTUAL,
+    get() {
+      return this.getDataValue(totalCost)
+    }
   }
 })
 
