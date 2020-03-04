@@ -9,6 +9,7 @@ import MockAdapter from 'axios-mock-adapter'
 import configureMockStore from 'redux-mock-store'
 import thunkMiddleware from 'redux-thunk'
 const middlewares = [thunkMiddleware]
+import BouquetForGrid from './bouquet_for_grid'
 const mockStore = configureMockStore(middlewares)
 
 const adapter = new Adapter()
@@ -32,18 +33,6 @@ describe('AllBouquets', () => {
 
   let allBouqs
 
-  const fakeBouquet = [
-    {
-      name: 'Shelly Bouquet',
-      description:
-        'Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio. Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.',
-      price: 7683,
-      quantity: 17
-    }
-  ]
-  mockAxios.onGet('/api/bouquets').replyOnce(200, fakeBouquet)
-  store.dispatch(getAllBouquets())
-
   const bouquets = [
     {
       name: 'Lurline Bouquet',
@@ -52,6 +41,20 @@ describe('AllBouquets', () => {
       price: 7216,
       quantity: 4,
       imageUrl: 'https://sf.tac-cdn.net/images/products/small/TEV28-2.jpg'
+    },
+    {
+      name: 'Emmeline Bouquet',
+      description:
+        'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem. Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.',
+      price: 3234,
+      quantity: 88
+    },
+    {
+      name: 'Laverna Bouquet',
+      description:
+        'Morbi ut odio. Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl. Aenean lectus. Pellentesque eget nunc.',
+      price: 5976,
+      quantity: 74
     }
   ]
 
@@ -62,6 +65,10 @@ describe('AllBouquets', () => {
   })
 
   it('renders all the bouquets with the text All Bouquets in an h1 tag', () => {
-    expect(allBouqs.find('h1').text()).to.be.equal('All Bouquets')
+    const renderedBouquets = allBouqs.find(BouquetForGrid)
+    expect(renderedBouquets.length).to.equal(3)
+    expect(renderedBouquets.get(2).props.bouquet.name).to.equal(
+      'Laverna Bouquet'
+    )
   })
 })
