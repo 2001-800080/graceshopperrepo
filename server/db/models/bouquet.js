@@ -6,25 +6,40 @@ const Bouquet = db.define('bouquet', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  description: {
-    type: Sequelize.TEXT
-  },
+  description: Sequelize.TEXT,
   price: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.INTEGER,
     allowNull: false,
-    defaultValue: 50.00
+    defaultValue: 5000,
+    get() {
+      const pennies = this.getDataValue('price')
+      return pennies / 100
+    }
   },
   quantity: {
     type: Sequelize.INTEGER,
-    defaultValue: 50
+    defaultValue: 50,
+    validate: {
+      min: 0
+    }
   },
   available: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: true
+    type: Sequelize.VIRTUAL,
+    defaultValue: true,
+    get() {
+      const isAvailable = this.getDataValue('available')
+      if (isAvailable !== true) {
+        return false
+      }
+      return true
+    }
   },
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue: 'https://sf.tac-cdn.net/images/products/small/TEV28-2.jpg'
+    defaultValue: 'https://sf.tac-cdn.net/images/products/small/TEV28-2.jpg',
+    validate: {
+      isUrl: true
+    }
   }
 })
 
