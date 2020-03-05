@@ -4,14 +4,13 @@ import {BouquetForGrid, SingleBouquet} from './index'
 import {Link} from 'react-router-dom'
 import {getAllBouquets} from '../store/bouquet'
 
-class AllBouquets extends Component {
+export class AllBouquets extends Component {
   componentDidMount() {
     this.props.getAllBouquets()
   }
   render() {
     return (
       <div>
-        <h1>All Bouquets</h1>
         <div className="bouquet-grid">
           {this.props.bouquets.map(bouquet => (
             <div className="single-bouquet-square" key={bouquet.id}>
