@@ -9,12 +9,7 @@ const DELETE_FROM_CART = 'DELETE_FROM_CART'
 /**
  * INITIAL STATE
  */
-let currentCart
-if (localStorage.getItem('cart')) {
-  currentCart = JSON.parse(localStorage.getItem('cart'))
-} else {
-  currentCart = []
-}
+let currentCart = []
 
 // cart is going to be an array of objects
 // keys:
@@ -44,6 +39,7 @@ export default function(state = currentCart, action) {
       localStorage.setItem('cart', [])
       return []
     case GET_CART:
+      state = JSON.parse(localStorage.getItem('cart'))
       return state
     case ADD_TO_CART:
       // search state to find if id is already there

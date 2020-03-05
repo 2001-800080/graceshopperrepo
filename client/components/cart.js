@@ -18,13 +18,19 @@ class Cart extends Component {
     this.handleIncrease = this.handleIncrease.bind(this)
   }
   handleDecrease(item) {
-    this.props.decrementFromCart(item)
+    this.props.dispatchDecrementFromCart(item)
+    this.props.dispatchGetCart()
   }
   handleDelete(item) {
-    this.props.deleteFromCart(item)
+    this.props.dispatchDeleteFromCart(item)
+    this.props.dispatchGetCart()
   }
   handleIncrease(item) {
-    this.props.addToCart(item)
+    this.props.dispatchAddToCart(item)
+    this.props.dispatchGetCart()
+  }
+  componentDidMount() {
+    this.props.dispatchGetCart()
   }
 
   // const bouquets = props.bouquets
@@ -35,7 +41,7 @@ class Cart extends Component {
           <p className="checkout-name-box">Product</p>
           <p className="checkout-price-box">Price</p>
           <p className="checkout-quantity-box">Qty</p>
-          <p className-="checkout-row-total">Amount</p>
+          <p className="checkout-row-total">Amount</p>
         </div>
         <div>
           {this.props.currentCart.length &&
@@ -44,9 +50,9 @@ class Cart extends Component {
                 key={item.bouquet.id}
                 total={item.bouquet.price * item.quantity}
                 item={item}
-                handleDelete={this.props.handleDelete}
-                handleIncrease={this.props.handleIncrease}
-                handleDecrease={this.props.handleDecrease}
+                handleDelete={this.handleDelete}
+                handleIncrease={this.handleIncrease}
+                handleDecrease={this.handleDecrease}
               />
             ))}
         </div>
@@ -76,10 +82,10 @@ const mapDispatch = dispatch => ({
   // handleDelete(index){
   // 	dispatch(deleteFromCart(index))
   // },
-  getCart: () => dispatch(getCart()),
-  addToCart: bouquet => dispatch(addToCart(bouquet)),
-  decrementFromCart: bouquet => dispatch(decrementFromCart(bouquet)),
-  deleteFromCart: bouquet => dispatch(deleteFromCart(bouquet))
+  dispatchGetCart: () => dispatch(getCart()),
+  dispatchAddToCart: bouquet => dispatch(addToCart(bouquet)),
+  dispatchDecrementFromCart: bouquet => dispatch(decrementFromCart(bouquet)),
+  dispatchDeleteFromCart: bouquet => dispatch(deleteFromCart(bouquet))
 })
 
 export default connect(mapPropToCart, mapDispatch)(Cart)

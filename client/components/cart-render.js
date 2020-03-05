@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 
 const CartRender = props => {
   const {item, total, handleDecrease, handleIncrease, handleDelete} = props
+  console.log(props)
   return (
     <div className="cart-render-container">
       <div className="checkout-name-box">
