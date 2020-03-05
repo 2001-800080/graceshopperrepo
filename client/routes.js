@@ -6,7 +6,7 @@ import {
   Cart,
   // Login,
   // Signup,
-  UserHome,
+  // UserHome,
   AllBouquets,
   SingleBouquet,
   NotFoundPage
@@ -15,6 +15,7 @@ import {
 import {me} from './store'
 import ConfirmationPage from './components/confirmation_page'
 import {Login, Signup} from './components/auth-form'
+import {UserHome} from './components/user-home'
 
 /**
  * COMPONENT
@@ -39,7 +40,7 @@ class Routes extends Component {
         <Route path="/signup" exact={true} render={() => <Signup />} />
         {/* ORDER MATTERS OMG */}
         <Route exact path="/" component={AllBouquets} />
-        <Route exact path="/:bouquetId" component={SingleBouquet} />{' '}
+        {/* <Route exact path="/:bouquetId" component={SingleBouquet} />{' '} */}
         {/* <Route exact path="*" component={NotFoundPage} /> */}
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/:bouquetId" component={SingleBouquet} />
@@ -47,7 +48,7 @@ class Routes extends Component {
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
+            <Route exact path="/home" component={UserHome} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
@@ -87,3 +88,6 @@ Routes.propTypes = {
   loadInitialData: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
 }
+
+// PropTypes.func.isRequired means loadInitialData must be of type function
+// PropTypes.bool.isRequired means isLoggedIn must be of type boolean
