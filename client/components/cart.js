@@ -13,28 +13,46 @@ import {CartRender} from './index'
 class Cart extends Component {
   constructor(props) {
     super(props)
+    this.handleDecrease = this.handleDecrease.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
+    this.handleIncrease = this.handleIncrease.bind(this)
+  }
+  handleDecrease(item) {
+    this.props.dispatchDecrementFromCart(item)
+    this.props.dispatchGetCart()
+  }
+  handleDelete(item) {
+    this.props.dispatchDeleteFromCart(item)
+    this.props.dispatchGetCart()
+  }
+  handleIncrease(item) {
+    this.props.dispatchAddToCart(item)
+    this.props.dispatchGetCart()
+  }
+  componentDidMount() {
+    this.props.dispatchGetCart()
   }
 
   // const bouquets = props.bouquets
   render() {
     return (
       <div>
-        <div>
-          <p>Product</p>
-          <p>Price</p>
-          <p>Qty</p>
-          <p>Amount</p>
+        <div className="cart-render-container">
+          <p className="checkout-name-box">Product</p>
+          <p className="checkout-price-box">Price</p>
+          <p className="checkout-quantity-box">Qty</p>
+          <p className="checkout-row-total">Amount</p>
         </div>
         <div>
-          {this.props.cart.length &&
-            this.props.cart.map(item => (
+          {this.props.currentCart.length &&
+            this.props.currentCart.map(item => (
               <CartRender
                 key={item.bouquet.id}
                 total={item.bouquet.price * item.quantity}
                 item={item}
-                handleDelete={this.props.handleDelete}
-                handleIncrease={this.props.handleIncrease}
-                handleDecrease={this.props.handleDecrease}
+                handleDelete={this.handleDelete}
+                handleIncrease={this.handleIncrease}
+                handleDecrease={this.handleDecrease}
               />
             ))}
         </div>
@@ -43,7 +61,7 @@ class Cart extends Component {
           <p>Total</p>
           <p>
             $
-            {this.props.cart
+            {this.props.currentCart
               .map(el => el.bouquet.price * el.quantity)
               .reduce((a, b) => a + b, 0)}
           </p>
@@ -60,25 +78,14 @@ const mapPropToCart = state => ({
   currentCart: state.currentCart
 })
 
-const mapDispatch = dispatch => {
-  return {
-    // handleDelete(index){
-    // 	dispatch(deleteFromCart(index))
-    // },
-    getCart() {
-      dispatch(getCart())
-    },
-    handleIncrease(bouquet) {
-      dispatch(addToCart(bouquet))
-    },
-    handleDecrease(bouquet) {
-      dispatch(decrementFromCart(bouquet))
-      dispatch(getCart())
-    },
-    handleDelete(bouquet) {
-      dispatch(deleteFromCart(bouquet))
-    }
-  }
-}
+const mapDispatch = dispatch => ({
+  // handleDelete(index){
+  // 	dispatch(deleteFromCart(index))
+  // },
+  dispatchGetCart: () => dispatch(getCart()),
+  dispatchAddToCart: bouquet => dispatch(addToCart(bouquet)),
+  dispatchDecrementFromCart: bouquet => dispatch(decrementFromCart(bouquet)),
+  dispatchDeleteFromCart: bouquet => dispatch(deleteFromCart(bouquet))
+})
 
 export default connect(mapPropToCart, mapDispatch)(Cart)

@@ -57,3 +57,37 @@ form div {
 .single-bouquet-name {
   font-size: 2em;
 }
+.cart-render-container {
+  display: flex;
+  align-items: center;
+}
+.checkout-change-button {
+  margin-left: 10px;
+}
+.checkout-name-box {
+  width: 150px;
+}
+.checkout-row-total {
+  width: 80px;
+}
+.checkout-price-box {
+  width: 80px;
+}
+.checkout-quantity-box {
+  width: 80px;
+}
+.all-flowers-cart-button {
+  width: 100px;
+  height: 20px;
+}
+.nav-bar-container {
+  display: flex;
+  justify-content: space-between;
+}
+.all-bouquet-cart {
+  display: flex;
+  align-items: center;
+}
+.tiny-cart-spacing {
+  margin-left: 10px;
+}
