@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import {getCart, addToCart, removeFromCart, deleteFromCart} from '../store/cart'
 
 const Cart = props => {
-  const bouquets = props.bouquets
+  // const bouquets = props.bouquets
 
   return (
     <div>
@@ -30,7 +30,7 @@ const Cart = props => {
                           props.cart.map((item, index) => (
                             <tr key={item.id}>
                               <td>
-                                <Link to={`/bouquets/${item.bouquet.id}`}>
+                                <Link to={`/${item.bouquet.id}`}>
                                   {item.bouquet.name}
                                 </Link>
                               </td>
@@ -50,7 +50,7 @@ const Cart = props => {
                                     type="submit"
                                     onClick={() => props.handleDecrease(item)}
                                   >
-                                    remove
+                                    remove one
                                   </button>
                                   <button
                                     type="submit"
@@ -63,7 +63,7 @@ const Cart = props => {
                                     onClick={() => props.handleDelete(item)}
                                   >
                                     {' '}
-                                    delete
+                                    delete all
                                   </button>
                                 </div>
                               </td>

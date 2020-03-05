@@ -9,13 +9,12 @@ const DELETE_FROM_CART = 'DELETE_FROM_CART'
 /**
  * INITIAL STATE
  */
-// let currentCart;
-// if (localStorage.getItem('cart')){
-//   currentCart = JSON.parse(localStorage.getItem('cart'))
-// }
-// else {
-let currentCart = []
-// }
+let currentCart
+if (localStorage.getItem('cart')) {
+  currentCart = JSON.parse(localStorage.getItem('cart'))
+} else {
+  currentCart = []
+}
 
 // cart is going to be an array of objects
 // keys:
