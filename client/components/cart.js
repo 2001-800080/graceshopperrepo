@@ -2,7 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {getCart, addToCart, removeFromCart, deleteFromCart} from '../store/cart'
+import {
+  getCart,
+  addToCart,
+  decrementFromCart,
+  deleteFromCart
+} from '../store/cart'
 
 const Cart = props => {
   // const bouquets = props.bouquets
@@ -48,7 +53,10 @@ const Cart = props => {
                                 <div>
                                   <button
                                     type="submit"
-                                    onClick={() => props.handleDecrease(item)}
+                                    onClick={() => {
+                                      props.handleDecrease(item)
+                                      props.getCart()
+                                    }}
                                   >
                                     remove one
                                   </button>
@@ -96,26 +104,28 @@ const Cart = props => {
   )
 }
 
-const mapPropToCart = state => {
-  return {
-    cart: state.currentCart
-  }
-}
+const mapPropToCart = state => ({
+  currentCart: state.currentCart
+})
 
 const mapDispatch = dispatch => {
   return {
     // handleDelete(index){
     // 	dispatch(deleteFromCart(index))
     // },
+    getCart() {
+      dispatch(getCart())
+    },
     handleIncrease(bouquet) {
       dispatch(addToCart(bouquet))
+    },
+    handleDecrease(bouquet) {
+      dispatch(decrementFromCart(bouquet))
+      dispatch(getCart())
+    },
+    handleDelete(bouquet) {
+      dispatch(deleteFromCart(bouquet))
     }
-    // handleDecrease(bouquet){
-    // 	dispatch(removeFromCart(bouquet))
-    // },
-    // handleDelete(bouquet){
-    // 	dispatch(deleteFromCart(bouquet))
-    // }
   }
 }
 
