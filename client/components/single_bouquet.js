@@ -1,14 +1,15 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import {getBouquet} from '../store/singlebouquet'
+import {addToCart} from '../store/cart'
 
 class SingleBouquet extends Component {
   componentDidMount() {
     this.props.getBouquet(this.props.match.params.bouquetId)
-    window.localStorage.clear()
+    // this.props.getCart()
   }
   render() {
-    console.log(this.props)
     return (
       <div className="single-page">
         <img
@@ -20,7 +21,15 @@ class SingleBouquet extends Component {
           <p className="single-bouquet-name">{this.props.bouquet.name}</p>
           <p>{this.props.bouquet.description}</p>
           <h4>${this.props.bouquet.price}</h4>
-          <button type="button">Add to Cart</button>
+          <button
+            type="submit"
+            onClick={() => this.props.handleClick(this.props.bouquet)}
+          >
+            Add to Cart
+          </button>
+          <div>
+            <Link to="/cart">Cart</Link>
+          </div>
         </div>
       </div>
     )
@@ -28,10 +37,13 @@ class SingleBouquet extends Component {
 }
 
 const mapStateToProps = state => ({
-  bouquet: state.bouquet
+  bouquet: state.bouquet,
+  cart: state.currentCart
 })
 const mapDispatchToProps = dispatch => ({
-  getBouquet: bouquetId => dispatch(getBouquet(bouquetId))
+  getBouquet: bouquetId => dispatch(getBouquet(bouquetId)),
+  handleClick: bouquet => dispatch(addToCart(bouquet))
+  // getCart : () => dispatch(getCart())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleBouquet)
