@@ -27,4 +27,47 @@ router.get('/:bouquetId', async (req, res, next) => {
   }
 })
 
+router.post('/:bouquetId', async (req, res, next) => {
+  try {
+    const findBouquet = await Bouquet.findOne({
+      where: {
+        id: req.params.bouquetId
+      }
+    })
+    if (findBouquet === null) {
+      res.sendStatus(404)
+    }
+    await findBouquet.update(req.body)
+    res.send(findBouquet)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/', async (req, res, next) => {
+  try {
+    const newBouquet = await Bouquet.create(req.body)
+    res.json(newBouquet)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/:bouquetId', async (req, res, next) => {
+  try {
+    const findBouquetToDelete = await Bouquet.findOne({
+      where: {
+        id: req.params.bouquetId
+      }
+    })
+    if (findBouquetToDelete === null) {
+      res.sendStatus(404)
+    }
+    await findBouquetToDelete.destroy()
+    res.sendStatus(200)
+  } catch (error) {
+    next(error)
+  }
+})
+
 module.exports = router

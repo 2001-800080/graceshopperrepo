@@ -1,7 +1,7 @@
 import axios from 'axios'
-import history from '../history'
-import thunkMiddleware from 'redux-thunk'
-import store from './index'
+// import history from '../history'
+// import thunkMiddleware from 'redux-thunk'
+// import store from './index'
 
 const GOT_BOUQUET = 'GOT_BOUQUET'
 

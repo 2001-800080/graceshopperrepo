@@ -3,7 +3,7 @@
 const {spawn} = require('child_process')
 const fs = require('fs')
 
-const axios = require('axios')
+// const axios = require('axios')
 const GitUrlParse = require('git-url-parse')
 const simpleGit = require('simple-git')()
 const YAML = require('yaml')
@@ -124,7 +124,7 @@ const updateTravisYAML = (app, key) => {
 
 const main = async () => {
   const verbose = process.argv.hasOwnProperty(2)
-  const {fullName, appName} = await getNamesFromGit()
+  const {appName} = await getNamesFromGit()
 
   /* Get Heroku authentication token from the Heroku CLI. */
   const herokuTokenOut = await getOutputFromCommand('heroku', ['auth:token'])

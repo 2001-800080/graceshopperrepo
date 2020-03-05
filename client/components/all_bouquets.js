@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {BouquetForGrid, SingleBouquet} from './index'
+import {BouquetForGrid} from './index'
 import {Link} from 'react-router-dom'
 import {getAllBouquets} from '../store/bouquet'
 

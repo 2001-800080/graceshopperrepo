@@ -7274,11 +7274,11 @@ async function seed() {
   await allBouquets[3].addOrder(order)
   await allBouquets[3].addOrder(order)
 
-  const allOrders = await Order.findAll({
-    include: {model: Bouquet, as: 'bouquets'}
-  })
+  // const allOrders = await Order.findAll({
+  //   include: {model: Bouquet, as: 'bouquets'}
+  // })
 
-  const bouquetorder = await BouquetOrder.create({bouquetId: 1, orderId: 1})
+  // const bouquetorder = await BouquetOrder.create({bouquetId: 1, orderId: 1})
 
   // await allUsers[0].addBouquet(allBouquets[0])
   // await allUsers[1].addBouquet(allBouquets[1])

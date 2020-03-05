@@ -23,4 +23,11 @@ const Order = db.define('order', {
   }
 })
 
+// async function findUserId(order) {
+//   try {
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
+
 module.exports = Order

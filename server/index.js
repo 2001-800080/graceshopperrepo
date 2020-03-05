@@ -63,6 +63,12 @@ const createApp = () => {
   app.use(passport.initialize())
   app.use(passport.session())
 
+  // function for User and Admin?
+
+  // async function auth(req, res, next) {
+  //   const currentUser = req.session.passport
+  // }
+
   // auth and api routes
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
