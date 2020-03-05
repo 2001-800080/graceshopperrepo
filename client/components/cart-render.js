@@ -12,13 +12,13 @@ const CartRender = props => {
         <p>{total}</p>
       </div>
       <div>
-        <button type="submit" onClick={handleDecrease}>
+        <button type="submit" onClick={() => handleDecrease(item)}>
           remove one
         </button>
-        <button type="submit" onClick={handleIncrease}>
+        <button type="submit" onClick={() => handleIncrease(item)}>
           add
         </button>
-        <button type="submit" onClick={handleDelete}>
+        <button type="submit" onClick={() => handleDelete(item)}>
           delete all
         </button>
       </div>
