@@ -13,16 +13,18 @@ notifications:
 install:
   - npm ci # faster, goes only from package-lock
 before_script:
-  - psql -c 'create database "boilermaker-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
+  - psql -c 'create database "violet_vines-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 script:
-  - npm test             # test the code
+  - npm test # test the code
   - npm run build-client # make the bundle
-
-# before_deploy:
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy: # omit node_modules, since we set skip_cleanup below
+  - rm -rf node_modules
+deploy: # see README for details on these keys
+  # prevents travis from deleting the build
+  skip_cleanup: true
+  provider: heroku
+  # app should be your heroku app name; see README
+  app: violet-vines
+  # the secure key indicates an encrypted value; see README
+  api_key:
+    secure: UgbNSdeGM99nZ6Ag3MuAeb/Af0kxZZz9Ugtaa/0m2wETo24RnjQsCBplBXIg61O2i2WlQOlf8+2jb2TCZg981KzPFOfZ6+WATGG3HO5cuziIif4LfVgRPIfVcRu5FDdJ6VO+olPigzrG7rE0GSwSJ0b9PtF3c4hev4xR9WM6XYZhS+768OqB/1QlEZrjJ3g0DmHsktReCj+GGFHsMPL6lOI/Jz5HXoa2pF3GVnicD2TE0Crbks3EzaT2JBTgYBTgaUjd2QUyVgPPBXET9K31B9y0U+17xJiGwr0RsTLql0gRvlfVtmqCdF09FHmD9amGtOZLpbbsS6SHu05gdRundhl8W7afA9V9538NER3xBNhaCxXrcKzEHezBwGJVZi//BG7pQGwSaoiReIUocc48xzx33QMU/ZEBmfeeH1FE6+xTgJq2yDkeF1HEGhj+HJh1pOJ0pl2++WT4FJzKDj+nupBrLtpcW7gGj20rcAqMw4PmfpRGmKFh7Tmp+2zanC1zKrV2SICADgP4T1nL3i6gNMrIwmqGZVJAxgVj3dE80rrQdSu6TQCuuuX3zWLKnGGn0amPL0svr6KbIrDHa22UTyP/iZtoFNQO7VJIVBvfrtDxVob5GQvQ+jMt7Jl1Kv8qsEQQToEfWsLCqQeKuQTEgx5Lif5RzLxgbGqrTdTbB40=
