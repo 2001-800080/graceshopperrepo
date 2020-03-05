@@ -20,7 +20,6 @@ class Routes extends Component {
     const {isLoggedIn} = this.props
 
     return (
-
       <div>
         <Switch>
           {/* Routes placed here are available to all visitors */}
