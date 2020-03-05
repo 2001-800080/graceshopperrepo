@@ -80,3 +80,14 @@ form div {
   width: 100px;
   height: 20px;
 }
+.nav-bar-container {
+  display: flex;
+  justify-content: space-between;
+}
+.all-bouquet-cart {
+  display: flex;
+  align-items: center;
+}
+.tiny-cart-spacing {
+  margin-left: 10px;
+}
