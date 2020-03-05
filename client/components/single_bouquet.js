@@ -7,7 +7,6 @@ import {addToCart} from '../store/cart'
 class SingleBouquet extends Component {
   componentDidMount() {
     this.props.getBouquet(this.props.match.params.bouquetId)
-    // this.props.getCart()
   }
   render() {
     return (
