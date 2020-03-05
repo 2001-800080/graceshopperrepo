@@ -14,7 +14,9 @@ class Cart extends Component {
   constructor(props) {
     super(props)
   }
-
+  componentDidMount() {
+    this.props.getCart()
+  }
   // const bouquets = props.bouquets
   render() {
     return (
@@ -26,8 +28,8 @@ class Cart extends Component {
           <p>Amount</p>
         </div>
         <div>
-          {this.props.cart.length &&
-            this.props.cart.map(item => (
+          {this.props.currentCart.length &&
+            this.props.currentCart.map(item => (
               <CartRender
                 key={item.bouquet.id}
                 total={item.bouquet.price * item.quantity}
@@ -43,7 +45,7 @@ class Cart extends Component {
           <p>Total</p>
           <p>
             $
-            {this.props.cart
+            {this.props.currentCart
               .map(el => el.bouquet.price * el.quantity)
               .reduce((a, b) => a + b, 0)}
           </p>
@@ -73,7 +75,6 @@ const mapDispatch = dispatch => {
     },
     handleDecrease(bouquet) {
       dispatch(decrementFromCart(bouquet))
-      dispatch(getCart())
     },
     handleDelete(bouquet) {
       dispatch(deleteFromCart(bouquet))
