@@ -6,9 +6,11 @@ import {
   getCart,
   addToCart,
   decrementFromCart,
-  deleteFromCart
+  deleteFromCart,
+  clearCart
 } from '../store/cart'
 import {CartRender} from './index'
+import {ConfirmationPage} from './confirmation_page'
 
 class Cart extends Component {
   constructor(props) {
@@ -16,6 +18,7 @@ class Cart extends Component {
     this.handleDecrease = this.handleDecrease.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.handleIncrease = this.handleIncrease.bind(this)
+    this.handleClear = this.handleClear.bind(this)
   }
   handleDecrease(item) {
     this.props.dispatchDecrementFromCart(item)
@@ -27,6 +30,10 @@ class Cart extends Component {
   }
   handleIncrease(item) {
     this.props.dispatchAddToCart(item)
+    this.props.dispatchGetCart()
+  }
+  handleClear() {
+    this.props.dispatchClearCart()
     this.props.dispatchGetCart()
   }
   componentDidMount() {
@@ -65,8 +72,10 @@ class Cart extends Component {
               .map(el => el.bouquet.price * el.quantity)
               .reduce((a, b) => a + b, 0)}
           </p>
-          <Link to="/checkout">
-            <button type="button">Complete Purchase</button>
+          <Link to="/confirmation">
+            <button type="button" onClick={() => this.handleClear()}>
+              Complete Purchase
+            </button>
           </Link>
         </div>
       </div>
@@ -85,7 +94,8 @@ const mapDispatch = dispatch => ({
   dispatchGetCart: () => dispatch(getCart()),
   dispatchAddToCart: bouquet => dispatch(addToCart(bouquet)),
   dispatchDecrementFromCart: bouquet => dispatch(decrementFromCart(bouquet)),
-  dispatchDeleteFromCart: bouquet => dispatch(deleteFromCart(bouquet))
+  dispatchDeleteFromCart: bouquet => dispatch(deleteFromCart(bouquet)),
+  dispatchClearCart: () => dispatch(clearCart())
 })
 
 export default connect(mapPropToCart, mapDispatch)(Cart)

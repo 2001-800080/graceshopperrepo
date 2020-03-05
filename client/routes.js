@@ -31,11 +31,7 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route
-          path="/confirmation"
-          exact={true}
-          render={() => <ConfirmationPage />}
-        />
+        <Route exact path="/confirmation" component={ConfirmationPage} />
         <Route path="/login" exact={true} render={() => <Login />} />
         <Route path="/signup" exact={true} render={() => <Signup />} />
         {/* ORDER MATTERS OMG */}
