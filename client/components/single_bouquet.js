@@ -5,6 +5,7 @@ import {getBouquet} from '../store/singlebouquet'
 class SingleBouquet extends Component {
   componentDidMount() {
     this.props.getBouquet(this.props.match.params.bouquetId)
+    window.localStorage.clear()
   }
   render() {
     console.log(this.props)

@@ -135,9 +135,9 @@ const main = async () => {
   /* Download the repo's public key supplied by Travis. */
   // const travisURL = `https://api.travis-ci.org/repos/${fullName}/key`
   // const travisResponse = await axios.get(travisURL)
-  // const key = travisResponse.data.key
   const key =
     '-----BEGIN PUBLIC KEY-----\nMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAvoEjC781H/B8t1k61XQq\nsNA4/r+aKPQgWGunN9MV40TIdRdGr0i3ue9fjqHdbjFrAiR0baKNt22wbVsBZf4S\nREgKJCMR23iNcj3vABynpVivRDs2fCsOB9FrxtFfFAtsVUcLwSzot5v3al8xTVBk\nK3lrA+KWEW3sknu3Vud5BzKs/uJhY2Y2QcThRMhqq8iOHWiooOaAKedJiZA+yS8h\niCt+bZtq9sZ7X9VfbaebRHqu3drl4oqpqSkHbGcHIOz9SDgq9wMm+wU4Wpo6tZTs\nHGaDaR9O/7EnVbBq7CBwbotlng9VdarNoHGrEwb9ONBZQdiOcH62e4wwajnXJQLW\nhxSUd3+3GcSZUCqtt5HjLbYW/7nq7gQqUWvC58O80wx8i5AswlE0X/pXdsgY3fSf\nh/imHZr07JqAxxENmtYIb2Z5zcjJk3uJRQsqSHstwHVttu/MnEU6m4Jd/MLYtMq5\nT9/Jd4od8cpt1ByBpbJnf4EJHUN5XqF3YXZOaeTz7eueV/a7qq5uf+ZWGNfYvOw0\nCTjRVdnK1u5dC3U1OBb1NLhfBSM8xsUwZlGWKocTOHxbGSPPwsZBdEfbVMboWDcZ\nTAuzWhzXdzT6LZJoKdhDOH/H584IKN4z079JAtIk6bmaHjKJ/+5YPuBKb0A3w+O0\n/MXwyZJwPdsPVc0SrOgbWssCAwEAAQ==\n-----END PUBLIC KEY-----\n'
+  // const key = travisResponse.data.key
   const keyBuffer = Buffer.from(key, 'utf-8')
   if (verbose) console.log('Received Travis pubkey:\n', keyBuffer.toString())
 

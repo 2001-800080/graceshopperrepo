@@ -5,7 +5,7 @@ const {Bouquet} = require('../db/models')
 
 router.get('/', async (req, res, next) => {
   try {
-    const getAllBouquets = await Bouquet.findAll()
+    const getAllBouquets = await Bouquet.findAll({order: [['id', 'ASC']]})
     if (getAllBouquets) {
       res.send(getAllBouquets)
     } else {
