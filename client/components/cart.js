@@ -1,121 +1,83 @@
-import React from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {getCart, addToCart, removeFromCart, deleteFromCart} from '../store/cart'
+import {
+  getCart,
+  addToCart,
+  decrementFromCart,
+  deleteFromCart
+} from '../store/cart'
+import {CartRender} from './index'
 
-const Cart = props => {
-  const bouquets = props.bouquets
+class Cart extends Component {
+  constructor(props) {
+    super(props)
+  }
 
-  return (
-    <div>
+  // const bouquets = props.bouquets
+  render() {
+    return (
       <div>
-        <div className="container">
-          <div className="row">
-            <div>
-              <div>
-                <div>
-                  <div>
-                    <table>
-                      <thead>
-                        <tr>
-                          <th>Product</th>
-                          <th>Price</th>
-                          <th>Qty</th>
-                          <th>Amount</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {props.cart.length &&
-                          props.cart.map((item, index) => (
-                            <tr key={item.id}>
-                              <td>
-                                <Link to={`/bouquets/${item.bouquet.id}`}>
-                                  {item.bouquet.name}
-                                </Link>
-                              </td>
+        <div>
+          <p>Product</p>
+          <p>Price</p>
+          <p>Qty</p>
+          <p>Amount</p>
+        </div>
+        <div>
+          {this.props.cart.length &&
+            this.props.cart.map(item => (
+              <CartRender
+                key={item.bouquet.id}
+                total={item.bouquet.price * item.quantity}
+                item={item}
+                handleDelete={this.props.handleDelete}
+                handleIncrease={this.props.handleIncrease}
+                handleDecrease={this.props.handleDecrease}
+              />
+            ))}
+        </div>
 
-                              <td>
-                                <small>&#36;</small>
-                                {item.bouquet.price}
-                              </td>
-                              <td align="center">{item.quantity}</td>
-                              <td>
-                                <small>&#36;</small>
-                                {item.bouquet.price * item.quantity}
-                              </td>
-                              <td>
-                                <div>
-                                  <button
-                                    type="submit"
-                                    onClick={() => props.handleDecrease(item)}
-                                  >
-                                    remove
-                                  </button>
-                                  <button
-                                    type="submit"
-                                    onClick={() => props.handleIncrease(item)}
-                                  >
-                                    add{' '}
-                                  </button>
-                                  <button
-                                    type="submit"
-                                    onClick={() => props.handleDelete(item)}
-                                  >
-                                    {' '}
-                                    delete
-                                  </button>
-                                </div>
-                              </td>
-                            </tr>
-                          ))}
-                        <tr>
-                          <td>Total</td>
-                          <td>
-                            <small>$</small>
-                            {props.cart
-                              .map(el => el.bouquet.price * el.quantity)
-                              .reduce((a, b) => a + b, 0)}
-                          </td>
-                          <td>
-                            <Link to="/checkout">
-                              <button type="button">Complete Purchase</button>
-                            </Link>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div>
+          <p>Total</p>
+          <p>
+            $
+            {this.props.cart
+              .map(el => el.bouquet.price * el.quantity)
+              .reduce((a, b) => a + b, 0)}
+          </p>
+          <Link to="/checkout">
+            <button type="button">Complete Purchase</button>
+          </Link>
         </div>
       </div>
-    </div>
-  )
-}
-
-const mapPropToCart = state => {
-  return {
-    cart: state.currentCart
+    )
   }
 }
+
+const mapPropToCart = state => ({
+  currentCart: state.currentCart
+})
 
 const mapDispatch = dispatch => {
   return {
     // handleDelete(index){
     // 	dispatch(deleteFromCart(index))
     // },
+    getCart() {
+      dispatch(getCart())
+    },
     handleIncrease(bouquet) {
       dispatch(addToCart(bouquet))
+    },
+    handleDecrease(bouquet) {
+      dispatch(decrementFromCart(bouquet))
+      dispatch(getCart())
+    },
+    handleDelete(bouquet) {
+      dispatch(deleteFromCart(bouquet))
     }
-    // handleDecrease(bouquet){
-    // 	dispatch(removeFromCart(bouquet))
-    // },
-    // handleDelete(bouquet){
-    // 	dispatch(deleteFromCart(bouquet))
-    // }
   }
 }
 
