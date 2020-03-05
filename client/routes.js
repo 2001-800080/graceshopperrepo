@@ -3,14 +3,17 @@ import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
-  Login,
-  Signup,
+  // Login,
+  // Signup,
   UserHome,
   AllBouquets,
-  SingleBouquet,
-  NotFoundPage
+  SingleBouquet
+  // NotFoundPage,
+  // ConfirmationPage
 } from './components'
 import {me} from './store'
+import ConfirmationPage from './components/confirmation_page'
+import {Login, Signup} from './components/auth-form'
 
 /**
  * COMPONENT
@@ -26,11 +29,17 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
+        <Route
+          path="/confirmation"
+          exact={true}
+          render={() => <ConfirmationPage />}
+        />
+        <Route path="/login" exact={true} render={() => <Login />} />
+        <Route path="/signup" exact={true} render={() => <Signup />} />
+        {/* ORDER MATTERS OMG */}
         <Route exact path="/" component={AllBouquets} />
-        <Route exact path="/:bouquetId" component={SingleBouquet} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        <Route path="*" exact={true} render={() => <NotFoundPage />} />
+        <Route exact path="/:bouquetId" component={SingleBouquet} />{' '}
+        {/* <Route exact path="*" component={NotFoundPage} /> */}
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
