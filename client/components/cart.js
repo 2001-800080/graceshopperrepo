@@ -19,15 +19,15 @@ class Cart extends Component {
   render() {
     return (
       <div>
-        <div>
-          <p>Product</p>
-          <p>Price</p>
-          <p>Qty</p>
-          <p>Amount</p>
+        <div className="cart-render-container">
+          <p className="checkout-name-box">Product</p>
+          <p className="checkout-price-box">Price</p>
+          <p className="checkout-quantity-box">Qty</p>
+          <p className-="checkout-row-total">Amount</p>
         </div>
         <div>
-          {this.props.cart.length &&
-            this.props.cart.map(item => (
+          {this.props.currentCart.length &&
+            this.props.currentCart.map(item => (
               <CartRender
                 key={item.bouquet.id}
                 total={item.bouquet.price * item.quantity}
@@ -43,7 +43,7 @@ class Cart extends Component {
           <p>Total</p>
           <p>
             $
-            {this.props.cart
+            {this.props.currentCart
               .map(el => el.bouquet.price * el.quantity)
               .reduce((a, b) => a + b, 0)}
           </p>

@@ -57,3 +57,22 @@ form div {
 .single-bouquet-name {
   font-size: 2em;
 }
+.cart-render-container {
+  display: flex;
+  align-items: center;
+}
+.checkout-change-button {
+  margin-left: 10px;
+}
+.checkout-name-box {
+  width: 150px;
+}
+.checkout-row-total {
+  width: 80px;
+}
+.checkout-price-box {
+  width: 80px;
+}
+.checkout-quantity-box {
+  width: 80px;
+}
