@@ -2,16 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {
-  Cart,
-  // Login,
-  // Signup,
-  // UserHome,
-  AllBouquets,
-  SingleBouquet,
-  NotFoundPage
-  // ConfirmationPage
-} from './components'
+import {Cart, AllBouquets, SingleBouquet, NotFoundPage} from './components'
 import {me} from './store'
 import ConfirmationPage from './components/confirmation_page'
 import {Login, Signup} from './components/auth-form'
@@ -29,31 +20,31 @@ class Routes extends Component {
     const {isLoggedIn} = this.props
 
     return (
-      <Switch>
-        {/* Routes placed here are available to all visitors */}
-        <Route
-          path="/confirmation"
-          exact={true}
-          render={() => <ConfirmationPage />}
-        />
-        <Route path="/login" exact={true} render={() => <Login />} />
-        <Route path="/signup" exact={true} render={() => <Signup />} />
-        {/* ORDER MATTERS OMG */}
-        <Route exact path="/" component={AllBouquets} />
-        {/* <Route exact path="/:bouquetId" component={SingleBouquet} />{' '} */}
-        {/* <Route exact path="*" component={NotFoundPage} /> */}
-        <Route exact path="/cart" component={Cart} />
-        <Route exact path="/:bouquetId" component={SingleBouquet} />
-        <Route path="*" exact={true} render={() => <NotFoundPage />} />
-        {isLoggedIn && (
-          <Switch>
-            {/* Routes placed here are only available after logging in */}
-            <Route exact path="/home" component={UserHome} />
-          </Switch>
-        )}
-        {/* Displays our Login component as a fallback */}
-        <Route component={Login} />
-      </Switch>
+      <div>
+        <Switch>
+          {/* Routes placed here are available to all visitors */}
+          <Route
+            path="/confirmation"
+            exact={true}
+            render={() => <ConfirmationPage />}
+          />
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
+          {/* ORDER MATTERS OMG */}
+          <Route exact path="/" component={AllBouquets} />
+          <Route exact path="/cart" component={Cart} />
+          <Route exact path="/bouquets/:bouquetId" component={SingleBouquet} />
+          {/* Displays our Login component as a fallback */}
+          {isLoggedIn && (
+            <Switch>
+              {/* Routes placed here are only available after logging in */}
+              <Route exact path="/home" component={UserHome} />
+              <Route component={NotFoundPage} />
+            </Switch>
+          )}
+          <Route component={NotFoundPage} />
+        </Switch>
+      </div>
     )
   }
 }
