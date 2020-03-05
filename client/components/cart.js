@@ -20,7 +20,6 @@ const Cart = props => {
                       <thead>
                         <tr>
                           <th>Product</th>
-                          <th>Name</th>
                           <th>Price</th>
                           <th>Qty</th>
                           <th>Amount</th>
@@ -40,8 +39,12 @@ const Cart = props => {
                                 <small>&#36;</small>
                                 {item.bouquet.price}
                               </td>
+                              <td align="center">{item.quantity}</td>
                               <td>
-                                {item.quantity}
+                                <small>&#36;</small>
+                                {item.bouquet.price * item.quantity}
+                              </td>
+                              <td>
                                 <div>
                                   <button
                                     type="submit"
@@ -55,17 +58,14 @@ const Cart = props => {
                                   >
                                     add{' '}
                                   </button>
+                                  <button
+                                    type="submit"
+                                    onClick={() => props.handleDelete(item)}
+                                  >
+                                    {' '}
+                                    delete
+                                  </button>
                                 </div>
-                              </td>
-                              <td>
-                                <small>&#36;</small>
-                                {item.bouquet.price * item.quantity}
-                              </td>
-                              <td>
-                                <button
-                                  type="submit"
-                                  onClick={() => props.handleDelete(item)}
-                                 />
                               </td>
                             </tr>
                           ))}
