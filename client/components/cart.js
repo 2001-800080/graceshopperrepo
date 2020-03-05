@@ -9,6 +9,7 @@ import {
   deleteFromCart
 } from '../store/cart'
 import {CartRender} from './index'
+import {ConfirmationPage} from './confirmation_page'
 
 class Cart extends Component {
   constructor(props) {
@@ -65,7 +66,7 @@ class Cart extends Component {
               .map(el => el.bouquet.price * el.quantity)
               .reduce((a, b) => a + b, 0)}
           </p>
-          <Link to="/checkout">
+          <Link to="/confirmation">
             <button type="button">Complete Purchase</button>
           </Link>
         </div>
