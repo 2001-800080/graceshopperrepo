@@ -175,4 +175,6 @@ const main = async () => {
 
 if (require.main === module) {
   main()
+    .then(e => console.log('i am done'))
+    .catch(e => console.log('please', e))
 }
