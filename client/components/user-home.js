@@ -7,10 +7,15 @@ import {connect} from 'react-redux'
  */
 export const UserHome = props => {
   const {email} = props
-
+  console.log('THIS IS USERHOME PROPS:', props)
   return (
-    <div>
-      <h3>Welcome, {email}</h3>
+    <div className="user-home-container">
+      <br />
+      <br />
+      <center>
+        <h2>Welcome Back!</h2>
+        <h3>Thanks for being our valued customer</h3>
+      </center>
     </div>
   )
 }
