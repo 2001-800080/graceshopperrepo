@@ -27,7 +27,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
             </div>
           </div>
         ) : (
-          <div>
+          <div className="nav-bar-container">
             {/* The navbar will show these links before you log in */}
             {/* <Link to="/cart">Cart</Link> */}
             <div>
