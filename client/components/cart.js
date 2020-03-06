@@ -10,6 +10,7 @@ import {
   clearCart
 } from '../store/cart'
 import {CartRender} from './index'
+import EmptyCart from './emptycart'
 import {ConfirmationPage} from './confirmation_page'
 
 class Cart extends Component {
@@ -50,8 +51,12 @@ class Cart extends Component {
           <p className="checkout-quantity-box">Qty</p>
           <p className="checkout-row-total">Amount</p>
         </div>
+
         <div>
-          {this.props.currentCart.length &&
+          {this.props.currentCart.length === 0 ? (
+            <EmptyCart />
+          ) : (
+            this.props.currentCart.length > 0 &&
             this.props.currentCart.map(item => (
               <CartRender
                 key={item.bouquet.id}
@@ -61,7 +66,9 @@ class Cart extends Component {
                 handleIncrease={this.handleIncrease}
                 handleDecrease={this.handleDecrease}
               />
-            ))}
+            ))
+          )}
+          )
         </div>
 
         <div>
