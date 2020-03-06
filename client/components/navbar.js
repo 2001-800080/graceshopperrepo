@@ -21,13 +21,13 @@ const Navbar = ({handleClick, isLoggedIn}) => (
               <Link to="/">All Bouquets</Link>
             </div>
             <div>
-              <Link to="/cart">
+              <Link className="tiny-cart-div" to="/cart">
                 <TinyCart />
               </Link>
             </div>
           </div>
         ) : (
-          <div className="nav-bar-container">
+          <div>
             {/* The navbar will show these links before you log in */}
             {/* <Link to="/cart">Cart</Link> */}
             <div>
@@ -43,7 +43,6 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           </div>
         )}
       </nav>
-      <hr />
     </div>
   </div>
 )
