@@ -6,7 +6,7 @@ function getRandomInt(max) {
 
 const ConfirmationPage = () => {
   return (
-    <div>
+    <div className="confirm-page">
       <br />
       <br />
       <center>
