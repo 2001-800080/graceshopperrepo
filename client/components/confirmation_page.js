@@ -2,17 +2,17 @@ import React from 'react'
 
 const ConfirmationPage = () => {
   return (
-    <div>
+    <div className="confirm-page">
       <br />
       <br />
       <center>
-        <h3>Thank you for shopping at Violet Vines!</h3>
+        <h2>Thank you for shopping at Violet Vines!</h2>
         <p>
           <font size="30">~ PURCHASE COMPLETE ~</font>
         </p>
-        <h2>
+        <h3>
           Please look out for an email containing the details of your purchase
-        </h2>
+        </h3>
       </center>
     </div>
   )
