@@ -7289,6 +7289,7 @@ async function seed() {
   // console.log('order', Object.keys(Order.prototype))
   // console.log('bouquet', Object.keys(Bouquet.prototype))
   // console.log('bouquetorders', Object.keys(BouquetOrder.prototype))
+  console.log('user', Object.keys(User.prototype))
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${bouquets.length} bouquets`)
   console.log(`seeded successfully`)
