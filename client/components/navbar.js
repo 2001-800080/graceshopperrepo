@@ -7,27 +7,24 @@ import {TinyCart} from './index'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <h1>Violet Vines</h1>
-    <nav>
-      {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-          <Link to="/">All Bouquets</Link>
-          <Link to="/cart">View Cart</Link>
-        </div>
-      ) : (
-        <div className="nav-bar-container">
-          {/* The navbar will show these links before you log in */}
-          {/* <Link to="/cart">Cart</Link> */}
-          <div>
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
-            <Link to="/">All Bouquets</Link>
-            <Link to="/cart">View Cart</Link>
+    <div>
+      <h1 className="vvTitle">Violet Vines</h1>
+      <nav>
+        {isLoggedIn ? (
+          <div className="nav-bar-container">
+            {/* The navbar will show these links after you log in */}
+            <div>
+              <Link to="/home">Home</Link>
+              <a href="#" onClick={handleClick}>
+                Logout
+              </a>
+              <Link to="/">All Bouquets</Link>
+            </div>
+            <div>
+              <Link to="/cart">
+                <TinyCart />
+              </Link>
+            </div>
           </div>
         ) : (
           <div className="nav-bar-container">
