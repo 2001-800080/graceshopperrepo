@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {addToCart} from '../store/cart'
 
-const BouquetForGrid = props => {
+export const BouquetForGrid = props => {
   const {bouquet} = props
   return (
     <div className="flower-grid">
