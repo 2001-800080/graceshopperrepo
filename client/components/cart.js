@@ -55,7 +55,7 @@ class Cart extends Component {
             this.props.currentCart.map(item => (
               <CartRender
                 key={item.bouquet.id}
-                total={item.bouquet.price * item.quantity}
+                total={(item.bouquet.price * item.quantity).toFixed(2)}
                 item={item}
                 handleDelete={this.handleDelete}
                 handleIncrease={this.handleIncrease}
@@ -70,7 +70,8 @@ class Cart extends Component {
             $
             {this.props.currentCart
               .map(el => el.bouquet.price * el.quantity)
-              .reduce((a, b) => a + b, 0)}
+              .reduce((a, b) => a + b, 0)
+              .toFixed(2)}
           </p>
           <Link to="/confirmation">
             <button type="button" onClick={() => this.handleClear()}>

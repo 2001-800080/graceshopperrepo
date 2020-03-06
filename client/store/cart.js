@@ -32,6 +32,7 @@ export const clearCart = () => ({type: CLEAR_CART})
 /**
  * REDUCER
  */
+
 export default function(state = currentCart, action) {
   let bouquets, index
   switch (action.type) {

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import {UserHome} from '../components/user-home'
 
 /**
  * ACTION TYPES
@@ -39,6 +40,11 @@ export const auth = (email, password, method) => async dispatch => {
   }
 
   try {
+    console.log('HERREEEE axios.put')
+    console.log('res.data checking: ', res.data.id)
+    let {cart} = await axios.put(`/api/cart/${res.data.id}/cart`)
+    if (cart) window.localStorage.setItem('cart', cart)
+    console.log('window.localStorage: ', window.localStorage)
     dispatch(getUser(res.data))
     history.push('/home')
   } catch (dispatchOrHistoryErr) {
