@@ -2,7 +2,7 @@ import {expect} from 'chai'
 import React from 'react'
 import enzyme, {shallow} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import BouquetForGrid from './bouquet_for_grid'
+import {BouquetForGrid} from './bouquet_for_grid'
 
 const adapter = new Adapter()
 enzyme.configure({adapter})
@@ -23,6 +23,6 @@ describe('bouquet-for-grid', () => {
   })
 
   it('renders bouquet price in an p tag', () => {
-    expect(allBouqs.find('p').text()).to.be.equal(`${bouquet.price}`)
+    expect(allBouqs.find('p').text()).to.be.equal(`$${bouquet.price}`)
   })
 })

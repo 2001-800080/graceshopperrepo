@@ -3,7 +3,7 @@ import Component from 'react'
 
 const NotFoundPage = () => {
   return (
-    <div>
+    <div className="not-found-page">
       <br />
       <br />
       <center>
