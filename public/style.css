@@ -108,6 +108,10 @@ form div {
   font-size: 30pt;
   color: #570683;
 }
+.not-found-page {
+  color: #570683;
+  margin-top: 200px;
+}
 .nav-bar-container {
   display: flex;
   justify-content: space-between;
