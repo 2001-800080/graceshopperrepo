@@ -40,7 +40,12 @@ export default function(state = currentCart, action) {
       localStorage.setItem('cart', [])
       return []
     case GET_CART:
-      state = JSON.parse(localStorage.getItem('cart'))
+      const local = JSON.parse(localStorage.getItem('cart'))
+      if (local) {
+        state = local
+      } else {
+        state = []
+      }
       return state
     case ADD_TO_CART:
       // search state to find if id is already there
