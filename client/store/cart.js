@@ -1,4 +1,6 @@
 import history from '../history'
+import thunkMiddleware from 'redux-thunk'
+import store from './index'
 
 const GET_CART = 'GET_CART'
 const CLEAR_CART = 'CLEAR_CART'
@@ -37,7 +39,7 @@ export default function(state = currentCart, action) {
   let bouquets, index
   switch (action.type) {
     case CLEAR_CART:
-      localStorage.setItem('cart', [])
+      localStorage.setItem('cart', ['0'])
       return []
     case GET_CART:
       const local = JSON.parse(localStorage.getItem('cart'))

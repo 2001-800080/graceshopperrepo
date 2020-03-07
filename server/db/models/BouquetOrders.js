@@ -9,7 +9,7 @@ const BouquetOrder = db.define('BouquetOrder', {
     }
   },
   cost: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.FLOAT,
     get() {
       const pennies = this.getDataValue('cost')
       return pennies / 100
