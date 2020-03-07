@@ -6,8 +6,8 @@ import {
   getCart,
   addToCart,
   decrementFromCart,
-  deleteFromCart
-  // clearCart
+  deleteFromCart,
+  clearCart
 } from '../store/cart'
 import {makeOrderThunk} from '../store/order'
 import {CartRender} from './index'
@@ -34,9 +34,8 @@ class Cart extends Component {
     this.props.dispatchGetCart()
   }
   handleClear() {
-    let cart = this.props.currentCart
-    cart.forEach(item => this.props.dispatchMakeOrder(item))
-    // this.props.dispatchClearCart()
+    this.props.currentCart.forEach(item => this.props.dispatchMakeOrder(item))
+    this.props.dispatchClearCart()
     this.props.dispatchGetCart()
   }
   componentDidMount() {
@@ -88,7 +87,8 @@ class Cart extends Component {
 }
 
 const mapPropToCart = state => ({
-  currentCart: state.currentCart
+  currentCart: state.currentCart,
+  order: state.order
 })
 
 const mapDispatch = dispatch => ({
@@ -99,7 +99,7 @@ const mapDispatch = dispatch => ({
   dispatchAddToCart: bouquet => dispatch(addToCart(bouquet)),
   dispatchDecrementFromCart: bouquet => dispatch(decrementFromCart(bouquet)),
   dispatchDeleteFromCart: bouquet => dispatch(deleteFromCart(bouquet)),
-  // dispatchClearCart: () => dispatch(clearCart()),
+  dispatchClearCart: () => dispatch(clearCart()),
   dispatchMakeOrder: item => dispatch(makeOrderThunk(item))
 })
 
