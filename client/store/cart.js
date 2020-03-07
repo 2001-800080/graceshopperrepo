@@ -20,7 +20,7 @@ let currentCart = []
 /**
  * ACTION CREATORS
  */
-export const getCart = () => ({type: GET_CART})
+export const getCart = cart => ({type: GET_CART, cart})
 export const addToCart = bouquet => ({type: ADD_TO_CART, bouquet})
 export const decrementFromCart = bouquet => ({
   type: DECREMENT_FROM_CART,
@@ -37,8 +37,9 @@ export default function(state = currentCart, action) {
   let bouquets, index
   switch (action.type) {
     case CLEAR_CART:
+      state = []
       localStorage.setItem('cart', [])
-      return []
+      return state
     case GET_CART:
       const local = JSON.parse(localStorage.getItem('cart'))
       if (local) {
