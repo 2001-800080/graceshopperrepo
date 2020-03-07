@@ -31,7 +31,6 @@ class SingleBouquet extends Component {
             </button>
 
             <button className="button">
-              {' '}
               <Link to="/cart">Go to Cart</Link>
             </button>
           </div>
