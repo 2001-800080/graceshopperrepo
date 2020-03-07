@@ -44,7 +44,7 @@ class Cart extends Component {
   // const bouquets = props.bouquets
   render() {
     return (
-      <div>
+      <div className="whole-cart-container">
         <div className="cart-render-container">
           <p className="checkout-name-box">Product</p>
           <p className="checkout-price-box">Price</p>

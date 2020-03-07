@@ -27,6 +27,7 @@ form div {
 }
 .authForm {
   margin-top: 200px;
+  color: #570683;
 }
 .parent {
   position: fixed;
@@ -36,7 +37,11 @@ form div {
   width: 100%;
   background-color: #eddcf6;
 }
-
+.user-home-container {
+  margin-top: 200px;
+  padding-left: 20px;
+  color: #570683;
+}
 .small-image {
   width: 350px;
   height: 350px;
@@ -56,6 +61,7 @@ form div {
 .single-page {
   display: flex;
   margin-top: 200px;
+  color: #570683;
 }
 .single-page-info {
   font-size: 28px;
@@ -76,10 +82,15 @@ form div {
 .single-bouquet-name {
   font-size: 2em;
 }
+.whole-cart-container {
+  margin-top: 200px;
+  padding-left: 20px;
+  color: #570683;
+}
 .cart-render-container {
   display: flex;
   align-items: center;
-  margin-top: 80px;
+  margin-top: 5px;
 }
 .checkout-change-button {
   margin-left: 10px;
