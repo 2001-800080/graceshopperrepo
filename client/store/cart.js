@@ -37,7 +37,7 @@ export default function(state = currentCart, action) {
   let bouquets, index
   switch (action.type) {
     case CLEAR_CART:
-      localStorage.setItem('cart', [])
+      localStorage.setItem('cart', ['0'])
       return []
     case GET_CART:
       const local = JSON.parse(localStorage.getItem('cart'))

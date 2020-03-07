@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {User} = require('../db/models')
+const {Order} = require('../db/models')
 module.exports = router
 
 function isLoggedIn(req, res, next) {
@@ -105,11 +106,14 @@ router.put('/:id', isSelfOrAdmin, async (req, res, next) => {
   }
 })
 
-// post order for user
-router.post('/:id/orders', isSelfOrAdmin, async (req, res, next) => {
+// post order for guest or user
+router.post('/order', async (req, res, next) => {
   try {
     let order = req.body
-    neworder.userId = req.params.id
+    order.isCart = 'complete'
+    if (req.user) {
+      order.userId = req.user.id
+    }
     const savedOrder = await Order.create(order)
     res.json(savedOrder)
   } catch (error) {
@@ -117,17 +121,17 @@ router.post('/:id/orders', isSelfOrAdmin, async (req, res, next) => {
   }
 })
 
-//alter order
-router.put('/:id/orders/:orderId', isSelfOrAdmin, async (req, res, next) => {
-  try {
-    const order = await Order.findById(req.params.orderId)
-    if (order) {
-      const updatedOrder = await order.update(req.body)
-      res.json(updatedOrder)
-    } else {
-      res.sendStatus(404)
-    }
-  } catch (error) {
-    next(error)
-  }
-})
+// //alter order
+// router.put('/:id/orders/:orderId', isSelfOrAdmin, async (req, res, next) => {
+//   try {
+//     const order = await Order.findById(req.params.orderId)
+//     if (order) {
+//       const updatedOrder = await order.update(req.body)
+//       res.json(updatedOrder)
+//     } else {
+//       res.sendStatus(404)
+//     }
+//   } catch (error) {
+//     next(error)
+//   }
+// })
