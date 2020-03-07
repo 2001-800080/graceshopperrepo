@@ -20,14 +20,20 @@ class SingleBouquet extends Component {
           <p className="single-bouquet-name">{this.props.bouquet.name}</p>
           <p>{this.props.bouquet.description}</p>
           <h4>${this.props.bouquet.price}</h4>
-          <button
-            type="submit"
-            onClick={() => this.props.handleClick(this.props.bouquet)}
-          >
-            Add to Cart
-          </button>
+
           <div>
-            <Link to="/cart">Cart</Link>
+            <button
+              className="button"
+              type="submit"
+              onClick={() => this.props.handleClick(this.props.bouquet)}
+            >
+              Add to Cart
+            </button>
+
+            <button className="button">
+              {' '}
+              <Link to="/cart">Go to Cart</Link>
+            </button>
           </div>
         </div>
       </div>
