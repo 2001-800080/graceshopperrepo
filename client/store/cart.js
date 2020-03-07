@@ -1,10 +1,13 @@
 import history from '../history'
+import thunkMiddleware from 'redux-thunk'
+import store from './index'
 
 const GET_CART = 'GET_CART'
 const CLEAR_CART = 'CLEAR_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
 const DECREMENT_FROM_CART = 'DECREMENT_FROM_CART'
 const DELETE_FROM_CART = 'DELETE_FROM_CART'
+const MAKE_ORDER = 'MAKE_ORDER'
 
 /**
  * INITIAL STATE
@@ -28,6 +31,23 @@ export const decrementFromCart = bouquet => ({
 })
 export const deleteFromCart = bouquet => ({type: DELETE_FROM_CART, bouquet})
 export const clearCart = () => ({type: CLEAR_CART})
+export const makeOrder = order => ({
+  type: MAKE_ORDER,
+  order
+})
+
+//does this go in cart store or its own order store file?
+export const makeOrderThunk = order => {
+  return async dispatch => {
+    try {
+      console.log('in the order thunk')
+      const {data} = await axios.post(`/cart`, order)
+      dispatch(makeOrder(data))
+    } catch (error) {
+      next(error)
+    }
+  }
+}
 
 /**
  * REDUCER
