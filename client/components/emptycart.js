@@ -7,11 +7,13 @@ const EmptyCart = () => {
       <br />
       <br />
       <center>
-        <p>
-          <font size="30">You Have An Empty Cart</font>
-        </p>
+        <img src="https://pngimage.net/wp-content/uploads/2018/05/empty-cart-png.png" />
         <h2>
-          Look at our bouquets <Link to="/">here</Link>
+          Click{' '}
+          <Link to="/">
+            <u>here</u>
+          </Link>{' '}
+          to continue shopping
         </h2>
       </center>
     </div>

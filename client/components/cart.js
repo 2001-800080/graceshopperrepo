@@ -44,48 +44,49 @@ class Cart extends Component {
   // const bouquets = props.bouquets
   render() {
     return (
-      <div className="whole-cart-container">
-        <div className="cart-render-container">
-          <p className="checkout-name-box">Product</p>
-          <p className="checkout-price-box">Price</p>
-          <p className="checkout-quantity-box">Qty</p>
-          <p className="checkout-row-total">Amount</p>
-        </div>
+      <div>
+        {this.props.currentCart.length === 0 ? (
+          <EmptyCart />
+        ) : (
+          this.props.currentCart.length > 0 &&
+          this.props.currentCart.map(item => (
+            <div className="whole-cart-container">
+              <div className="cart-render-container">
+                <p className="checkout-name-box">Product</p>
+                <p className="checkout-price-box">Price</p>
+                <p className="checkout-quantity-box">Qty</p>
+                <p className="checkout-row-total">Amount</p>
+              </div>
 
-        <div>
-          {this.props.currentCart.length === 0 ? (
-            <EmptyCart />
-          ) : (
-            this.props.currentCart.length > 0 &&
-            this.props.currentCart.map(item => (
-              <CartRender
-                key={item.bouquet.id}
-                total={(item.bouquet.price * item.quantity).toFixed(2)}
-                item={item}
-                handleDelete={this.handleDelete}
-                handleIncrease={this.handleIncrease}
-                handleDecrease={this.handleDecrease}
-              />
-            ))
-          )}
-          )
-        </div>
+              <div>
+                <CartRender
+                  key={item.bouquet.id}
+                  total={(item.bouquet.price * item.quantity).toFixed(2)}
+                  item={item}
+                  handleDelete={this.handleDelete}
+                  handleIncrease={this.handleIncrease}
+                  handleDecrease={this.handleDecrease}
+                />
+              </div>
 
-        <div>
-          <p>Total</p>
-          <p>
-            $
-            {this.props.currentCart
-              .map(el => el.bouquet.price * el.quantity)
-              .reduce((a, b) => a + b, 0)
-              .toFixed(2)}
-          </p>
-          <Link to="/confirmation">
-            <button type="button" onClick={() => this.handleClear()}>
-              Complete Purchase
-            </button>
-          </Link>
-        </div>
+              <div>
+                <p>Total</p>
+                <p>
+                  $
+                  {this.props.currentCart
+                    .map(el => el.bouquet.price * el.quantity)
+                    .reduce((a, b) => a + b, 0)
+                    .toFixed(2)}
+                </p>
+                <Link to="/confirmation">
+                  <button type="button" onClick={() => this.handleClear()}>
+                    Complete Purchase
+                  </button>
+                </Link>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     )
   }
