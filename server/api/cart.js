@@ -68,10 +68,18 @@ router.get('/:email', async (req, res, next) => {
   try {
     const email = req.params.email
     const user = await User.findOne({where: {email: email}})
-    console.log('in get request', user.id)
-    const response = await BouquetOrder.findOne({where: {userId: user.id}})
-    console.log('this is the response in api', response)
-    res.send(response)
+    const pendingOrder = await Order.findOne({
+      where: {userId: user.id},
+      include: [{model: Bouquet, BouquetOrder}]
+    })
+    const cart = pendingOrder.bouquets.map(bouquet => {
+      return {
+        id: bouquet.id,
+        bouquet: bouquet,
+        quantity: bouquet.BouquetOrder.quantity
+      }
+    })
+    res.send(cart)
   } catch (error) {
     next(error)
   }
