@@ -22,7 +22,7 @@ class Cart extends Component {
     this.handleDecrease = this.handleDecrease.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.handleIncrease = this.handleIncrease.bind(this)
-    this.handleClear = this.handleClear.bind(this)
+    // this.handleClear = this.handleClear.bind(this)
   }
   handleDecrease(item) {
     this.props.dispatchDecrementFromCart(item)
@@ -36,11 +36,11 @@ class Cart extends Component {
     this.props.dispatchAddToCart(item)
     this.props.dispatchGetCart()
   }
-  handleClear() {
-    this.props.dispatchMakeOrder(this.props.currentCart)
-    this.props.dispatchClearCart()
-    this.props.dispatchGetCart()
-  }
+  // handleClear() {
+  //   this.props.dispatchMakeOrder(this.props.currentCart)
+  //   this.props.dispatchClearCart()
+  //   this.props.dispatchGetCart()
+  // }
   componentDidMount() {
     this.props.dispatchGetCart()
   }
