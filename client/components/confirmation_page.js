@@ -19,6 +19,10 @@ const ConfirmationPage = () => {
           Please look out for an email containing the full details of your
           purchase
         </h2>
+        <img
+          src="https://thumbs.gfycat.com/GrayNauticalDolphin-small.gif"
+          height="250px"
+        />
       </center>
     </div>
   )

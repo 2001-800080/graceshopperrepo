@@ -1,6 +1,7 @@
 body {
   font-family: 'Bradley Hand';
   font: #570683;
+  font-display: bold;
 }
 
 a {
@@ -15,12 +16,14 @@ nav a {
   display: inline-block;
   margin: 1em;
   overflow: hidden;
+  color: white;
 }
 
 form div {
   margin: 1em;
   display: inline-block;
 }
+
 .confirm-page {
   margin-top: 200px;
   color: #570683;
@@ -36,12 +39,17 @@ form div {
   margin: auto;
   width: 100%;
   background-color: #eddcf6;
+  background-image: url('https://cdn.suwalls.com/wallpapers/flowers/lilac-34085-1920x1200.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .user-home-container {
   margin-top: 200px;
   padding-left: 20px;
   color: #570683;
 }
+
 .small-image {
   width: 350px;
   height: 350px;
@@ -117,7 +125,8 @@ form div {
   padding-bottom: 0px;
   font-family: 'Bradley Hand';
   font-size: 30pt;
-  color: #570683;
+  font-display: center;
+  color: white;
 }
 .not-found-page {
   color: #570683;
@@ -136,4 +145,27 @@ form div {
 }
 .tiny-cart-spacing {
   margin-left: 10px;
+}
+.button {
+  background-color: #ffec64;
+  border-radius: 28px;
+  border: 1px solid #ffaa22;
+  width: 150px;
+  height: 50px;
+  display: inline-block;
+  cursor: pointer;
+  color: #333333;
+  font-family: Arial;
+  font-size: 17px;
+  padding: 16px 31px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #ffee66;
+  margin-left: 20px;
+}
+.button:hover {
+  background-color: #ffab23;
+}
+.button:active {
+  position: relative;
+  top: 1px;
 }

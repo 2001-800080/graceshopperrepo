@@ -7,10 +7,11 @@ const NotFoundPage = () => {
       <br />
       <br />
       <center>
-        <h3>OOPS! PAGE NOT FOUND</h3>
-        <p>
-          <font size="30">404</font>
-        </p>
+        <img
+          src="https://media1.giphy.com/media/xUKTaZbqYyaHdL5pRR/source.gif"
+          height="250px"
+        />
+        <h1>OOPS!</h1>
         <h2>WE ARE SORRY, BUT THE PAGE YOU REQUESTED IS NOT FOUND</h2>
       </center>
     </div>
