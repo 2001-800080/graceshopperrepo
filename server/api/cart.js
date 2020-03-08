@@ -43,7 +43,8 @@ router.post('/logout', async (req, res, next) => {
     console.log('in logout api route')
     const newOrder = req.body
     let order
-    order = await Order.findOrCreate({
+    const foundOrder = await Order.findOne({where: {isCart: 'pending'}})
+    order = await Order.create({
       isCart: 'pending',
       purchaseDate: new Date(),
       userId: req.user.id
@@ -69,7 +70,7 @@ router.get('/:email', async (req, res, next) => {
     const email = req.params.email
     const user = await User.findOne({where: {email: email}})
     const pendingOrder = await Order.findOne({
-      where: {userId: user.id},
+      where: {userId: user.id, isCart: 'pending'},
       include: [{model: Bouquet, BouquetOrder}]
     })
     const cart = pendingOrder.bouquets.map(bouquet => {
