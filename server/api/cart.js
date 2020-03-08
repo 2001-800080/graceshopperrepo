@@ -1,9 +1,11 @@
 const router = require('express').Router()
 const {User, Order, Bouquet, BouquetOrder} = require('../db/models')
 
+//the selfOrAdmin function currently locks out all guest ability to make an order since they are neither a user or an admin
 // function isSelfOrAdmin(req, res, next) {
 //   if (req.params.id === req.user.id || req.user.isAdmin) return next()
 // }
+
 router.post('/', async (req, res, next) => {
   try {
     let order
@@ -35,27 +37,6 @@ router.post('/', async (req, res, next) => {
     bouquet.quantity -= req.body.quantity
     await bouquet.save()
     res.json(order)
-  } catch (error) {
-    next(error)
-  }
-})
-//NOT CURRENTLY USING THE BELOW-- NEED TO DISCUSS//
-router.put('/:userId/cart', async (req, res, next) => {
-  try {
-    console.log('req.params.userId', req.params.userId)
-    console.log('doing router.put in cart.js!!!!!!><><><><><><><')
-    let user = await User.findOne({where: {id: req.params.userId}})
-    console.log('USERRRRRR: ', user)
-    const order = await Order.findOrCreate({
-      where: {
-        userId: req.params.userId,
-        isCart: 'pending'
-      },
-      include: [Bouquet]
-    })
-    if (order) {
-      res.send(order)
-    }
   } catch (error) {
     next(error)
   }

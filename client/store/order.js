@@ -12,7 +12,6 @@ export const makeOrder = order => ({
 export const makeOrderThunk = order => {
   return async dispatch => {
     try {
-      console.log('in the order thunk')
       const {data} = await axios.post(`api/cart`, order)
       dispatch(makeOrder(data))
     } catch (error) {

@@ -18,7 +18,7 @@ export class AllBouquets extends Component {
                 className="single-bouquet-name"
                 to={`/bouquets/${bouquet.id}`}
               >
-                {bouquet.name}
+                {bouquet.name}{' '}
               </Link>
               <BouquetForGrid bouquet={bouquet} />
             </div>

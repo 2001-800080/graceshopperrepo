@@ -2,11 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {logout} from '../store'
+import {logout, makeOrder} from '../store'
 import {getCart, clearCart} from '../store/cart'
 import {TinyCart} from './index'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const Navbar = ({handleClick, isLoggedIn, currentCart}) => (
   <div className="background">
     <div className="background">
       <h1 className="vvTitle">Violet Vines</h1>
@@ -16,7 +16,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
             {/* The navbar will show these links after you log in */}
             <div>
               <Link to="/home">My Page</Link>
-              <a href="#" onClick={handleClick}>
+              <a href="#" onClick={currentCart => handleClick(currentCart)}>
                 Logout
               </a>
               <Link to="/">Home / All Bouquets</Link>
@@ -62,10 +62,13 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    handleClick() {
+    handleClick(cart) {
       dispatch(logout())
       dispatch(clearCart())
       dispatch(getCart())
+      this.props.currentCart.forEach(item =>
+        this.props.dispatchMakeOrder({...item, isCart: 'pending'})
+      )
     }
   }
 }
