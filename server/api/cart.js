@@ -43,7 +43,7 @@ router.post('/logout', async (req, res, next) => {
     console.log('in logout api route')
     const newOrder = req.body
     let order
-    order = await Order.create({
+    order = await Order.findOrCreate({
       isCart: 'pending',
       purchaseDate: new Date(),
       userId: req.user.id
