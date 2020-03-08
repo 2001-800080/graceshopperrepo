@@ -87,6 +87,7 @@ form div {
 .single-bouquet-square {
   display: flex;
   flex-direction: column;
+  padding-left: 15px;
 }
 .single-bouquet-name {
   font-size: 2em;
@@ -170,6 +171,6 @@ form div {
   position: relative;
   top: 1px;
 }
-.flower-grid:hover {
+.single-bouquet-square:hover {
   box-shadow: 0 0 5px grey;
 }
