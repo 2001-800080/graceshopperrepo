@@ -164,3 +164,29 @@ form div {
   font-family: 'Roboto', sans-serif;
   font-family: 'Open Sans', sans-serif;
 }
+
+.order {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 200px;
+}
+
+.input {
+  display: flex;
+  width: 400px;
+  height: 300px;
+}
+
+input {
+  width: 200px;
+  height: 20px;
+  border: 1px solid #999999;
+  padding: 5px;
+}
+
+.message {
+  width: 200px;
+  height: 50px;
+  border: 1px solid #999999;
+  padding: 5px;
+}
