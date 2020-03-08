@@ -13,6 +13,8 @@ import {makeOrderThunk} from '../store/order'
 import {CartRender} from './index'
 import EmptyCart from './emptycart'
 import {ConfirmationPage} from './confirmation_page'
+import {Form} from './forms'
+import {FormText} from 'reactstrap'
 
 class Cart extends Component {
   constructor(props) {
@@ -81,10 +83,9 @@ class Cart extends Component {
                   .reduce((a, b) => a + b, 0)
                   .toFixed(2)}
               </p>
+
               <Link to="/forms">
-                <button type="button" onClick={() => this.handleClear()}>
-                  Complete Purchase
-                </button>
+                <button type="button">CheckOut</button>
               </Link>
             </div>
           </div>
@@ -94,6 +95,7 @@ class Cart extends Component {
   }
 }
 
+// onClick={() => this.handleClear()}
 const mapPropToCart = state => ({
   currentCart: state.currentCart,
   order: state.order
