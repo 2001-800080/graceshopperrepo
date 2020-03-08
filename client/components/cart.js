@@ -35,7 +35,7 @@ class Cart extends Component {
     this.props.dispatchGetCart()
   }
   handleClear() {
-    this.props.currentCart.forEach(item => this.props.dispatchMakeOrder(item))
+    this.props.dispatchMakeOrder(this.props.currentCart)
     this.props.dispatchClearCart()
     this.props.dispatchGetCart()
   }

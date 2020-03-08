@@ -8,34 +8,30 @@ const {User, Order, Bouquet, BouquetOrder} = require('../db/models')
 
 router.post('/', async (req, res, next) => {
   try {
+    const newOrder = req.body
     let order
     if (req.user) {
       order = await Order.create({
         isCart: 'complete',
         purchaseDate: new Date(),
-        quantity: req.body.quantity,
         userId: req.user.id
       })
     } else {
       order = await Order.create({
         isCart: 'complete',
-        purchaseDate: new Date(),
-        quantity: req.body.quantity
+        purchaseDate: new Date()
       })
     }
-    const bouquet = await Bouquet.findByPk(req.body.id)
-    await bouquet.addOrder(order)
-    let bouquetOrder = await BouquetOrder.findOne({
-      where: {
-        bouquetId: req.body.id,
-        orderId: order.id
-      }
+    newOrder.forEach(async bouquet => {
+      const bouquetToFind = await Bouquet.findByPk(bouquet.id)
+      await bouquetToFind.addOrder(order)
+      let bouquetOrder = await BouquetOrder.findOne({
+        where: {orderId: order.id, bouquetId: bouquet.id}
+      })
+      bouquetOrder.quantity = bouquet.quantity
+      bouquetOrder.cost = bouquet.bouquet.price * 100 * bouquet.quantity
+      bouquetOrder.save()
     })
-    bouquetOrder.quantity = req.body.quantity
-    bouquetOrder.cost = req.body.quantity * (req.body.bouquet.price * 100)
-    await bouquetOrder.save()
-    bouquet.quantity -= req.body.quantity
-    await bouquet.save()
     res.json(order)
   } catch (error) {
     next(error)
@@ -48,6 +44,7 @@ router.get('/:email', async (req, res, next) => {
     const user = await User.findOne({where: {email: email}})
     console.log('in get request', user.id)
     const response = await Order.findOne({where: {userId: user.id}})
+    console.log(response)
     res.send(response)
   } catch (error) {
     next(error)
