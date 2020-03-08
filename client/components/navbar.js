@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
-import {getCart} from '../store/cart'
+import {getCart, clearCart} from '../store/cart'
 import {TinyCart} from './index'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
@@ -55,7 +55,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    currentCart: state.currentCart
   }
 }
 
@@ -63,6 +64,7 @@ const mapDispatch = dispatch => {
   return {
     handleClick() {
       dispatch(logout())
+      dispatch(clearCart())
       dispatch(getCart())
     }
   }
