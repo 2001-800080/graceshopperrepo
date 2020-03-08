@@ -1,29 +1,23 @@
 body {
   font-family: 'Bradley Hand';
   font: #570683;
-  font-display: bold;
 }
-
 a {
   text-decoration: none;
 }
-
 label {
   display: block;
 }
-
 nav a {
   display: inline-block;
   margin: 1em;
   overflow: hidden;
-  color: white;
+  color: #570683;
 }
-
 form div {
   margin: 1em;
   display: inline-block;
 }
-
 .confirm-page {
   margin-top: 200px;
   color: #570683;
@@ -49,20 +43,16 @@ form div {
   padding-left: 20px;
   color: #570683;
 }
-
 .small-image {
   width: 350px;
   height: 350px;
 }
-
 .flower-grid {
   display: flex;
   flex-direction: column;
   width: 400px;
   height: 450px;
-  padding-left: 4px;
 }
-
 .big-image {
   width: 600px;
   height: 600px;
@@ -77,7 +67,6 @@ form div {
   display: flex;
   flex-direction: column;
 }
-
 .bouquet-grid {
   display: flex;
   justify-content: space-evenly;
@@ -87,7 +76,6 @@ form div {
 .single-bouquet-square {
   display: flex;
   flex-direction: column;
-  padding-left: 15px;
 }
 .single-bouquet-name {
   font-size: 2em;
@@ -123,11 +111,10 @@ form div {
   font: 'Bradley Hand';
 }
 .vvTitle {
+  font-size: 39pt;
+  text-shadow: 5px 5px 10px black;
   padding-left: 20px;
   padding-bottom: 0px;
-  font-family: 'Bradley Hand';
-  font-size: 30pt;
-  font-display: center;
   color: white;
 }
 .not-found-page {
@@ -138,15 +125,17 @@ form div {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 110%;
   padding-left: 10px;
-  height: 50px;
+  height: 40px;
+  background-color: plum;
 }
 .all-bouquet-cart {
   display: flex;
   align-items: center;
 }
 .tiny-cart-spacing {
-  margin-left: 10px;
+  margin-left: 7px;
 }
 .button {
   background-color: #ffec64;
@@ -171,6 +160,7 @@ form div {
   position: relative;
   top: 1px;
 }
-.single-bouquet-square:hover {
-  box-shadow: 0 0 5px grey;
+.pricefont {
+  font-family: 'Roboto', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
