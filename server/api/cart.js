@@ -34,7 +34,6 @@ router.post('/', async (req, res, next) => {
     await bouquetOrder.save()
     bouquet.quantity -= req.body.quantity
     await bouquet.save()
-    //NEED TO EVENTUALLY PUT IN A FINDONE BOUQUET ORDER WHERE WE FIND AN ORDER WHERE BOUQUETID IS REQ.BODY.ID AND ORDERID is ORDER.ID AND SET THE QUANTITY AND COST THEN SAVE.//
     res.json(order)
   } catch (error) {
     next(error)
