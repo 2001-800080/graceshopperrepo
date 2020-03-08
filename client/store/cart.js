@@ -39,8 +39,10 @@ export const setCartThunk = email => {
   return async dispatch => {
     try {
       const {data} = await axios.get(`/api/cart/${email}`)
+      console.log(data, 'gettingback')
       dispatch(setCart(data))
       if (cart) window.localStorage.setItem('cart', cart)
+      dispatch(getCart())
       history.push('/home')
     } catch (error) {
       console.error(error)

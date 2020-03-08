@@ -9,14 +9,25 @@ export const makeOrder = order => ({
   order
 })
 
-export const makeOrderThunk = order => {
+export const makeOrderCheckoutThunk = order => {
   return async dispatch => {
     try {
       console.log('in thunk', order)
-      const {data} = await axios.post(`api/cart`, order)
+      const {data} = await axios.post(`api/cart/checkout`, order)
       dispatch(makeOrder(data))
     } catch (error) {
-      next(error)
+      console.error(error)
+    }
+  }
+}
+export const makeOrderLogoutThunk = order => {
+  return async dispatch => {
+    try {
+      console.log('in thunk', order)
+      const {data} = await axios.post(`api/cart/logout`, order)
+      dispatch(makeOrder(data))
+    } catch (error) {
+      console.error(error)
     }
   }
 }

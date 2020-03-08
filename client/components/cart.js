@@ -9,7 +9,7 @@ import {
   deleteFromCart,
   clearCart
 } from '../store/cart'
-import {makeOrderThunk} from '../store/order'
+import {makeOrderCheckoutThunk} from '../store/order'
 import {CartRender} from './index'
 import EmptyCart from './emptycart'
 import {ConfirmationPage} from './confirmation_page'
@@ -108,7 +108,7 @@ const mapDispatch = dispatch => ({
   dispatchDecrementFromCart: bouquet => dispatch(decrementFromCart(bouquet)),
   dispatchDeleteFromCart: bouquet => dispatch(deleteFromCart(bouquet)),
   dispatchClearCart: () => dispatch(clearCart()),
-  dispatchMakeOrder: item => dispatch(makeOrderThunk(item))
+  dispatchMakeOrder: item => dispatch(makeOrderCheckoutThunk(item))
 })
 
 export default connect(mapPropToCart, mapDispatch)(Cart)

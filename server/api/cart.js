@@ -6,7 +6,7 @@ const {User, Order, Bouquet, BouquetOrder} = require('../db/models')
 //   if (req.params.id === req.user.id || req.user.isAdmin) return next()
 // }
 
-router.post('/', async (req, res, next) => {
+router.post('/checkout', async (req, res, next) => {
   try {
     const newOrder = req.body
     let order
@@ -38,13 +38,39 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+router.post('/logout', async (req, res, next) => {
+  try {
+    console.log('in logout api route')
+    const newOrder = req.body
+    let order
+    order = await Order.create({
+      isCart: 'pending',
+      purchaseDate: new Date(),
+      userId: req.user.id
+    })
+    newOrder.forEach(async bouquet => {
+      const bouquetToFind = await Bouquet.findByPk(bouquet.id)
+      await bouquetToFind.addOrder(order)
+      let bouquetOrder = await BouquetOrder.findOne({
+        where: {orderId: order.id, bouquetId: bouquet.id}
+      })
+      bouquetOrder.quantity = bouquet.quantity
+      bouquetOrder.cost = bouquet.bouquet.price * 100 * bouquet.quantity
+      bouquetOrder.save()
+    })
+    res.json(order)
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.get('/:email', async (req, res, next) => {
   try {
     const email = req.params.email
     const user = await User.findOne({where: {email: email}})
     console.log('in get request', user.id)
-    const response = await Order.findOne({where: {userId: user.id}})
-    console.log(response)
+    const response = await BouquetOrder.findOne({where: {userId: user.id}})
+    console.log('this is the response in api', response)
     res.send(response)
   } catch (error) {
     next(error)

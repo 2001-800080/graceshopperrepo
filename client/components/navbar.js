@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {logout, makeOrder} from '../store'
+import {logout, makeOrderLogoutThunk} from '../store'
 import {getCart, clearCart} from '../store/cart'
 import {TinyCart} from './index'
 
@@ -63,12 +63,10 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     handleClick(cart) {
+      dispatch(makeOrderLogoutThunk(cart))
       dispatch(logout())
       dispatch(clearCart())
       dispatch(getCart())
-      cart.forEach(item =>
-        this.props.dispatchMakeOrder({...item, isCart: 'pending'})
-      )
     }
   }
 }
