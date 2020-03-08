@@ -21,7 +21,7 @@ router.get('/', async (req, res, next) => {
       },
       {order: [['id', 'ASC']]}
     )
-    if (getSomeBouquets && !req.user) {
+    if (getSomeBouquets && (!req.user || !req.user.isAdmin)) {
       res.send(getSomeBouquets)
     } else if (getAllBouquets && req.user.isAdmin) {
       res.send(getAllBouquets)
