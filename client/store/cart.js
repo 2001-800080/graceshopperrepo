@@ -1,12 +1,14 @@
 import history from '../history'
 import thunkMiddleware from 'redux-thunk'
 import store from './index'
+import axios from 'axios'
 
 const GET_CART = 'GET_CART'
 const CLEAR_CART = 'CLEAR_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
 const DECREMENT_FROM_CART = 'DECREMENT_FROM_CART'
 const DELETE_FROM_CART = 'DELETE_FROM_CART'
+const SET_CART = 'SET_CART'
 
 /**
  * INITIAL STATE
@@ -23,6 +25,7 @@ let currentCart = []
  * ACTION CREATORS
  */
 export const getCart = () => ({type: GET_CART})
+export const setCart = cart => ({type: SET_CART, cart})
 export const addToCart = bouquet => ({type: ADD_TO_CART, bouquet})
 export const decrementFromCart = bouquet => ({
   type: DECREMENT_FROM_CART,
@@ -31,6 +34,21 @@ export const decrementFromCart = bouquet => ({
 export const deleteFromCart = bouquet => ({type: DELETE_FROM_CART, bouquet})
 export const clearCart = () => ({type: CLEAR_CART})
 
+//THUNKS
+export const setCartThunk = email => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get(`/api/cart/${email}`)
+      dispatch(setCart(data))
+      console.log('insetdata', data)
+      if (data) window.localStorage.setItem('cart', JSON.stringify(data))
+      dispatch(getCart())
+      history.push('/home')
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
 /**
  * REDUCER
  */
@@ -89,7 +107,8 @@ export default function(state = currentCart, action) {
       }
       localStorage.setItem('cart', JSON.stringify(bouquets))
       return bouquets
-
+    case SET_CART:
+      return action.cart
     default:
       return state
   }

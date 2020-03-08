@@ -9,7 +9,7 @@ import {
   deleteFromCart,
   clearCart
 } from '../store/cart'
-import {makeOrderThunk} from '../store/order'
+import {makeOrderCheckoutThunk} from '../store/order'
 import {CartRender} from './index'
 import EmptyCart from './emptycart'
 import {ConfirmationPage} from './confirmation_page'
@@ -35,7 +35,7 @@ class Cart extends Component {
     this.props.dispatchGetCart()
   }
   handleClear() {
-    this.props.currentCart.forEach(item => this.props.dispatchMakeOrder(item))
+    this.props.dispatchMakeOrder(this.props.currentCart)
     this.props.dispatchClearCart()
     this.props.dispatchGetCart()
   }
@@ -108,7 +108,7 @@ const mapDispatch = dispatch => ({
   dispatchDecrementFromCart: bouquet => dispatch(decrementFromCart(bouquet)),
   dispatchDeleteFromCart: bouquet => dispatch(deleteFromCart(bouquet)),
   dispatchClearCart: () => dispatch(clearCart()),
-  dispatchMakeOrder: item => dispatch(makeOrderThunk(item))
+  dispatchMakeOrder: item => dispatch(makeOrderCheckoutThunk(item))
 })
 
 export default connect(mapPropToCart, mapDispatch)(Cart)

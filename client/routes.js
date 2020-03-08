@@ -20,7 +20,6 @@ class Routes extends Component {
     const {isLoggedIn} = this.props
 
     return (
-
       <div>
         <Switch>
           {/* Routes placed here are available to all visitors */}
@@ -40,7 +39,7 @@ class Routes extends Component {
             <Switch>
               {/* Routes placed here are only available after logging in */}
               <Route exact path="/home" component={UserHome} />
-              <Route component={NotFoundPage} />
+              {/* <Route component={NotFoundPage} /> */}
             </Switch>
           )}
           <Route component={NotFoundPage} />

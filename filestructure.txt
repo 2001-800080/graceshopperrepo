@@ -1,0 +1,165 @@
+
+Component Folder Files:
+
+AllBouquets:
+  -component did mount dispatches get all AllBouquets
+  -render maps over bouquets and renders a link with the bouqet name that goes to single bouquet and the BouquetForGrid element for that bouquet.
+
+  props: bouquets = state.bouquets, getAllBouquets()
+
+  component is connected
+
+components/all_bouquets_spec: tests that all-bouquets component renders the correct amount of BouquetForGrid elements
+
+AuthForm:
+  -on form submit handleSubmit dispatches auth thunk creator taking in email, password and login or signup (as formName)
+  -has two different map state functions, one for login and one for signup, one for name (login or signup), one for displayName(Login or Sign Up), and one for error: state.user.error
+  - mapDispatch has the handleSubmit function in it
+  -exports two connected components, one for login, one for signup
+  -the propTypes at the bottom say what type each prop should be and will throw a warning if they are not correct
+
+  BouquetForGrid:
+    -renders single bouquet square on all bouquets page
+    -Add to Cart button has a handleClick(bouquet) function that dispatches the add to cart action
+    -this is a connected component
+    -props is bouquet passed down from AllBouquets component
+
+bouquet_for_grid.spec.js:
+  -tests if BouquetForGrid element renders a p tag with the correct bouquet price
+
+CartRender:
+  -props: item, total, handleDecrease, handleIncrease, handleDelete, passed from cart component
+  -has a Link component to '/item.bouquet.id'
+  -remove one button onClick is handleDecrease
+  -add button onClick is handleIncrease
+  -delete all button onClick is handleDelete
+
+Cart:
+  -class component
+  -componentDidMount dispatches getCart
+  -handleDecrease dispatches decrementFromCart and getCart
+  -handleDelete dispatches deleteFromCart and getCart
+  -handleIncrease dispatches addToCart and getCart
+  -handleClear dispatches makeOrder for each item in the cart, dispatches clearCart and getCart
+  -if cart is empty renders EmptyCart component, if not renders CartRender for each element in the currentCart
+  -maps over the currentcart to get each element total then reduces it down to a single total that goes to two decimals
+  -complete purchase button is a Link to '/confirmation/ onClick dispatches handleClear action
+  -props: currentCart and order, all dispatches for cart order changes
+  -this is a connected component
+
+ConfirmationPage:
+  -confirmation number uses getRandomInt function to generate a random number
+
+EmptyCart:
+  -has a Link to '/' to go to AllBouquets view
+
+components/index:
+  -combines all components together into one file that can be referenced with '/components'
+
+Navbar:
+  -if you are logged in returns a link to '/home' which shows UserHome component, Logout with a handleClick function that logs you out, '/'which shows AllBouquets, '/cart' which shows Cart component, returns TinyCart component as a Link to '/cart'
+  -if you are not logged in returns a link to '/login' which shows Login component, '/signup' which shows Sign Up component, '/'which shows AllBouquets, and '/cart' which shows Cart component, returns TinyCart component as a Link to '/cart'
+  -props: isLoggedIn (tests if there is not a user.id on state), handleClick which dispatches logout and getCart
+  -this is a connected component
+
+NotFoundPage: renders when no other route is hit
+
+SingleBouquet:
+  -class component
+  -componentDidMount dispatches getBouquet on match.params.id
+  -Add to Cart button onClick dispatches addToCart
+  -has a Link to '/cart'
+  -props: bouquet: state.bouquet, cart: state.currentCart, getBouqet, handleClick
+  -this is a connected component
+
+TinyCart:
+  -props: currentCart
+  -this is a connected component
+  -number is derived from mapping quantity of each itema nd reducing it to one total
+
+UserHome:
+  -props: email from state.user.email
+  -this is a connected component
+
+user.spec.js:
+  checks to see if 'Welcome Back!' is rendered in an h3
+
+Store Files:
+
+bouquet.js:
+
+  actions: GOT_ALL_BOUQUETS
+  thunks: getAllBouquets - makes a get request to get all bouquets '/api/bouquets'
+
+bouquet.spec.js:
+  -tests to see if dispatching getAllBouquets gets the correct bouquet at position 0
+
+cart.js:
+  actions: GET_CART,ADD_TO_CART, DECREMENT_FROM_CART, DELETE_FROM_CART, CLEAR_CART
+  action creators: getCart,addToCart, decrementFromCart, deleteFromCart, clearCart
+  reducer:
+  -clear cart sets item on local storage and returns and empty object
+  -get cart parses localStorage.getItem('cart'), if it is there it returns it as state, if not it returns an empty object
+  -add to cart if index of bouquet is in current state then increase the quantity, if not add the bouquet object to state, also set item on local storage
+  -decrement from cart if bouquet is in state array then either decrement the quantity or remove it if the quantity was already one set the current state on localStorage
+  -delete from cart if boquet is in state array remove the bouquet
+
+index.js: has the combine reducer that brings together user, bouquets, bouquet, currentCart, order
+-has middlewares compose with devtools, thunkmiddleware, and createLogger
+
+order:
+  actions: MAKE_ORDER
+  action creator: makeOrder
+  thunk: makeOrderThunk- makes a post request with the order to 'api/cart' dispatches makeOrder
+
+singlebouquet.js:
+  action creator: gotBouquet
+  thunk: getBouquet- makes a get request to 'api/bouquets', dispatches gotBouquet
+
+user.js:
+  action creators: getuser, removeUser
+  thunks:
+  -me- dispatches a get request to '/auth/me'
+  dispatches getUser on res.data or defaultUser which is an empty object
+  -auth-takes email, password , and method (login or signup) tries to make a post request to '/auth/method' dispatches getUser({error: authError}) if there is an error, also tries to make a put request for '/api/cart/:id/cart' if it exists then it sets their cart on window.localStorage
+  -logout makes a post request to '/auth/logout, dispatches removeUser(), pushes to '/login'
+  reducer: get user returns action.user, removeuser returns an empty object
+
+user.spec.js: dispatches me thunk and tests to see if it dispatches get user and sends back the correct user
+
+client/app:
+  renders navbar and renders routes file
+client/history: if NODE_ENV is test createMemoryHistory if not createBrowserHistory
+
+client/index:
+  renders App wrapped in Router and Provider
+
+client/routes.js:
+  -class component
+  -componentDidMount - dispatches me thunk
+  -props: isLoggedIn
+  routes:
+  if not logged in:
+  -'/confirmation' renders confirmation page
+  -'/login' renders login
+  -'/signup' renders signup
+  -'/' renders AllBouquets
+  -'/cart' renders Cart
+  -'/bouquets/:bouquetId renders SingleBouquet
+   -if no route hit renders Not found Page
+  if logged in:
+  -'/home' renders UserHome
+  props: isLoggedIn is not state.user.index
+  -this is a connected component exported with router
+
+server/api
+  
+
+
+
+
+  exports Routes function withRouter
+
+
+
+

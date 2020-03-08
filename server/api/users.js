@@ -3,14 +3,15 @@ const {User} = require('../db/models')
 const {Order} = require('../db/models')
 module.exports = router
 
-function isLoggedIn(req, res, next) {
-  if (!req.user || req.user.id !== req.params.id) {
-    const err = new Error("Wait, that's illegal")
-    err.status = 401
-    return next(err)
-  }
-  next()
-}
+//not currently used:
+// function isLoggedIn(req, res, next) {
+//   if (!req.user || req.user.id !== req.params.id) {
+//     const err = new Error("Wait, that's illegal")
+//     err.status = 401
+//     return next(err)
+//   }
+//   next()
+// }
 
 function isAdmin(req, res, next) {
   if (!req.user.isAdmin) {
@@ -53,10 +54,10 @@ router.get('/:id', async (req, res, next) => {
     next(error)
   }
 })
-//order for a certain id
-router.get('/:id/orders/:orderId', async (req, res, next) => {
+//finds a specific order by it's id- has nothing to do with user currently
+router.get('/:id/orders', async (req, res, next) => {
   try {
-    const order = await Order.findById(orderId)
+    const order = await Order.findByPk(req.params.id)
     if (order) {
       res.json(order)
     } else {
@@ -94,7 +95,7 @@ router.delete('/:id', async (req, res, next) => {
 // TODO: what if user wants to edit own info but we have block from making himself an admin.
 router.put('/:id', async (req, res, next) => {
   try {
-    const user = await User.findById(req.params.id)
+    const user = await User.findByPk(req.params.id)
     if (user && req.body.isAdmin === false) {
       const updated = await user.update(req.body)
       res.json(updated)
@@ -107,19 +108,19 @@ router.put('/:id', async (req, res, next) => {
 })
 
 // post order for guest or user
-router.post('/order', async (req, res, next) => {
-  try {
-    let order = req.body
-    order.isCart = 'complete'
-    if (req.user) {
-      order.userId = req.user.id
-    }
-    const savedOrder = await Order.create(order)
-    res.json(savedOrder)
-  } catch (error) {
-    next(error)
-  }
-})
+// router.post('/order', async (req, res, next) => {
+//   try {
+//     let order = req.body
+//     order.isCart = 'complete'
+//     if (req.user) {
+//       order.userId = req.user.id
+//     }
+//     const savedOrder = await Order.create(order)
+//     res.json(savedOrder)
+//   } catch (error) {
+//     next(error)
+//   }
+// })
 
 // //alter order
 // router.put('/:id/orders/:orderId', isSelfOrAdmin, async (req, res, next) => {
