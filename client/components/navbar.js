@@ -16,7 +16,7 @@ const Navbar = ({handleClick, isLoggedIn, currentCart}) => (
             {/* The navbar will show these links after you log in */}
             <div>
               <Link to="/home">My Page</Link>
-              <a href="#" onClick={currentCart => handleClick(currentCart)}>
+              <a href="#" onClick={() => handleClick(currentCart)}>
                 Logout
               </a>
               <Link to="/">Home / All Bouquets</Link>
@@ -66,7 +66,7 @@ const mapDispatch = dispatch => {
       dispatch(logout())
       dispatch(clearCart())
       dispatch(getCart())
-      this.props.currentCart.forEach(item =>
+      cart.forEach(item =>
         this.props.dispatchMakeOrder({...item, isCart: 'pending'})
       )
     }

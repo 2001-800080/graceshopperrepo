@@ -42,4 +42,16 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+router.get('/:email', async (req, res, next) => {
+  try {
+    const email = req.params.email
+    const user = await User.findOne({where: {email: email}})
+    console.log('in get request', user.id)
+    const response = await Order.findOne({where: {userId: user.id}})
+    res.send(response)
+  } catch (error) {
+    next(error)
+  }
+})
+
 module.exports = router

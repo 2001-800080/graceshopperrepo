@@ -1,6 +1,7 @@
 import axios from 'axios'
 import history from '../history'
 import {UserHome} from '../components/user-home'
+import {setCartThunk} from './cart'
 
 /**
  * ACTION TYPES
@@ -38,16 +39,6 @@ export const auth = (email, password, method) => async dispatch => {
     history.push('/home')
   } catch (authError) {
     return dispatch(getUser({error: authError}))
-  }
-
-  try {
-    let {cart} = await axios.put(`/api/cart/${res.data.id}/cart`)
-    if (cart) window.localStorage.setItem('cart', cart)
-    console.log('window.localStorage: ', window.localStorage)
-    history.push('/home')
-    dispatch(getUser(res.data))
-  } catch (dispatchOrHistoryErr) {
-    console.error(dispatchOrHistoryErr)
   }
 }
 
