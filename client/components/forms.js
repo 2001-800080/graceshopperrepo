@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import {clearCart, getCart} from '../store/cart'
 import {connect} from 'react-redux'
 
-import {makeOrderThunk} from '../store/order'
+import {makeOrderCheckoutThunk} from '../store/order'
 
 class Form extends React.Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class Form extends React.Component {
   }
 
   handleClear() {
-    this.props.currentCart.forEach(item => this.props.dispatchMakeOrder(item))
+    this.props.dispatchMakeOrder(this.props.currentCart)
     this.props.dispatchClearCart()
     this.props.dispatchGetCart()
   }
@@ -52,7 +52,7 @@ const mapPropToCart = state => ({
 const mapDispatch = dispatch => ({
   dispatchGetCart: () => dispatch(getCart()),
   dispatchClearCart: () => dispatch(clearCart()),
-  dispatchMakeOrder: item => dispatch(makeOrderThunk(item))
+  dispatchMakeOrder: item => dispatch(makeOrderCheckoutThunk(item))
 })
 
 export default connect(mapPropToCart, mapDispatch)(Form)
