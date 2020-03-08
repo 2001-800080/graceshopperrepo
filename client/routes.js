@@ -7,7 +7,9 @@ import {
   AllBouquets,
   SingleBouquet,
   NotFoundPage,
-  OrderForm
+  OrderForm,
+  Payment,
+  Form
 } from './components'
 import {me} from './store'
 import ConfirmationPage from './components/confirmation_page'
@@ -40,7 +42,9 @@ class Routes extends Component {
           <Route exact path="/" component={AllBouquets} />
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/bouquets/:bouquetId" component={SingleBouquet} />
+          <Route exact path="/forms" component={Form} />
           <Route exact path="/orderform" component={OrderForm} />
+          <Route exact path="/payment" component={Payment} />
           {/* Displays our Login component as a fallback */}
           {isLoggedIn && (
             <Switch>

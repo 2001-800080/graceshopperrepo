@@ -190,3 +190,16 @@ input {
   border: 1px solid #999999;
   padding: 5px;
 }
+
+.paymentDiv {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.completebutton {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin-top: 80px;
+}

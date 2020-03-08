@@ -81,7 +81,7 @@ class Cart extends Component {
                   .reduce((a, b) => a + b, 0)
                   .toFixed(2)}
               </p>
-              <Link to="/confirmation">
+              <Link to="/forms">
                 <button type="button" onClick={() => this.handleClear()}>
                   Complete Purchase
                 </button>

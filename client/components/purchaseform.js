@@ -1,19 +1,19 @@
 import React from 'react'
-import {Button, Form, FormGroup, Label, Input, Container, Row} from 'reactstrap'
+import {Button, Form, FormGroup, Label, Input, Container} from 'reactstrap'
 import {Link} from 'react-router-dom'
 
-class OrderForm extends React.Component {
+class Payment extends React.Component {
   render() {
     return (
       <div>
         <center>
-          <h1>Shipping</h1>
+          <h1>Payment</h1>
           <center>
             <div>
               <Container className="input">
                 <Form>
                   <FormGroup>
-                    <Label>Receiver Name:</Label>
+                    <Label>Name On Credit Card:</Label>
                     <Input type="name" name="name" placeholder="Name Here" />
                   </FormGroup>
 
@@ -27,22 +27,17 @@ class OrderForm extends React.Component {
                   </FormGroup>
 
                   <FormGroup>
-                    <Label>Address:</Label>
+                    <Label>Email:</Label>
                     <Input
-                      type="address"
-                      name="address"
-                      placeholder="Where should we deliver this?"
+                      type="email"
+                      name="email"
+                      placeholder="email@email.com"
                     />
                   </FormGroup>
 
                   <FormGroup>
-                    <Label>Special Message:</Label>
-                    <Input
-                      className="message"
-                      type="text"
-                      name="text"
-                      placeholder="Say something nice :)"
-                    />
+                    <Label>Credit Card:</Label>
+                    <Input type="text" name="text" placeholder="Private Info" />
                   </FormGroup>
                 </Form>
               </Container>
@@ -54,4 +49,4 @@ class OrderForm extends React.Component {
   }
 }
 
-export default OrderForm
+export default Payment
