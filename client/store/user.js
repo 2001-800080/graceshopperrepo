@@ -35,6 +35,7 @@ export const auth = (email, password, method) => async dispatch => {
   let res
   try {
     res = await axios.post(`/auth/${method}`, {email, password})
+    history.push('/home')
   } catch (authError) {
     return dispatch(getUser({error: authError}))
   }
@@ -43,6 +44,7 @@ export const auth = (email, password, method) => async dispatch => {
     let {cart} = await axios.put(`/api/cart/${res.data.id}/cart`)
     if (cart) window.localStorage.setItem('cart', cart)
     console.log('window.localStorage: ', window.localStorage)
+    history.push('/home')
     dispatch(getUser(res.data))
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)

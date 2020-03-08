@@ -21,9 +21,9 @@ function isAdmin(req, res, next) {
   next()
 }
 
-function isSelfOrAdmin(req, res, next) {
-  if (req.params.id === req.user.id || req.user.isAdmin) return next()
-}
+// function isSelfOrAdmin(req, res, next) {
+//   if (req.params.id === req.user.id || req.user.isAdmin) return next()
+// }
 
 router.get('/', isAdmin, async (req, res, next) => {
   try {
@@ -36,7 +36,7 @@ router.get('/', isAdmin, async (req, res, next) => {
   }
 })
 
-router.get('/:id', isSelfOrAdmin, async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id)
     if (user) {
@@ -54,7 +54,7 @@ router.get('/:id', isSelfOrAdmin, async (req, res, next) => {
   }
 })
 //order for a certain id
-router.get('/:id/orders/:orderId', isSelfOrAdmin, async (req, res, next) => {
+router.get('/:id/orders/:orderId', async (req, res, next) => {
   try {
     const order = await Order.findById(orderId)
     if (order) {
@@ -78,7 +78,7 @@ router.post('/', async (req, res, next) => {
 })
 
 // delete user
-router.delete('/:id', isSelfOrAdmin, async (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id)
     if (user) {
@@ -92,7 +92,7 @@ router.delete('/:id', isSelfOrAdmin, async (req, res, next) => {
 
 //  edit user
 // TODO: what if user wants to edit own info but we have block from making himself an admin.
-router.put('/:id', isSelfOrAdmin, async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id)
     if (user && req.body.isAdmin === false) {
