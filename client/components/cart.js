@@ -58,7 +58,7 @@ class Cart extends Component {
               <p className="checkout-row-total">Amount</p>
             </div>
 
-            <div>
+            <div className="pricefont">
               {this.props.currentCart.length > 0 &&
                 this.props.currentCart.map(item => (
                   <CartRender
@@ -74,7 +74,7 @@ class Cart extends Component {
 
             <div>
               <p>Total</p>
-              <p>
+              <p className="pricefont">
                 $
                 {this.props.currentCart
                   .map(el => el.bouquet.price * el.quantity)

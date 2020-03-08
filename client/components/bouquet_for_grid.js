@@ -7,7 +7,7 @@ export const BouquetForGrid = props => {
   return (
     <div className="flower-grid">
       <img className="small-image" src={bouquet.imageUrl} alt="flower image" />
-      <p>${bouquet.price}</p>
+      <p className="pricefont">${bouquet.price}</p>
       <button
         className="all-flowers-cart-button"
         type="submit"
