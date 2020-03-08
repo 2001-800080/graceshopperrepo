@@ -11,8 +11,8 @@ const EmptyCart = () => {
         <h2>
           Click{' '}
           <Link to="/">
-            <u>here</u>
-          </Link>{' '}
+            <u> here </u>
+          </Link>
           to continue shopping
         </h2>
       </center>

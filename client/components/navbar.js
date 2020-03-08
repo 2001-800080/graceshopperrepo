@@ -7,8 +7,8 @@ import {getCart} from '../store/cart'
 import {TinyCart} from './index'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
-    <div>
+  <div className="background">
+    <div className="background">
       <h1 className="vvTitle">Violet Vines</h1>
       <nav>
         {isLoggedIn ? (
