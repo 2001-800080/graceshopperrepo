@@ -19,7 +19,7 @@ class SingleBouquet extends Component {
         <div className="single-page-info">
           <p className="single-bouquet-name">{this.props.bouquet.name}</p>
           <p>{this.props.bouquet.description}</p>
-          <h4>${this.props.bouquet.price}</h4>
+          <h4 className="pricefont">${this.props.bouquet.price}</h4>
 
           <div>
             <button
