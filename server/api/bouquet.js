@@ -15,7 +15,15 @@ function isAdmin(req, res, next) {
 router.get('/', async (req, res, next) => {
   try {
     const getAllBouquets = await Bouquet.findAll({order: [['id', 'ASC']]})
-    if (getAllBouquets) {
+    const getSomeBouquets = await Bouquet.findAll(
+      {
+        attributes: ['name', 'id', 'description', 'price', 'imageUrl']
+      },
+      {order: [['id', 'ASC']]}
+    )
+    if (getSomeBouquets && !req.user) {
+      res.send(getSomeBouquets)
+    } else if (getAllBouquets && req.user.isAdmin) {
       res.send(getAllBouquets)
     } else {
       res.sendStatus(404)
