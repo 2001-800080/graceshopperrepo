@@ -6,6 +6,28 @@ const db = require('../db')
 const app = require('../index')
 const User = db.model('user')
 
+const userCredentials = {
+  email: 'admin@violetvines.com',
+  password: 'testing'
+}
+const authenticatedUser = request.agent(app)
+
+before(done => {
+  console.log(userCredentials)
+  authenticatedUser
+    .post('/auth/login')
+    .send(userCredentials)
+    .end((err, response) => {
+      try {
+        expect(response.statusCode).to.equal(200)
+        expect('location', '/home')
+        done()
+      } catch (error) {
+        console.error(err)
+      }
+    })
+})
+
 describe('User routes', () => {
   beforeEach(() => {
     return db.sync({force: true})
