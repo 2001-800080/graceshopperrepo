@@ -60,6 +60,7 @@ form div {
   flex-direction: column;
   width: 400px;
   height: 450px;
+  padding-left: 4px;
 }
 
 .big-image {
@@ -168,4 +169,7 @@ form div {
 .button:active {
   position: relative;
   top: 1px;
+}
+.flower-grid:hover {
+  box-shadow: 0 0 5px grey;
 }
