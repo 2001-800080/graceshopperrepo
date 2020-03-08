@@ -44,6 +44,9 @@ router.post('/logout', async (req, res, next) => {
     const newOrder = req.body
     let order
     const foundOrder = await Order.findOne({where: {isCart: 'pending'}})
+    if (foundOrder) {
+      foundOrder.destroy()
+    }
     order = await Order.create({
       isCart: 'pending',
       purchaseDate: new Date(),
