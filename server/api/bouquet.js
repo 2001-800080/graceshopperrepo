@@ -16,10 +16,10 @@ router.get('/', async (req, res, next) => {
   try {
     const getAllBouquets = await Bouquet.findAll({order: [['id', 'ASC']]})
     const getSomeBouquets = await Bouquet.findAll(
+      {order: [['id', 'ASC']]},
       {
         attributes: ['name', 'id', 'description', 'price', 'imageUrl']
-      },
-      {order: [['id', 'ASC']]}
+      }
     )
     if (getSomeBouquets && (!req.user || !req.user.isAdmin)) {
       res.send(getSomeBouquets)
