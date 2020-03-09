@@ -2,11 +2,12 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {getBouquet} from '../store/singlebouquet'
-import {addToCart} from '../store/cart'
+import {addToCart, getCart} from '../store/cart'
 
 class SingleBouquet extends Component {
   componentDidMount() {
     this.props.getBouquet(this.props.match.params.bouquetId)
+    this.props.getCart()
   }
   render() {
     return (
@@ -46,8 +47,8 @@ const mapStateToProps = state => ({
 })
 const mapDispatchToProps = dispatch => ({
   getBouquet: bouquetId => dispatch(getBouquet(bouquetId)),
-  handleClick: bouquet => dispatch(addToCart(bouquet))
-  // getCart : () => dispatch(getCart())
+  handleClick: bouquet => dispatch(addToCart(bouquet)),
+  getCart: () => dispatch(getCart())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleBouquet)
