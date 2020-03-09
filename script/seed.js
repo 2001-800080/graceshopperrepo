@@ -7280,16 +7280,6 @@ async function seed() {
 
   const bouquetorder = await BouquetOrder.create({bouquetId: 1, orderId: 1})
 
-  // await allUsers[0].addBouquet(allBouquets[0])
-  // await allUsers[1].addBouquet(allBouquets[1])
-  // await allUsers[2].addBouquet(allBouquets[2])
-  // await allUsers[0].addBouquet(allBouquets[2])
-  // await allUsers[1].addBouquet(allBouquets[4])
-  // await allUsers[2].addBouquet(allBouquets[5])
-  // console.log('order', Object.keys(Order.prototype))
-  // console.log('bouquet', Object.keys(Bouquet.prototype))
-  // console.log('bouquetorders', Object.keys(BouquetOrder.prototype))
-  // console.log('user', Object.keys(User.prototype))
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${bouquets.length} bouquets`)
   console.log(`seeded successfully`)

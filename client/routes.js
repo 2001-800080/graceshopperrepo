@@ -38,20 +38,17 @@ class Routes extends Component {
           />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
-          {/* ORDER MATTERS OMG */}
           <Route exact path="/" component={AllBouquets} />
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/bouquets/:bouquetId" component={SingleBouquet} />
           <Route exact path="/forms" component={Form} />
           <Route exact path="/orderform" component={OrderForm} />
           <Route exact path="/payment" component={Payment} />
-          {/* Displays our Login component as a fallback */}
           {isLoggedIn && (
             <Switch>
               {/* Routes placed here are only available after logging in */}
               <Route exact path="/home" component={UserHome} />
               <Route component={NotFoundPage} />
-              {/* <Route component={NotFoundPage} /> */}
             </Switch>
           )}
           <Route component={NotFoundPage} />

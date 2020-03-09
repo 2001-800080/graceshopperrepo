@@ -12,8 +12,6 @@ class Navbar extends Component {
   }
   render() {
     const {handleClick, isLoggedIn, currentCart} = this.props
-    console.log('navbar current cart', currentCart)
-    console.log('currentCart in navbar: ', currentCart)
     return (
       <div className="background">
         <div className="background">
@@ -39,7 +37,6 @@ class Navbar extends Component {
             ) : (
               <div className="nav-bar-container">
                 {/* The navbar will show these links before you log in */}
-                {/* <Link to="/cart">Cart</Link> */}
                 <div>
                   <Link to="/login">Login</Link>
                   <Link to="/signup">Sign Up</Link>

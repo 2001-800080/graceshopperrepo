@@ -1,11 +1,6 @@
 const router = require('express').Router()
 const {User, Order, Bouquet, BouquetOrder} = require('../db/models')
 
-//the selfOrAdmin function currently locks out all guest ability to make an order since they are neither a user or an admin
-// function isSelfOrAdmin(req, res, next) {
-//   if (req.params.id === req.user.id || req.user.isAdmin) return next()
-// }
-
 router.post('/checkout', async (req, res, next) => {
   try {
     const newOrder = req.body
@@ -40,7 +35,6 @@ router.post('/checkout', async (req, res, next) => {
 
 router.post('/logout', async (req, res, next) => {
   try {
-    console.log('in logout api route')
     const newOrder = req.body
     let order
     const foundOrder = await Order.findOne({

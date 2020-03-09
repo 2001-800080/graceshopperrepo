@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {
@@ -12,9 +11,6 @@ import {
 import {makeOrderCheckoutThunk} from '../store/order'
 import {CartRender} from './index'
 import EmptyCart from './emptycart'
-import {ConfirmationPage} from './confirmation_page'
-import {Form} from './forms'
-import {FormText} from 'reactstrap'
 
 class Cart extends Component {
   constructor(props) {
@@ -22,7 +18,6 @@ class Cart extends Component {
     this.handleDecrease = this.handleDecrease.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.handleIncrease = this.handleIncrease.bind(this)
-    // this.handleClear = this.handleClear.bind(this)
   }
   handleDecrease(item) {
     this.props.dispatchDecrementFromCart(item)
@@ -36,16 +31,9 @@ class Cart extends Component {
     this.props.dispatchAddToCart(item)
     this.props.dispatchGetCart()
   }
-  // handleClear() {
-  //   this.props.dispatchMakeOrder(this.props.currentCart)
-  //   this.props.dispatchClearCart()
-  //   this.props.dispatchGetCart()
-  // }
   componentDidMount() {
     this.props.dispatchGetCart()
   }
-
-  // const bouquets = props.bouquets
   render() {
     return (
       <div>
@@ -94,17 +82,12 @@ class Cart extends Component {
     )
   }
 }
-
-// onClick={() => this.handleClear()}
 const mapPropToCart = state => ({
   currentCart: state.currentCart,
   order: state.order
 })
 
 const mapDispatch = dispatch => ({
-  // handleDelete(index){
-  // 	dispatch(deleteFromCart(index))
-  // },
   dispatchGetCart: () => dispatch(getCart()),
   dispatchAddToCart: bouquet => dispatch(addToCart(bouquet)),
   dispatchDecrementFromCart: bouquet => dispatch(decrementFromCart(bouquet)),

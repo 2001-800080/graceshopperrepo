@@ -1,6 +1,5 @@
 import React from 'react'
-import {Button, Form, FormGroup, Label, Input, Container} from 'reactstrap'
-import {Link} from 'react-router-dom'
+import {Form, FormGroup, Label, Input, Container} from 'reactstrap'
 
 class Payment extends React.Component {
   render() {
