@@ -27,6 +27,7 @@ const Bouquet = db.define('bouquet', {
     type: Sequelize.VIRTUAL,
     defaultValue: true,
     get() {
+      // ? what is this for
       const isAvailable = this.getDataValue('available')
       if (isAvailable !== true) {
         return false

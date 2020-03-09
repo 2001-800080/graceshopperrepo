@@ -12,6 +12,7 @@ const Order = db.define('order', {
   },
   phoneNumber: Sequelize.INTEGER,
   isCart: {
+    // if there are only 2 options, would recommend putting this as a boolean. If you wanted to consider shipping, etc, then I would leave as enum
     type: Sequelize.ENUM('pending', 'complete'),
     defaultValue: 'pending'
   },

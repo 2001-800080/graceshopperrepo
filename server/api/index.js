@@ -3,6 +3,7 @@ const bouquetRoutes = require('./bouquet')
 module.exports = router
 
 router.use('/users', require('./users'))
+// be consistent
 router.use('/bouquets', bouquetRoutes)
 router.use('/cart', require('./cart'))
 

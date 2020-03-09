@@ -21,6 +21,7 @@ router.get('/', async (req, res, next) => {
         attributes: ['name', 'id', 'description', 'price', 'imageUrl']
       }
     )
+    // would recommend putting this into a middleware function
     if (getSomeBouquets && (!req.user || !req.user.isAdmin)) {
       res.send(getSomeBouquets)
     } else if (getAllBouquets && req.user.isAdmin) {

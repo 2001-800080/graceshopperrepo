@@ -6,15 +6,17 @@ router.post('/checkout', async (req, res, next) => {
     const newOrder = req.body
     let order
     if (req.user) {
+      // are they both local storage?
       order = await Order.create({
         isCart: 'complete',
         purchaseDate: new Date(),
         userId: req.user.id
       })
     } else {
+      // I like this, but I am curious if you are posting to a cart or to make a new order.
       order = await Order.create({
         isCart: 'complete',
-        purchaseDate: new Date()
+        purchaseDate: new Date() // maybe this should default to new Date() and you don't need to add this
       })
     }
     newOrder.forEach(async bouquet => {
@@ -24,7 +26,7 @@ router.post('/checkout', async (req, res, next) => {
         where: {orderId: order.id, bouquetId: bouquet.id}
       })
       bouquetOrder.quantity = bouquet.quantity
-      bouquetOrder.cost = bouquet.bouquet.price * 100 * bouquet.quantity
+      bouquetOrder.cost = bouquet.bouquet.price * 100 * bouquet.quantity // should convert into integer as well
       bouquetOrder.save()
     })
     res.json(order)
@@ -42,7 +44,7 @@ router.post('/logout', async (req, res, next) => {
     })
     if (foundOrder) {
       foundOrder.destroy()
-    }
+    } // I don;t know if you need to destroy the cart (?)
     order = await Order.create({
       isCart: 'pending',
       purchaseDate: new Date(),
@@ -64,6 +66,7 @@ router.post('/logout', async (req, res, next) => {
   }
 })
 
+// ? what is this route
 router.get('/:email', async (req, res, next) => {
   try {
     const email = req.params.email

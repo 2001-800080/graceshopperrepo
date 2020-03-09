@@ -3,6 +3,7 @@ const {User} = require('../db/models')
 const {Order} = require('../db/models')
 module.exports = router
 
+// consider exporting this from a different file
 function isAdmin(req, res, next) {
   if (!req.user.isAdmin) {
     const err = new Error("Wait that's illegal")

@@ -94,6 +94,7 @@ export default function(state = currentCart, action) {
       // if its there decrease by 1 or delete if quantity is already 1
 
       if (bouquets[index].quantity > 1) bouquets[index].quantity -= 1
+      // what does splice do?
       else bouquets.splice(index, 1)
 
       localStorage.setItem('cart', JSON.stringify(bouquets))
