@@ -57,6 +57,9 @@ export default function(state = currentCart, action) {
       localStorage.setItem('cart', ['0'])
       return []
     case GET_CART:
+      if (JSON.parse(localStorage.getItem('cart') === 'undefined')) {
+        localStorage.setItem('cart', ['0'])
+      }
       const local = JSON.parse(localStorage.getItem('cart'))
       if (local) {
         state = local
@@ -67,13 +70,12 @@ export default function(state = currentCart, action) {
     case ADD_TO_CART:
       // search state to find if id is already there
       index = state.findIndex(el => el.id === action.bouquet.id)
-      console.log('in reducer action', action.bouquet)
       if (index > -1) {
         // if its there add 1
         bouquets = state
         bouquets[index].quantity += 1
         // if not there concat
-      } else if (action.bouquet.available) {
+      } else {
         bouquets = state.concat([
           {
             id: action.bouquet.id,
