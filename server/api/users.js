@@ -3,13 +3,27 @@ const {User} = require('../db/models')
 const {Order} = require('../db/models')
 module.exports = router
 
+function isLoggedIn(req, res, next) {
+  if (!req.user || req.user.id !== req.params.id) {
+    const err = new Error("Wait, that's illegal")
+    err.status = 401
+    return next(err)
+  }
+  next()
+}
+
 function isAdmin(req, res, next) {
-  if (!req.user.isAdmin) {
+  if (!req.user || !req.user.isAdmin) {
     const err = new Error("Wait that's illegal")
     err.status = 401
     return next(err)
   }
   next()
+}
+
+function isSelfOrAdmin(req, res, next) {
+  console.log(req.user.id, req.params.id)
+  if (req.params.id === req.user.id || req.user.isAdmin) return next()
 }
 
 router.get('/', isAdmin, async (req, res, next) => {
@@ -23,7 +37,7 @@ router.get('/', isAdmin, async (req, res, next) => {
   }
 })
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', isAdmin, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id)
     if (user) {
@@ -40,9 +54,10 @@ router.get('/:id', async (req, res, next) => {
     next(error)
   }
 })
-router.get('/:id/orders', async (req, res, next) => {
+//order for a certain id
+router.get('/:id/orders/:orderId', isSelfOrAdmin, async (req, res, next) => {
   try {
-    const order = await Order.findByPk(req.params.id)
+    const order = await Order.findByPk(orderId)
     if (order) {
       res.json(order)
     } else {
@@ -64,7 +79,7 @@ router.post('/', async (req, res, next) => {
 })
 
 // delete user
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', isSelfOrAdmin, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id)
     if (user) {
@@ -78,7 +93,7 @@ router.delete('/:id', async (req, res, next) => {
 
 //  edit user
 // TODO: what if user wants to edit own info but we have block from making himself an admin.
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', isSelfOrAdmin, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id)
     if (user && req.body.isAdmin === false) {

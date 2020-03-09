@@ -25,7 +25,10 @@ router.post('/checkout', async (req, res, next) => {
       })
       bouquetOrder.quantity = bouquet.quantity
       bouquetOrder.cost = bouquet.bouquet.price * 100 * bouquet.quantity
-      bouquetOrder.save()
+      await bouquetOrder.save()
+      console.log('bouquetToFind, bouq', bouquetToFind, bouquet)
+      bouquetToFind.quantity -= bouquet.quantity
+      await bouquetToFind.save()
     })
     res.json(order)
   } catch (error) {
