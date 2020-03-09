@@ -106,20 +106,3 @@ router.put('/:id', isSelfOrAdmin, async (req, res, next) => {
     next(error)
   }
 })
-
-// post order for guest or user
-
-// //alter order
-// router.put('/:id/orders/:orderId', isSelfOrAdmin, async (req, res, next) => {
-//   try {
-//     const order = await Order.findById(req.params.orderId)
-//     if (order) {
-//       const updatedOrder = await order.update(req.body)
-//       res.json(updatedOrder)
-//     } else {
-//       res.sendStatus(404)
-//     }
-//   } catch (error) {
-//     next(error)
-//   }
-// })
