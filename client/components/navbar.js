@@ -11,9 +11,9 @@ class Navbar extends Component {
     super()
   }
   render() {
-    console.log("navbar's this.props.currentCart: ", this.props.currentCart)
     const {handleClick, isLoggedIn, currentCart} = this.props
-
+    console.log('navbar current cart', currentCart)
+    console.log('currentCart in navbar: ', currentCart)
     return (
       <div className="background">
         <div className="background">
@@ -32,7 +32,7 @@ class Navbar extends Component {
                 </div>
                 <div>
                   <Link to="/cart">
-                    <TinyCart />
+                    <TinyCart currentCart={currentCart} />
                   </Link>
                 </div>
               </div>
@@ -48,7 +48,7 @@ class Navbar extends Component {
                 </div>
                 <div>
                   <Link to="/cart">
-                    <TinyCart />
+                    <TinyCart currentCart={currentCart} />
                   </Link>
                 </div>
               </div>
