@@ -18,11 +18,14 @@ class Form extends React.Component {
     this.props.dispatchClearCart()
     this.props.dispatchGetCart()
   }
+  componentDidMount() {
+    this.props.dispatchGetCart()
+  }
 
   render() {
     return (
       <div>
-        <h1 className="order">CheckOut Information</h1>
+        <h1 className="order">Please Fill in the Following Information:</h1>
         <center>
           <img
             src="https://cdn.clipart.email/04cb6ba67cc9e24be570ccfeb690eab5_library-of-book-divider-clip-art-freeuse-library-png-files-_1925-284.png"
