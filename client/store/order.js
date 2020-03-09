@@ -1,6 +1,4 @@
 import axios from 'axios'
-import thunkMiddleware from 'redux-thunk'
-import store from './index'
 
 const MAKE_ORDER = 'MAKE_ORDER'
 
@@ -12,7 +10,6 @@ export const makeOrder = order => ({
 export const makeOrderCheckoutThunk = order => {
   return async dispatch => {
     try {
-      console.log('in thunk', order)
       const {data} = await axios.post(`api/cart/checkout`, order)
       dispatch(makeOrder(data))
     } catch (error) {
@@ -23,7 +20,6 @@ export const makeOrderCheckoutThunk = order => {
 export const makeOrderLogoutThunk = order => {
   return async dispatch => {
     try {
-      console.log('in thunk', order)
       const {data} = await axios.post(`api/cart/logout`, order)
       dispatch(makeOrder(data))
     } catch (error) {

@@ -1,7 +1,7 @@
 import {expect} from 'chai'
 import React from 'react'
 import axios from 'axios'
-import enzyme, {mount, shallow} from 'enzyme'
+import enzyme, {shallow} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import {AllBouquets} from './all_bouquets'
 import {getAllBouquets} from '../store/bouquet'

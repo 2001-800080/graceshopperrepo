@@ -1,7 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import store from '../store'
-import {getCart} from '../store/cart'
 
 class TinyCart extends React.Component {
   constructor(props) {
@@ -9,8 +7,6 @@ class TinyCart extends React.Component {
   }
 
   render() {
-    console.log('tiny cart')
-    console.log('props', this.props)
     return (
       <div className="all-bouquet-cart">
         <img src="https://img.icons8.com/metro/26/000000/shopping-cart.png" />
