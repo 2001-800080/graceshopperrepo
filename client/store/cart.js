@@ -1,6 +1,3 @@
-import history from '../history'
-import thunkMiddleware from 'redux-thunk'
-import store from './index'
 import axios from 'axios'
 
 const GET_CART = 'GET_CART'
@@ -60,10 +57,12 @@ export default function(state = currentCart, action) {
       localStorage.setItem('cart', ['0'])
       return []
     case GET_CART:
+      if (JSON.parse(localStorage.getItem('cart') === 'undefined')) {
+        localStorage.setItem('cart', ['0'])
+      }
       const local = JSON.parse(localStorage.getItem('cart'))
       if (local) {
         state = local
-        console.log('state in getCart: ', state)
       } else {
         state = []
       }
@@ -74,6 +73,7 @@ export default function(state = currentCart, action) {
       if (index > -1) {
         // if its there
         bouquets = state
+
         console.log(bouquets[index].bouquet.quantity)
         if (bouquets[index].quantity + 1 <= bouquets[index].bouquet.quantity) {
           bouquets[index].quantity += 1
@@ -83,6 +83,7 @@ export default function(state = currentCart, action) {
         ) {
           console.error('Sold Out')
         }
+
       } else {
         bouquets = state.concat([
           {
@@ -93,7 +94,7 @@ export default function(state = currentCart, action) {
         ])
       }
       localStorage.setItem('cart', JSON.stringify(bouquets))
-      return [...bouquets] //you have to clone the state so that the parts of the state (our cart here) that are changing actually get read in the way that causes a re-render. React isn't going to waste time un-nesting deeply nested things to see if something change bc that's a costly operation. Since our cart is deeply nested, if we didn't use spread operator, the pointers to reference in memory of our flower objects currently in the cart would have stayed the same. We can only re-render TinyCart's number if the props can register that something changed. And props only get shallow comparison. So we had to make this part of the reducer send a clone of the state of our cart, making TinyCart able to get re-rendered upon adding things to cart - uniquely or repetetively
+      return [...bouquets]
 
     case DECREMENT_FROM_CART:
       // search state to find if id is already there

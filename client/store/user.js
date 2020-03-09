@@ -34,7 +34,6 @@ export const me = () => async dispatch => {
 export const auth = (email, password, method) => async dispatch => {
   try {
     let {data} = await axios.post(`/auth/${method}`, {email, password})
-    console.log('user', data)
     dispatch(getUser(data))
     if (method === 'login') {
       dispatch(setCartThunk(email))

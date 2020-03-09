@@ -3,16 +3,6 @@ const {User} = require('../db/models')
 const {Order} = require('../db/models')
 module.exports = router
 
-//not currently used:
-// function isLoggedIn(req, res, next) {
-//   if (!req.user || req.user.id !== req.params.id) {
-//     const err = new Error("Wait, that's illegal")
-//     err.status = 401
-//     return next(err)
-//   }
-//   next()
-// }
-
 function isAdmin(req, res, next) {
   if (!req.user.isAdmin) {
     const err = new Error("Wait that's illegal")
@@ -21,10 +11,6 @@ function isAdmin(req, res, next) {
   }
   next()
 }
-
-// function isSelfOrAdmin(req, res, next) {
-//   if (req.params.id === req.user.id || req.user.isAdmin) return next()
-// }
 
 router.get('/', isAdmin, async (req, res, next) => {
   try {
@@ -54,7 +40,6 @@ router.get('/:id', async (req, res, next) => {
     next(error)
   }
 })
-//finds a specific order by it's id- has nothing to do with user currently
 router.get('/:id/orders', async (req, res, next) => {
   try {
     const order = await Order.findByPk(req.params.id)
@@ -106,33 +91,3 @@ router.put('/:id', async (req, res, next) => {
     next(error)
   }
 })
-
-// post order for guest or user
-// router.post('/order', async (req, res, next) => {
-//   try {
-//     let order = req.body
-//     order.isCart = 'complete'
-//     if (req.user) {
-//       order.userId = req.user.id
-//     }
-//     const savedOrder = await Order.create(order)
-//     res.json(savedOrder)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
-
-// //alter order
-// router.put('/:id/orders/:orderId', isSelfOrAdmin, async (req, res, next) => {
-//   try {
-//     const order = await Order.findById(req.params.orderId)
-//     if (order) {
-//       const updatedOrder = await order.update(req.body)
-//       res.json(updatedOrder)
-//     } else {
-//       res.sendStatus(404)
-//     }
-//   } catch (error) {
-//     next(error)
-//   }
-// })
