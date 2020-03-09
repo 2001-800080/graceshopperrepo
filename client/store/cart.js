@@ -74,7 +74,6 @@ export default function(state = currentCart, action) {
         // if its there
         bouquets = state
 
-        console.log(bouquets[index].bouquet.quantity)
         if (bouquets[index].quantity + 1 <= bouquets[index].bouquet.quantity) {
           bouquets[index].quantity += 1
         } else if (
@@ -83,7 +82,6 @@ export default function(state = currentCart, action) {
         ) {
           console.error('Sold Out')
         }
-
       } else {
         bouquets = state.concat([
           {
