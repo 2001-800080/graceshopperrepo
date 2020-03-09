@@ -39,11 +39,11 @@ export const setCartThunk = email => {
   return async dispatch => {
     try {
       const {data} = await axios.get(`/api/cart/${email}`)
-      dispatch(setCart(data))
-      console.log('insetdata', data)
-      if (data) window.localStorage.setItem('cart', JSON.stringify(data))
-      dispatch(getCart())
-      history.push('/home')
+      if (data) {
+        window.localStorage.setItem('cart', JSON.stringify(data))
+        dispatch(setCart(data))
+        dispatch(getCart())
+      }
     } catch (error) {
       console.error(error)
     }
@@ -71,12 +71,13 @@ export default function(state = currentCart, action) {
     case ADD_TO_CART:
       // search state to find if id is already there
       index = state.findIndex(el => el.id === action.bouquet.id)
+      console.log('in reducer action', action.bouquet)
       if (index > -1) {
         // if its there add 1
         bouquets = state
         bouquets[index].quantity += 1
         // if not there concat
-      } else {
+      } else if (action.bouquet.available) {
         bouquets = state.concat([
           {
             id: action.bouquet.id,

@@ -1,6 +1,5 @@
 import axios from 'axios'
 import history from '../history'
-import {UserHome} from '../components/user-home'
 import {setCartThunk} from './cart'
 
 /**
@@ -37,6 +36,9 @@ export const auth = (email, password, method) => async dispatch => {
     let {data} = await axios.post(`/auth/${method}`, {email, password})
     console.log('user', data)
     dispatch(getUser(data))
+    if (method === 'login') {
+      dispatch(setCartThunk(email))
+    }
     history.push('/home')
   } catch (authError) {
     return dispatch(getUser({error: authError}))
