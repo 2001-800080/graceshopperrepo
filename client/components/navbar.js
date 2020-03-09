@@ -12,6 +12,8 @@ class Navbar extends Component {
   }
   render() {
     const {handleClick, isLoggedIn, currentCart} = this.props
+    console.log('navbar current cart', currentCart)
+    console.log('currentCart in navbar: ', currentCart)
     return (
       <div className="background">
         <div className="background">
@@ -30,7 +32,7 @@ class Navbar extends Component {
                 </div>
                 <div>
                   <Link to="/cart">
-                    <TinyCart />
+                    <TinyCart currentCart={currentCart} />
                   </Link>
                 </div>
               </div>
@@ -46,7 +48,7 @@ class Navbar extends Component {
                 </div>
                 <div>
                   <Link to="/cart">
-                    <TinyCart />
+                    <TinyCart currentCart={currentCart} />
                   </Link>
                 </div>
               </div>
