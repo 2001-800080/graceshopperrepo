@@ -3,10 +3,12 @@ import {connect} from 'react-redux'
 import {BouquetForGrid} from './index'
 import {Link} from 'react-router-dom'
 import {getAllBouquets} from '../store/bouquet'
+import {getCart} from '../store/cart'
 
 export class AllBouquets extends Component {
   componentDidMount() {
     this.props.getAllBouquets()
+    this.props.dispatchGetCart()
   }
   render() {
     return (
@@ -29,11 +31,13 @@ export class AllBouquets extends Component {
   }
 }
 const mapStateToProps = state => ({
-  bouquets: state.bouquets
+  bouquets: state.bouquets,
+  currentCart: state.currentCart
 })
 
 const mapDispatchToProps = dispatch => ({
-  getAllBouquets: () => dispatch(getAllBouquets())
+  getAllBouquets: () => dispatch(getAllBouquets()),
+  dispatchGetCart: () => dispatch(getCart())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllBouquets)
