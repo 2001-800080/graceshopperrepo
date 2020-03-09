@@ -57,7 +57,7 @@ router.get('/:id', isAdmin, async (req, res, next) => {
 //order for a certain id
 router.get('/:id/orders/:orderId', isSelfOrAdmin, async (req, res, next) => {
   try {
-    const order = await Order.findById(orderId)
+    const order = await Order.findByPk(orderId)
     if (order) {
       res.json(order)
     } else {
@@ -95,7 +95,7 @@ router.delete('/:id', isSelfOrAdmin, async (req, res, next) => {
 // TODO: what if user wants to edit own info but we have block from making himself an admin.
 router.put('/:id', isSelfOrAdmin, async (req, res, next) => {
   try {
-    const user = await User.findById(req.params.id)
+    const user = await User.findByPk(req.params.id)
     if (user && req.body.isAdmin === false) {
       const updated = await user.update(req.body)
       res.json(updated)
