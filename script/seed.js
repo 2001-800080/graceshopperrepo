@@ -7279,6 +7279,8 @@ async function seed() {
   })
 
   const bouquetorder = await BouquetOrder.create({bouquetId: 1, orderId: 1})
+  console.log(Object.keys(Bouquet.prototype))
+  console.log(Object.keys(Order.prototype))
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${bouquets.length} bouquets`)

@@ -10,6 +10,7 @@ import configureMockStore from 'redux-mock-store'
 import thunkMiddleware from 'redux-thunk'
 const middlewares = [thunkMiddleware]
 import BouquetForGrid from './bouquet_for_grid'
+import {getCart} from '../store/cart'
 const mockStore = configureMockStore(middlewares)
 
 const adapter = new Adapter()
@@ -60,11 +61,15 @@ describe('AllBouquets', () => {
 
   beforeEach(() => {
     allBouqs = shallow(
-      <AllBouquets bouquets={bouquets} getAllBouquets={getAllBouquets} />
+      <AllBouquets
+        bouquets={bouquets}
+        getAllBouquets={getAllBouquets}
+        dispatchGetCart={dispatchGetCart}
+      />
     )
   })
 
-  it('renders all the bouquets with the text All Bouquets in an h1 tag', () => {
+  it('renders bouquet for grid component for each bouquet', () => {
     const renderedBouquets = allBouqs.find(BouquetForGrid)
     expect(renderedBouquets.length).to.equal(3)
     expect(renderedBouquets.get(2).props.bouquet.name).to.equal(

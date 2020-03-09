@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {
+  updateCartThunk,
   getCart,
   addToCart,
   decrementFromCart,
@@ -28,8 +29,8 @@ class Cart extends Component {
     this.props.dispatchGetCart()
   }
   handleIncrease(item) {
-    this.props.dispatchAddToCart(item)
-    this.props.dispatchGetCart()
+    this.props.dispatchAddToCart([...this.props.currentCart, item])
+    // this.props.dispatchGetCart()
   }
   componentDidMount() {
     this.props.dispatchGetCart()
@@ -84,12 +85,13 @@ class Cart extends Component {
 }
 const mapPropToCart = state => ({
   currentCart: state.currentCart,
-  order: state.order
+  order: state.order,
+  isLoggedIn: !!state.user.id
 })
 
 const mapDispatch = dispatch => ({
   dispatchGetCart: () => dispatch(getCart()),
-  dispatchAddToCart: bouquet => dispatch(addToCart(bouquet)),
+  dispatchAddToCart: cart => dispatch(updateCartThunk(addToCart, cart)),
   dispatchDecrementFromCart: bouquet => dispatch(decrementFromCart(bouquet)),
   dispatchDeleteFromCart: bouquet => dispatch(deleteFromCart(bouquet)),
   dispatchClearCart: () => dispatch(clearCart()),

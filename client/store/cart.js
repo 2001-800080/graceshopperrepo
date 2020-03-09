@@ -46,6 +46,18 @@ export const setCartThunk = email => {
     }
   }
 }
+export const updateCartThunk = (action, cart) => {
+  return async dispatch => {
+    try {
+      console.log(cart, 'cart in thunk')
+      const {data} = await axios.put('/api/cart/update', cart)
+      console.log(data, 'in update thunk')
+      dispatch(action())
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
 /**
  * REDUCER
  */
