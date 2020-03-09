@@ -71,10 +71,19 @@ export default function(state = currentCart, action) {
       // search state to find if id is already there
       index = state.findIndex(el => el.id === action.bouquet.id)
       if (index > -1) {
-        // if its there add 1
+        // if its there
         bouquets = state
-        bouquets[index].quantity += 1
-        // if not there concat
+
+        console.log(bouquets[index].bouquet.quantity)
+        if (bouquets[index].quantity + 1 <= bouquets[index].bouquet.quantity) {
+          bouquets[index].quantity += 1
+        } else if (
+          bouquets[index].quantity + 1 >
+          bouquets[index].bouquet.quantity
+        ) {
+          console.error('Sold Out')
+        }
+
       } else {
         bouquets = state.concat([
           {

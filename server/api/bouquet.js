@@ -38,7 +38,17 @@ router.get('/:bouquetId', async (req, res, next) => {
   try {
     const id = req.params.bouquetId
     const findBouquetById = await Bouquet.findByPk(id)
-    res.send(findBouquetById)
+    const guestBouq = await Bouquet.findOne({
+      where: {id: id},
+      attributes: ['name', 'id', 'description', 'price', 'imageUrl']
+    })
+    if (guestBouq && (!req.user || !req.user.isAdmin)) {
+      res.send(guestBouq)
+    } else if (findBouquetById && req.user.isAdmin) {
+      res.send(findBouquetById)
+    } else {
+      res.sendStatus(404)
+    }
   } catch (error) {
     next(error)
   }

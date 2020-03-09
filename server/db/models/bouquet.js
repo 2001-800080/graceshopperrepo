@@ -25,14 +25,14 @@ const Bouquet = db.define('bouquet', {
   },
   available: {
     type: Sequelize.VIRTUAL,
-    defaultValue: true,
-    get() {
-      const isAvailable = this.getDataValue('available')
-      if (isAvailable !== true) {
-        return false
-      }
-      return true
-    }
+    defaultValue: true
+    // get() {
+    //   const quant = this.getDataValue('quantity')
+    //   if (quant===0) {
+    //     return false
+    //   }
+    //   return true
+    // }
   },
   imageUrl: {
     type: Sequelize.STRING,
@@ -42,5 +42,15 @@ const Bouquet = db.define('bouquet', {
     }
   }
 })
+
+Bouquet.prototype.getAvailable = function() {
+  if (this.quantity === 0) {
+    this.available = false
+    return false
+  } else {
+    this.available = true
+    return true
+  }
+}
 
 module.exports = Bouquet
