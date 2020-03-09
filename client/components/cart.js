@@ -73,7 +73,7 @@ class Cart extends Component {
               </p>
 
               <Link to="/forms">
-                <button type="button">CheckOut</button>
+                <button type="button">Checkout</button>
               </Link>
             </div>
           </div>
