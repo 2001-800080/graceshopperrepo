@@ -26,13 +26,6 @@ const Bouquet = db.define('bouquet', {
   available: {
     type: Sequelize.VIRTUAL,
     defaultValue: true
-    // get() {
-    //   const quant = this.getDataValue('quantity')
-    //   if (quant===0) {
-    //     return false
-    //   }
-    //   return true
-    // }
   },
   imageUrl: {
     type: Sequelize.STRING,
