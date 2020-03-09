@@ -11,7 +11,9 @@ class Navbar extends Component {
     super()
   }
   render() {
+    console.log("navbar's this.props.currentCart: ", this.props.currentCart)
     const {handleClick, isLoggedIn, currentCart} = this.props
+
     return (
       <div className="background">
         <div className="background">

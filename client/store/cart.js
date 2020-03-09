@@ -62,6 +62,7 @@ export default function(state = currentCart, action) {
     case GET_CART:
       const local = JSON.parse(localStorage.getItem('cart'))
       if (local) {
+        console.log('local in getCart: ', local)
         state = local
       } else {
         state = []
