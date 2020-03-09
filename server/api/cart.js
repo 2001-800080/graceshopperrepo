@@ -43,7 +43,9 @@ router.post('/logout', async (req, res, next) => {
     console.log('in logout api route')
     const newOrder = req.body
     let order
-    const foundOrder = await Order.findOne({where: {isCart: 'pending'}})
+    const foundOrder = await Order.findOne({
+      where: {isCart: 'pending', userId: req.user.id}
+    })
     if (foundOrder) {
       foundOrder.destroy()
     }
