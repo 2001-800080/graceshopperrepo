@@ -7,7 +7,7 @@ const CartRender = props => {
   return (
     <div className="cart-render-container">
       <div className="checkout-name-box">
-        <Link to={`/${item.bouquet.id}`}>{item.bouquet.name}</Link>
+        <Link to={`/bouquets/${item.bouquet.id}`}>{item.bouquet.name}</Link>
       </div>
       <p className=" checkout-price-box">${item.bouquet.price}</p>
       <p className="checkout-quantity-box">{item.quantity}</p>
