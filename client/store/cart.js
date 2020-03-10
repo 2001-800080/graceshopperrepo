@@ -81,6 +81,9 @@ export default function(state = currentCart, action) {
           bouquets[index].bouquet.quantity
         ) {
           console.error('Sold Out')
+          window.alert(
+            'Oops! This product is currently sold out 💸\n But feel free to browse our other lovely bouquets 💐 \n If you have a special request please call us at 1-800-VIOLETV 📞'
+          )
         }
       } else {
         bouquets = state.concat([

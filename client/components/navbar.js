@@ -25,7 +25,7 @@ class Navbar extends Component {
                   <a href="#" onClick={() => handleClick(currentCart)}>
                     Logout
                   </a>
-                  <Link to="/">Home / All Bouquets</Link>
+                  <Link to="/">All Bouquets</Link>
                   <Link to="/cart">View Cart</Link>
                 </div>
                 <div>
