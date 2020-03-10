@@ -18,8 +18,13 @@ export const BouquetForGrid = props => {
     </div>
   )
 }
+
+const mapStateToProps = state => ({
+  currentCart: state.currentCart
+})
+
 const mapDispatchToProps = dispatch => ({
   handleClick: bouquet => dispatch(updateCartThunk(addToCart, bouquet))
 })
 
-export default connect(null, mapDispatchToProps)(BouquetForGrid)
+export default connect(mapStateToProps, mapDispatchToProps)(BouquetForGrid)

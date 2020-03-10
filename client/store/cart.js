@@ -12,6 +12,7 @@ const SET_CART = 'SET_CART'
  * INITIAL STATE
  */
 let currentCart = []
+// const cart = JSON.parse(localStorage.getItem('cart'))
 
 // cart is going to be an array of objects
 // keys:
@@ -80,7 +81,7 @@ export default function(state = currentCart, action) {
       if (local) {
         state = local
       } else {
-        state = []
+        state = [] //i dont think we need this.
       }
       return state
     case ADD_TO_CART:
@@ -97,6 +98,7 @@ export default function(state = currentCart, action) {
           bouquets[index].bouquet.quantity
         ) {
           console.error('Sold Out')
+          //turn this into an alert?
         }
       } else {
         bouquets = state.concat([
@@ -118,18 +120,20 @@ export default function(state = currentCart, action) {
 
       if (bouquets[index].quantity > 1) bouquets[index].quantity -= 1
       else bouquets.splice(index, 1)
+      //look at what this splice is doing//
 
       localStorage.setItem('cart', JSON.stringify(bouquets))
-      return bouquets
+      return [...bouquets]
 
     case DELETE_FROM_CART:
       index = state.findIndex(el => el.id === action.bouquet.id)
       if (index > -1) {
         bouquets = state
         bouquets.splice(index, 1)
+        //look at what this splice is doing//
       }
       localStorage.setItem('cart', JSON.stringify(bouquets))
-      return bouquets
+      return [...bouquets]
     case SET_CART:
       return action.cart
     default:

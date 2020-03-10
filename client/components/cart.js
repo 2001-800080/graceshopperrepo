@@ -22,15 +22,12 @@ class Cart extends Component {
   }
   handleDecrease(item) {
     this.props.dispatchDecrementFromCart(item)
-    this.props.dispatchGetCart()
   }
   handleDelete(item) {
     this.props.dispatchDeleteFromCart(item)
-    this.props.dispatchGetCart()
   }
   handleIncrease(item) {
     this.props.dispatchAddToCart(item)
-    // this.props.dispatchGetCart()
   }
   componentDidMount() {
     this.props.dispatchGetCart()

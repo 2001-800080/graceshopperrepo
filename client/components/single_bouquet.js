@@ -42,8 +42,8 @@ class SingleBouquet extends Component {
 }
 
 const mapStateToProps = state => ({
-  bouquet: state.bouquet,
-  cart: state.currentCart
+  currentCart: state.currentCart,
+  bouquet: state.bouquet
 })
 const mapDispatchToProps = dispatch => ({
   getBouquet: bouquetId => dispatch(getBouquet(bouquetId)),
