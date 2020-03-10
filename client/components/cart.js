@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+
 import {
   updateCartThunk,
   getCart,
@@ -12,6 +12,7 @@ import {
 import {makeOrderCheckoutThunk} from '../store/order'
 import {CartRender} from './index'
 import EmptyCart from './emptycart'
+import Stripe from './stripe'
 
 class Cart extends Component {
   constructor(props) {
@@ -69,10 +70,13 @@ class Cart extends Component {
                   .reduce((a, b) => a + b, 0)
                   .toFixed(2)}
               </p>
-
-              <Link to="/forms">
-                <button type="button">Checkout</button>
-              </Link>
+              <div>
+                <Stripe
+                  total={this.props.currentCart.map(item =>
+                    (item.bouquet.price * item.quantity).toFixed(2)
+                  )}
+                />
+              </div>
             </div>
           </div>
         )}

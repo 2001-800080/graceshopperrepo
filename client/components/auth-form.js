@@ -1,7 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import {auth} from '../store'
+import {auth, setCartThunk, getCart} from '../store'
+import history from '../history'
 
 /**
  * COMPONENT
@@ -11,6 +12,7 @@ const AuthForm = props => {
 
   return (
     <div className="authForm">
+      {name === 'signup' ? <h1>Sign Up</h1> : <h1>Login</h1>}
       <form onSubmit={handleSubmit} name={name}>
         <div>
           <label htmlFor="email">
@@ -34,6 +36,13 @@ const AuthForm = props => {
   )
 }
 
+/**
+ * CONTAINER
+ *   Note that we have two different sets of 'mapStateToProps' functions -
+ *   one for Login, and one for Signup. However, they share the same 'mapDispatchToProps'
+ *   function, and share the same Component. This is a good example of how we
+ *   can stay DRY with interfaces that are very similar to each other!
+ */
 const mapLogin = state => {
   return {
     name: 'login',
@@ -58,7 +67,6 @@ const mapDispatch = dispatch => {
       const email = evt.target.email.value
       const password = evt.target.password.value
       dispatch(auth(email, password, formName))
-      // dispatch(getCart())
     }
   }
 }

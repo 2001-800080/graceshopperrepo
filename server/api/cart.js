@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {User, Order, Bouquet, BouquetOrder} = require('../db/models')
+const stripe = require('stripe')('STRIPE_SECRET_KEY')
 
 router.post('/checkout', async (req, res, next) => {
   try {
@@ -36,43 +37,8 @@ router.post('/checkout', async (req, res, next) => {
   }
 })
 
-// router.post('/logout', async (req, res, next) => {
-//   try {
-//     const newOrder = req.body
-//     let order
-//     const foundOrder = await Order.findOne({
-//       where: {isCart: 'pending', userId: req.user.id}
-//     })
-//     if (foundOrder) {
-//       foundOrder.destroy()
-//     }
-//     order = await Order.create({
-//       isCart: 'pending',
-//       purchaseDate: new Date(),
-//       userId: req.user.id
-//     })
-//     newOrder.forEach(async bouquet => {
-//       const bouquetToFind = await Bouquet.findByPk(bouquet.id)
-//       await bouquetToFind.addOrder(order)
-//       let bouquetOrder = await BouquetOrder.findOne({
-//         where: {orderId: order.id, bouquetId: bouquet.id}
-//       })
-//       bouquetOrder.quantity = bouquet.quantity
-//       bouquetOrder.cost = bouquet.bouquet.price * 100 * bouquet.quantity
-//       bouquetOrder.save()
-//     })
-//     res.json(order)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
-
 router.put('/update', async (req, res, next) => {
   try {
-    //req.body coming in is {
-    // action: addToCart,
-    // item: item we are updating
-    //quantity: quantity of bouquet in line
     const action = req.body.action
     const bouquet = req.body.item
     console.log(req.body.item, 'bouquet in req.body')
@@ -98,16 +64,9 @@ router.put('/update', async (req, res, next) => {
       } else {
         bouquetOrder.quantity = 1
       }
-      console.log(foundBouquet.price, 'FoundBouquet price')
       bouquetOrder.cost = foundBouquet.price * 100 * bouquetOrder.quantity
       await bouquetOrder.save()
     } else if (action === 'DECREMENT_FROM_CART') {
-      console.log('getshere')
-      // const foundBouquet = await Bouquet.findOne({
-      //   where: {id: bouquet.id},
-      //   include: [{model: Order}]
-      // })
-      // await pendingOrder[0].addBouquet(foundBouquet)
       let bouquetOrder = await BouquetOrder.findOne({
         where: {orderId: pendingOrder[0].id, bouquetId: bouquet.id}
       })
@@ -119,12 +78,6 @@ router.put('/update', async (req, res, next) => {
       bouquetOrder.cost = foundBouquet.price * 100 * bouquetOrder.quantity
       await bouquetOrder.save()
     } else if (action === 'DELETE_FROM_CART') {
-      console.log('getshere')
-      // const foundBouquet = await Bouquet.findOne({
-      //   where: {id: bouquet.id},
-      //   include: [{model: Order}]
-      // })
-      // await pendingOrder[0].addBouquet(foundBouquet)
       let bouquetOrder = await BouquetOrder.findOne({
         where: {orderId: pendingOrder[0].id, bouquetId: bouquet.id}
       })

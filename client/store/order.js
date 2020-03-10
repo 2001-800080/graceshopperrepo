@@ -7,11 +7,16 @@ export const makeOrder = order => ({
   order
 })
 
-export const makeOrderCheckoutThunk = order => {
+export const makeOrderCheckoutThunk = (order, token) => {
   return async dispatch => {
     try {
-      const {data} = await axios.post(`api/cart/checkout`, order)
+      const {data} = await axios.post(`api/cart/checkout`, {order, token})
       dispatch(makeOrder(data))
+      if (status === 'success') {
+        toast('Success! Check email for details', {type: 'success'})
+      } else {
+        toast('Something went wrong', {type: 'error'})
+      }
     } catch (error) {
       console.error(error)
     }
