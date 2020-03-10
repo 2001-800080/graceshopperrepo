@@ -1,5 +1,4 @@
 import axios from 'axios'
-import {bindActionCreators} from 'redux'
 
 const GET_CART = 'GET_CART'
 const CLEAR_CART = 'CLEAR_CART'
