@@ -76,6 +76,7 @@ router.put('/update', async (req, res, next) => {
     const action = req.body.action
     const bouquet = req.body.item
     const quantity = req.body.quantity
+    console.log(req.body.item, 'bouquet in req.body')
     const pendingOrder = await Order.findOrCreate({
       where: {
         userId: req.user.id,
@@ -85,7 +86,6 @@ router.put('/update', async (req, res, next) => {
     })
     //order is actually pendingOrder[0]
     if (action === 'ADD_TO_CART') {
-      console.log('getshere')
       const foundBouquet = await Bouquet.findOne({
         where: {id: bouquet.id},
         include: [{model: Order}]
@@ -94,8 +94,13 @@ router.put('/update', async (req, res, next) => {
       let bouquetOrder = await BouquetOrder.findOne({
         where: {orderId: pendingOrder[0].id, bouquetId: bouquet.id}
       })
-      bouquetOrder.quantity = quantity
-      bouquetOrder.cost = bouquet.price * 100 * bouquet.quantity
+      if (bouquetOrder.quantity > 0) {
+        bouquetOrder.quantity = bouquetOrder.quantity + 1
+      } else {
+        bouquetOrder.quantity = 1
+      }
+      console.log(bouquet.bouquet.price, 'price in req')
+      bouquetOrder.cost = bouquet.bouquet.price * 100 * bouquet.quantity
       await bouquetOrder.save()
     } else if (action === 'DECREMENT_FROM_CART') {
       console.log('getshere')
@@ -107,8 +112,12 @@ router.put('/update', async (req, res, next) => {
       let bouquetOrder = await BouquetOrder.findOne({
         where: {orderId: pendingOrder[0].id, bouquetId: bouquet.id}
       })
-      bouquetOrder.quantity = quantity
-      bouquetOrder.cost = bouquet.price * 100 * bouquet.quantity
+      if (bouquetOrder.quantity > 1) {
+        bouquetOrder.quantity = bouquetOrder.quantity - 1
+      } else {
+        bouquetOrder.destroy()
+      }
+      bouquetOrder.cost = bouquet.bouquet.price * 100 * bouquet.quantity
       await bouquetOrder.save()
     } else if (action === 'DELETE_FROM_CART') {
       console.log('getshere')
