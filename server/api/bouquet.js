@@ -15,15 +15,16 @@ function isAdmin(req, res, next) {
 router.get('/', async (req, res, next) => {
   try {
     const getAllBouquets = await Bouquet.findAll({order: [['id', 'ASC']]})
-    const getSomeBouquets = await Bouquet.findAll(
-      {order: [['id', 'ASC']]},
-      {
-        attributes: ['name', 'id', 'description', 'price', 'imageUrl']
-      }
-    )
-    if (getSomeBouquets && (!req.user || !req.user.isAdmin)) {
-      res.send(getSomeBouquets)
-    } else if (getAllBouquets && req.user.isAdmin) {
+    if (getAllBouquets) {
+      // const getSomeBouquets = await Bouquet.findAll(
+      //   {order: [['id', 'ASC']]},
+      //   {
+      //     attributes: ['name', 'id', 'description', 'price', 'imageUrl']
+      //   }
+      // )
+      // if (getSomeBouquets && (!req.user || !req.user.isAdmin)) {
+      //   res.send(getSomeBouquets)
+      // } else if (getAllBouquets && req.user.isAdmin) {
       res.send(getAllBouquets)
     } else {
       res.sendStatus(404)
@@ -38,13 +39,14 @@ router.get('/:bouquetId', async (req, res, next) => {
   try {
     const id = req.params.bouquetId
     const findBouquetById = await Bouquet.findByPk(id)
-    const guestBouq = await Bouquet.findOne({
-      where: {id: id},
-      attributes: ['name', 'id', 'description', 'price', 'imageUrl']
-    })
-    if (guestBouq && (!req.user || !req.user.isAdmin)) {
-      res.send(guestBouq)
-    } else if (findBouquetById && req.user.isAdmin) {
+    if (findBouquetById) {
+      // const guestBouq = await Bouquet.findOne({
+      //   where: {id: id},
+      //   attributes: ['name', 'id', 'description', 'price', 'imageUrl']
+      // })
+      // if (guestBouq && (!req.user || !req.user.isAdmin)) {
+      //   res.send(guestBouq)
+      // } else if (findBouquetById && req.user.isAdmin) {
       res.send(findBouquetById)
     } else {
       res.sendStatus(404)

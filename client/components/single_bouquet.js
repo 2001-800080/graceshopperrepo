@@ -26,7 +26,7 @@ class SingleBouquet extends Component {
             <button
               className="button"
               type="submit"
-              onClick={() => this.props.handleClick(this.props.bouquet)}
+              onClick={() => this.props.addToCart(this.props.bouquet)}
             >
               Add to Cart
             </button>
@@ -42,13 +42,13 @@ class SingleBouquet extends Component {
 }
 
 const mapStateToProps = state => ({
-  bouquet: state.bouquet,
-  cart: state.currentCart
+  currentCart: state.currentCart,
+  bouquet: state.bouquet
 })
 const mapDispatchToProps = dispatch => ({
   getBouquet: bouquetId => dispatch(getBouquet(bouquetId)),
-  handleClick: bouquet => dispatch(addToCart(bouquet)),
-  getCart: () => dispatch(getCart())
+  getCart: () => dispatch(getCart()),
+  addToCart: bouquet => dispatch(addToCart(bouquet))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleBouquet)
