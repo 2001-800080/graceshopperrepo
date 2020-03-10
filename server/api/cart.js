@@ -36,6 +36,41 @@ router.post('/checkout', async (req, res, next) => {
   }
 })
 
+router.post('/:userId', async (req, res, next) => {
+  try {
+    const newOrder = req.body
+    let order
+    if (req.user) {
+      order = await Order.create({
+        isCart: 'complete',
+        purchaseDate: new Date(),
+        userId: req.user.id
+      })
+    } else {
+      order = await Order.create({
+        isCart: 'complete',
+        purchaseDate: new Date()
+      })
+    }
+    newOrder.forEach(async bouquet => {
+      const bouquetToFind = await Bouquet.findByPk(bouquet.id)
+      await bouquetToFind.addOrder(order)
+      let bouquetOrder = await BouquetOrder.findOne({
+        where: {orderId: order.id, bouquetId: bouquet.id}
+      })
+      bouquetOrder.quantity = bouquet.quantity
+      bouquetOrder.cost = bouquet.bouquet.price * 100 * bouquet.quantity
+      await bouquetOrder.save()
+      console.log('bouquetToFind, bouq', bouquetToFind, bouquet)
+      bouquetToFind.quantity -= bouquet.quantity
+      await bouquetToFind.save()
+    })
+    res.json(order)
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.post('/logout', async (req, res, next) => {
   try {
     const newOrder = req.body

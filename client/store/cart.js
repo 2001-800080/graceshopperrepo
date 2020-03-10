@@ -67,7 +67,7 @@ export default function(state = currentCart, action) {
       } else {
         state = [] //i dont think we need this.
       }
-      return [...state]
+      return state
     case ADD_TO_CART:
       // search state to find if id is already there
       index = state.findIndex(el => el.id === action.bouquet.id)
