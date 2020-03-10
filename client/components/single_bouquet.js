@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {getBouquet} from '../store/singlebouquet'
-import {addToCart, getCart} from '../store/cart'
+import {addToCart, getCart, updateCartThunk} from '../store/cart'
 
 class SingleBouquet extends Component {
   componentDidMount() {
@@ -26,7 +26,12 @@ class SingleBouquet extends Component {
             <button
               className="button"
               type="submit"
-              onClick={() => this.props.handleClick(this.props.bouquet)}
+              onClick={() =>
+                this.props.handleClick(
+                  this.props.bouquet,
+                  this.props.bouquet.quantity
+                )
+              }
             >
               Add to Cart
             </button>
@@ -47,7 +52,8 @@ const mapStateToProps = state => ({
 })
 const mapDispatchToProps = dispatch => ({
   getBouquet: bouquetId => dispatch(getBouquet(bouquetId)),
-  handleClick: bouquet => dispatch(addToCart(bouquet)),
+  handleClick: (bouquet, quantity) =>
+    dispatch(updateCartThunk(addToCart, bouquet, quantity)),
   getCart: () => dispatch(getCart())
 })
 

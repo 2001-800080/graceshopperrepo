@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {addToCart} from '../store/cart'
+import {addToCart, updateCartThunk} from '../store/cart'
 
 export const BouquetForGrid = props => {
   const {bouquet} = props
@@ -11,7 +11,7 @@ export const BouquetForGrid = props => {
       <button
         className="all-flowers-cart-button"
         type="submit"
-        onClick={() => props.handleClick(bouquet)}
+        onClick={() => props.handleClick(bouquet, bouquet.quantity)}
       >
         Add to Cart
       </button>
@@ -19,7 +19,8 @@ export const BouquetForGrid = props => {
   )
 }
 const mapDispatchToProps = dispatch => ({
-  handleClick: bouquet => dispatch(addToCart(bouquet))
+  handleClick: (bouquet, quantity) =>
+    dispatch(updateCartThunk(addToCart, bouquet, quantity))
 })
 
 export default connect(null, mapDispatchToProps)(BouquetForGrid)

@@ -20,7 +20,7 @@ class Cart extends Component {
     this.handleDelete = this.handleDelete.bind(this)
     this.handleIncrease = this.handleIncrease.bind(this)
   }
-  handleDecrease(item) {
+  handleDecrease(item, quantity) {
     this.props.dispatchDecrementFromCart(item)
     this.props.dispatchGetCart()
   }
@@ -93,8 +93,10 @@ const mapDispatch = dispatch => ({
   dispatchGetCart: () => dispatch(getCart()),
   dispatchAddToCart: (item, quantity) =>
     dispatch(updateCartThunk(addToCart, item, quantity)),
-  dispatchDecrementFromCart: bouquet => dispatch(decrementFromCart(bouquet)),
-  dispatchDeleteFromCart: bouquet => dispatch(deleteFromCart(bouquet)),
+  dispatchDecrementFromCart: (item, quantity) =>
+    dispatch(updateCartThunk(decrementFromCart, item, quantity)),
+  dispatchDeleteFromCart: item =>
+    dispatch(updateCartThunk(deleteFromCart, item)),
   dispatchClearCart: () => dispatch(clearCart()),
   dispatchMakeOrder: item => dispatch(makeOrderCheckoutThunk(item))
 })
