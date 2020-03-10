@@ -70,7 +70,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     handleClick(cart) {
-      dispatch(makeOrderLogoutThunk(cart))
+      // dispatch(makeOrderLogoutThunk(cart))
       dispatch(logout())
       dispatch(clearCart())
       dispatch(getCart())
