@@ -1,4 +1,5 @@
 import axios from 'axios'
+import userState from './user'
 
 const GET_CART = 'GET_CART'
 const CLEAR_CART = 'CLEAR_CART'
@@ -11,7 +12,6 @@ const SET_CART = 'SET_CART'
  * INITIAL STATE
  */
 let currentCart = []
-// const cart = JSON.parse(localStorage.getItem('cart'))
 
 // cart is going to be an array of objects
 // keys:
@@ -36,6 +36,8 @@ export const clearCart = () => ({type: CLEAR_CART})
 export const setCartThunk = email => {
   return async dispatch => {
     try {
+      console.log('test')
+      console.log(userState)
       const {data} = await axios.get(`/api/cart/${email}`)
       if (data) {
         window.localStorage.setItem('cart', JSON.stringify(data))
