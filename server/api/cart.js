@@ -97,8 +97,31 @@ router.put('/update', async (req, res, next) => {
       bouquetOrder.quantity = quantity
       bouquetOrder.cost = bouquet.price * 100 * bouquet.quantity
       await bouquetOrder.save()
-      foundBouquet.quantity -= bouquet.quantity
-      await foundBouquet.save()
+    } else if (action === 'DECREMENT_FROM_CART') {
+      console.log('getshere')
+      // const foundBouquet = await Bouquet.findOne({
+      //   where: {id: bouquet.id},
+      //   include: [{model: Order}]
+      // })
+      // await pendingOrder[0].addBouquet(foundBouquet)
+      let bouquetOrder = await BouquetOrder.findOne({
+        where: {orderId: pendingOrder[0].id, bouquetId: bouquet.id}
+      })
+      bouquetOrder.quantity = quantity
+      bouquetOrder.cost = bouquet.price * 100 * bouquet.quantity
+      await bouquetOrder.save()
+    } else if (action === 'DELETE_FROM_CART') {
+      console.log('getshere')
+      // const foundBouquet = await Bouquet.findOne({
+      //   where: {id: bouquet.id},
+      //   include: [{model: Order}]
+      // })
+      // await pendingOrder[0].addBouquet(foundBouquet)
+      let bouquetOrder = await BouquetOrder.findOne({
+        where: {orderId: pendingOrder[0].id, bouquetId: bouquet.id}
+      })
+      bouquetOrder.destroy()
+      await bouquetOrder.save()
     }
     res.sendStatus(200)
   } catch (error) {
