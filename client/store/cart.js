@@ -52,7 +52,7 @@ export const setCartThunk = email => {
 export const updateCartThunk = (action, item, user) => {
   return async dispatch => {
     try {
-      if (user.id === undefined) {
+      if (user === undefined) {
         dispatch(action(item))
       } else if (user) {
         console.log(user)

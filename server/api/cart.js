@@ -5,6 +5,7 @@ const stripe = require('stripe')('STRIPE_SECRET_KEY')
 router.put('/checkout', async (req, res, next) => {
   try {
     const newOrder = req.body
+    console.log(req.body)
     let order
     if (req.user) {
       order = await Order.findOne({
@@ -12,7 +13,8 @@ router.put('/checkout', async (req, res, next) => {
         include: [{model: Bouquet}]
       })
       await order.update({
-        isCart: 'complete'
+        isCart: 'complete',
+        purchaseDate: new Date()
       })
 
       order.bouquets.forEach(async bouquet => {
@@ -28,7 +30,8 @@ router.put('/checkout', async (req, res, next) => {
         isCart: 'complete',
         purchaseDate: new Date()
       })
-      newOrder.forEach(async bouquet => {
+      newOrder.order.forEach(async bouquet => {
+        console.log('AM I IN THIS FOR EACH?', bouquet)
         const bouquetToFind = await Bouquet.findByPk(bouquet.id)
         await bouquetToFind.addOrder(order)
         let bouquetOrder = await BouquetOrder.findOne({
