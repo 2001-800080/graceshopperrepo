@@ -3,7 +3,7 @@ import StripeCheckout from 'react-stripe-checkout'
 import {clearCart, getCart} from '../store/cart'
 import {connect} from 'react-redux'
 import {makeOrderCheckoutThunk} from '../store/order'
-import Confirmation from './confirmation_page'
+import history from '../history'
 
 class Stripe extends React.Component {
   constructor(props) {
@@ -15,6 +15,8 @@ class Stripe extends React.Component {
     this.props.dispatchMakeOrder(this.props.currentCart)
     this.props.dispatchClearCart()
     this.props.dispatchGetCart()
+    alert('Thank You for Your Purchase!')
+    history.push('/confirmation')
   }
   componentDidMount() {
     this.props.dispatchGetCart()
