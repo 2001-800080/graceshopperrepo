@@ -2,35 +2,45 @@ const router = require('express').Router()
 const {User, Order, Bouquet, BouquetOrder} = require('../db/models')
 const stripe = require('stripe')('STRIPE_SECRET_KEY')
 
-router.post('/checkout', async (req, res, next) => {
+router.put('/checkout', async (req, res, next) => {
   try {
     const newOrder = req.body
     let order
     if (req.user) {
-      order = await Order.create({
-        isCart: 'complete',
-        purchaseDate: new Date(),
-        userId: req.user.id
+      order = await Order.findOne({
+        where: {userId: req.user.id, isCart: 'pending'},
+        include: [{model: Bouquet}]
+      })
+      await order.update({
+        isCart: 'complete'
+      })
+
+      order.bouquets.forEach(async bouquet => {
+        const bouquetOrder = await BouquetOrder.findOne({
+          where: {bouquetId: bouquet.id, orderId: order.id}
+        })
+        const foundBouquet = await Bouquet.findByPk(bouquet.id)
+        foundBouquet.quantity -= bouquetOrder.quantity
+        await foundBouquet.save()
       })
     } else {
       order = await Order.create({
         isCart: 'complete',
         purchaseDate: new Date()
       })
-    }
-    newOrder.forEach(async bouquet => {
-      const bouquetToFind = await Bouquet.findByPk(bouquet.id)
-      await bouquetToFind.addOrder(order)
-      let bouquetOrder = await BouquetOrder.findOne({
-        where: {orderId: order.id, bouquetId: bouquet.id}
+      newOrder.forEach(async bouquet => {
+        const bouquetToFind = await Bouquet.findByPk(bouquet.id)
+        await bouquetToFind.addOrder(order)
+        let bouquetOrder = await BouquetOrder.findOne({
+          where: {orderId: order.id, bouquetId: bouquet.id}
+        })
+        bouquetOrder.quantity = bouquet.quantity
+        bouquetOrder.cost = bouquet.bouquet.price * 100 * bouquet.quantity
+        await bouquetOrder.save()
+        bouquetToFind.quantity -= bouquet.quantity
+        await bouquetToFind.save()
       })
-      bouquetOrder.quantity = bouquet.quantity
-      bouquetOrder.cost = bouquet.bouquet.price * 100 * bouquet.quantity
-      await bouquetOrder.save()
-      console.log('bouquetToFind, bouq', bouquetToFind, bouquet)
-      bouquetToFind.quantity -= bouquet.quantity
-      await bouquetToFind.save()
-    })
+    }
     res.json(order)
   } catch (error) {
     next(error)
