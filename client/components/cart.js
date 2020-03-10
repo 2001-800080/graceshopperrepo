@@ -72,7 +72,13 @@ class Cart extends Component {
                   .reduce((a, b) => a + b, 0)
                   .toFixed(2)}
               </p>
-              <Stripe />
+              <div>
+                <Stripe
+                  total={this.props.currentCart.map(item =>
+                    (item.bouquet.price * item.quantity).toFixed(2)
+                  )}
+                />
+              </div>
             </div>
           </div>
         )}

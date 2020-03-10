@@ -3,6 +3,7 @@ import StripeCheckout from 'react-stripe-checkout'
 import {clearCart, getCart} from '../store/cart'
 import {connect} from 'react-redux'
 import {makeOrderCheckoutThunk} from '../store/order'
+import Confirmation from './confirmation_page'
 
 class Stripe extends React.Component {
   constructor(props) {
@@ -24,7 +25,8 @@ class Stripe extends React.Component {
       <div>
         <StripeCheckout
           stripeKey="pk_test_Mi3MWtyWC4wVQeSpVdyFpO6C00OCTXEJvG"
-          token={this.handleClear} // accepts a callback
+          token={this.handleClear}
+          amount={this.props.total * 100}
           billingAddress
           shippingAddress
         />
