@@ -83,12 +83,12 @@ router.put('/update', async (req, res, next) => {
       },
       include: [{model: Bouquet}]
     })
+    const foundBouquet = await Bouquet.findOne({
+      where: {id: bouquet.id},
+      include: [{model: Order}]
+    })
     //order is actually pendingOrder[0]
     if (action === 'ADD_TO_CART') {
-      const foundBouquet = await Bouquet.findOne({
-        where: {id: bouquet.id},
-        include: [{model: Order}]
-      })
       await pendingOrder[0].addBouquet(foundBouquet)
       let bouquetOrder = await BouquetOrder.findOne({
         where: {orderId: pendingOrder[0].id, bouquetId: bouquet.id}
@@ -116,9 +116,7 @@ router.put('/update', async (req, res, next) => {
       } else {
         bouquetOrder.destroy()
       }
-      bouquetOrder.cost = Number(
-        (bouquetOrder.cost / bouquetOrder.quantity) * bouquetOrder.quantity
-      )
+      bouquetOrder.cost = foundBouquet.price * 100 * bouquetOrder.quantity
       await bouquetOrder.save()
     } else if (action === 'DELETE_FROM_CART') {
       console.log('getshere')
