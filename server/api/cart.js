@@ -72,8 +72,10 @@ router.put('/update', async (req, res, next) => {
     //req.body coming in is {
     // action: addToCart,
     // item: item we are updating
+    //quantity: quantity of bouquet in line
     const action = req.body.action
     const bouquet = req.body.item
+    const quantity = req.body.quantity
     const pendingOrder = await Order.findOrCreate({
       where: {
         userId: req.user.id,
@@ -82,17 +84,23 @@ router.put('/update', async (req, res, next) => {
       include: [{model: Bouquet}]
     })
     //order is actually pendingOrder[0]
-    if (action === 'addToCart') {
+    if (action === 'ADD_TO_CART') {
+      console.log('getshere')
       const foundBouquet = await Bouquet.findOne({
         where: {id: bouquet.id},
         include: [{model: Order}]
       })
-
       await pendingOrder[0].addBouquet(foundBouquet)
       let bouquetOrder = await BouquetOrder.findOne({
         where: {orderId: pendingOrder[0].id, bouquetId: bouquet.id}
       })
+      bouquetOrder.quantity = quantity
+      bouquetOrder.cost = bouquet.price * 100 * bouquet.quantity
+      await bouquetOrder.save()
+      foundBouquet.quantity -= bouquet.quantity
+      await foundBouquet.save()
     }
+    res.sendStatus(200)
   } catch (error) {
     next(error)
   }

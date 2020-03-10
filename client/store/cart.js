@@ -1,8 +1,9 @@
 import axios from 'axios'
+import {bindActionCreators} from 'redux'
 
 const GET_CART = 'GET_CART'
 const CLEAR_CART = 'CLEAR_CART'
-const ADD_TO_CART = 'ADD_TO_CART'
+export const ADD_TO_CART = 'ADD_TO_CART'
 const DECREMENT_FROM_CART = 'DECREMENT_FROM_CART'
 const DELETE_FROM_CART = 'DELETE_FROM_CART'
 const SET_CART = 'SET_CART'
@@ -46,13 +47,14 @@ export const setCartThunk = email => {
     }
   }
 }
-export const updateCartThunk = (action, item) => {
+export const updateCartThunk = (action, item, quantity) => {
   return async dispatch => {
     try {
       console.log(item, 'item in thunk')
-      console.log('action', action)
+      console.log('action', String(action().type))
+      console.log('quantity', quantity)
       const {data} = await axios.put('/api/cart/update', {
-        action: action,
+        action: String(action().type),
         item: item,
         quantity: quantity
       })

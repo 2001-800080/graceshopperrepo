@@ -28,8 +28,8 @@ class Cart extends Component {
     this.props.dispatchDeleteFromCart(item, this.props.currentCart.quantity)
     this.props.dispatchGetCart()
   }
-  handleIncrease(item) {
-    this.props.dispatchAddToCart(item)
+  handleIncrease(item, quantity) {
+    this.props.dispatchAddToCart(item, quantity)
     // this.props.dispatchGetCart()
   }
   componentDidMount() {
@@ -92,7 +92,7 @@ const mapPropToCart = state => ({
 const mapDispatch = dispatch => ({
   dispatchGetCart: () => dispatch(getCart()),
   dispatchAddToCart: (item, quantity) =>
-    dispatch(updateCartThunk('addToCart', item, quantity)),
+    dispatch(updateCartThunk(addToCart, item, quantity)),
   dispatchDecrementFromCart: bouquet => dispatch(decrementFromCart(bouquet)),
   dispatchDeleteFromCart: bouquet => dispatch(deleteFromCart(bouquet)),
   dispatchClearCart: () => dispatch(clearCart()),
