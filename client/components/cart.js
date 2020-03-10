@@ -92,13 +92,13 @@ const mapPropToCart = state => ({
 
 const mapDispatch = dispatch => ({
   dispatchGetCart: () => dispatch(getCart()),
-  dispatchAddToCart: item => dispatch(updateCartThunk(addToCart, item)),
   dispatchDecrementFromCart: item =>
     dispatch(updateCartThunk(decrementFromCart, item)),
   dispatchDeleteFromCart: item =>
     dispatch(updateCartThunk(deleteFromCart, item)),
   dispatchClearCart: () => dispatch(clearCart()),
-  dispatchMakeOrder: item => dispatch(makeOrderCheckoutThunk(item))
+  dispatchMakeOrder: item => dispatch(makeOrderCheckoutThunk(item)),
+  dispatchAddToCart: item => dispatch(updateCartThunk(addToCart, item))
 })
 
 export default connect(mapPropToCart, mapDispatch)(Cart)
