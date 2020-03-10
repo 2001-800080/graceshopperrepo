@@ -1,13 +1,10 @@
 import React from 'react'
-import Payment from './purchaseform'
-import OrderForm from './orderform'
-import {Link} from 'react-router-dom'
+import StripeCheckout from 'react-stripe-checkout'
 import {clearCart, getCart} from '../store/cart'
 import {connect} from 'react-redux'
-
 import {makeOrderCheckoutThunk} from '../store/order'
 
-class Form extends React.Component {
+class Stripe extends React.Component {
   constructor(props) {
     super(props)
     this.handleClear = this.handleClear.bind(this)
@@ -25,11 +22,12 @@ class Form extends React.Component {
   render() {
     return (
       <div>
-        <div className="completebutton">
-          <Link to="/confirmation" onClick={() => this.handleClear()}>
-            <button type="button">Complete Purchase</button>
-          </Link>
-        </div>
+        <StripeCheckout
+          stripeKey="pk_test_Mi3MWtyWC4wVQeSpVdyFpO6C00OCTXEJvG"
+          token={this.handleClear} // accepts a callback
+          billingAddress
+          shippingAddress
+        />
       </div>
     )
   }
@@ -46,4 +44,4 @@ const mapDispatch = dispatch => ({
   dispatchMakeOrder: item => dispatch(makeOrderCheckoutThunk(item))
 })
 
-export default connect(mapPropToCart, mapDispatch)(Form)
+export default connect(mapPropToCart, mapDispatch)(Stripe)

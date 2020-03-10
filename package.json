@@ -57,12 +57,14 @@
     "react-dom": "^16.13.0",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
+    "react-stripe-checkout": "^2.6.3",
     "reactstrap": "^8.4.1",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "sequelize": "^5.21.5",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.3.0",
+    "stripe": "^8.29.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",

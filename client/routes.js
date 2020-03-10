@@ -2,15 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {
-  Cart,
-  AllBouquets,
-  SingleBouquet,
-  NotFoundPage,
-  OrderForm,
-  Payment,
-  Form
-} from './components'
+import {Cart, AllBouquets, SingleBouquet, NotFoundPage} from './components'
 import {me} from './store'
 import ConfirmationPage from './components/confirmation_page'
 import {Login, Signup} from './components/auth-form'
@@ -41,9 +33,6 @@ class Routes extends Component {
           <Route exact path="/" component={AllBouquets} />
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/bouquets/:bouquetId" component={SingleBouquet} />
-          <Route exact path="/forms" component={Form} />
-          <Route exact path="/orderform" component={OrderForm} />
-          <Route exact path="/payment" component={Payment} />
           {isLoggedIn && (
             <Switch>
               {/* Routes placed here are only available after logging in */}
