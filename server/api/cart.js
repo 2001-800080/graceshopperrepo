@@ -69,24 +69,30 @@ router.post('/checkout', async (req, res, next) => {
 
 router.put('/update', async (req, res, next) => {
   try {
-    const newCartInfo = req.body
-    const order = await Order.findOrCreate({
-      where: {isCart: 'pending', userId: req.user.id}
+    //req.body coming in is {
+    // action: addToCart,
+    // item: item we are updating
+    const action = req.body.action
+    const bouquet = req.body.item
+    const pendingOrder = await Order.findOrCreate({
+      where: {
+        userId: req.user.id,
+        isCart: 'pending'
+      },
+      include: [{model: Bouquet}]
     })
-    newCartInfo.forEach(async bouquet => {
-      const bouquetToFind = await Bouquet.findByPk(bouquet.id)
-      const hasIt = await bouquetToFind.hasOrder(order)
-      console.log(hasIt)
-
-      let bouquetOrder = await BouquetOrder.findOne({
-        where: {orderId: order[0].id, bouquetId: bouquet.id}
+    //order is actually pendingOrder[0]
+    if (action === 'addToCart') {
+      const foundBouquet = await Bouquet.findOne({
+        where: {id: bouquet.id},
+        include: [{model: Order}]
       })
-      console.log('bouq order', bouquetOrder)
-      bouquetOrder.quantity = bouquet.quantity
-      bouquetOrder.cost = bouquet.bouquet.price * 100 * bouquet.quantity
-      bouquetOrder.save()
-    })
-    res.json(newCartInfo)
+
+      await pendingOrder[0].addBouquet(foundBouquet)
+      let bouquetOrder = await BouquetOrder.findOne({
+        where: {orderId: pendingOrder[0].id, bouquetId: bouquet.id}
+      })
+    }
   } catch (error) {
     next(error)
   }
