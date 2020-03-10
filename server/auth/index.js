@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const User = require('../db/models/user')
-module.exports = router
 
 router.post('/login', async (req, res, next) => {
   try {
@@ -12,7 +11,12 @@ router.post('/login', async (req, res, next) => {
     } else if (!user.correctPassword(req.body.password)) {
       res.status(401).send('Please check your username and/or password~')
     } else {
-      req.login(user, err => (err ? next(err) : res.json(user)))
+      req.login(user, err => {
+        if (err) return next(err)
+        else {
+          return res.json(user)
+        }
+      })
     }
   } catch (err) {
     next(err)
@@ -45,8 +49,10 @@ router.post('/logout', (req, res) => {
   res.redirect('/')
 })
 
-router.get('/me', (req, res) => {
+router.get('/me', async (req, res) => {
   res.json(req.user)
 })
 
 router.use('/google', require('./google'))
+
+module.exports = router

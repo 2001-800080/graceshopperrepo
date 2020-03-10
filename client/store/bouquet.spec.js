@@ -1,5 +1,3 @@
-/* global describe beforeEach afterEach it */
-
 import {expect} from 'chai'
 import {getAllBouquets} from '../store/bouquet'
 import axios from 'axios'

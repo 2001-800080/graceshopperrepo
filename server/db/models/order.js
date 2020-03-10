@@ -10,7 +10,6 @@ const Order = db.define('order', {
       return this.getDataValue('quantity')
     }
   },
-  phoneNumber: Sequelize.INTEGER,
   isCart: {
     type: Sequelize.ENUM('pending', 'complete'),
     defaultValue: 'pending'

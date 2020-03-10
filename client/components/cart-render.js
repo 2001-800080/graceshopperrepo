@@ -21,7 +21,10 @@ const CartRender = props => {
         >
           remove one
         </button>
-        <button type="submit" onClick={() => handleIncrease(item)}>
+        <button
+          type="submit"
+          onClick={() => handleIncrease(item, item.quantity)}
+        >
           add
         </button>
         <button type="submit" onClick={() => handleDelete(item)}>

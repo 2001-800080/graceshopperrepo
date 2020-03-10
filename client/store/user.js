@@ -43,12 +43,8 @@ export const auth = (email, password, method) => async dispatch => {
     if (method === 'login') {
       return dispatch(getUser({loginError: authError}))
     } else {
-      // this is if (method === 'signup') {
       return dispatch(getUser({signupError: authError}))
     }
-    //if method is login, return disp getuser loginerror: authError
-    //if method is signup, resturn disp getuser signuperror: authError
-    //return dispatch(getUser({error: authError}))
   }
 }
 

@@ -2,14 +2,11 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {logout, makeOrderLogoutThunk} from '../store'
+import {logout} from '../store'
 import {getCart, clearCart} from '../store/cart'
 import {TinyCart} from './index'
 
 class Navbar extends Component {
-  constructor(props) {
-    super()
-  }
   render() {
     const {handleClick, isLoggedIn, currentCart} = this.props
     return (
@@ -69,8 +66,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    handleClick(cart) {
-      dispatch(makeOrderLogoutThunk(cart))
+    handleClick() {
       dispatch(logout())
       dispatch(clearCart())
       dispatch(getCart())

@@ -1,9 +1,7 @@
 const router = require('express').Router()
-const bouquetRoutes = require('./bouquet')
-module.exports = router
 
 router.use('/users', require('./users'))
-router.use('/bouquets', bouquetRoutes)
+router.use('/bouquets', require('./bouquet'))
 router.use('/cart', require('./cart'))
 
 router.use((req, res, next) => {
@@ -11,3 +9,5 @@ router.use((req, res, next) => {
   error.status = 404
   next(error)
 })
+
+module.exports = router

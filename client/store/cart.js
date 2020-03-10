@@ -1,8 +1,9 @@
 import axios from 'axios'
+import userState from './user'
 
 const GET_CART = 'GET_CART'
 const CLEAR_CART = 'CLEAR_CART'
-const ADD_TO_CART = 'ADD_TO_CART'
+export const ADD_TO_CART = 'ADD_TO_CART'
 const DECREMENT_FROM_CART = 'DECREMENT_FROM_CART'
 const DELETE_FROM_CART = 'DELETE_FROM_CART'
 const SET_CART = 'SET_CART'
@@ -11,12 +12,6 @@ const SET_CART = 'SET_CART'
  * INITIAL STATE
  */
 let currentCart = []
-
-// cart is going to be an array of objects
-// keys:
-//    id (integer)
-//    bouquet (object)
-//    quantity (integer)
 
 /**
  * ACTION CREATORS
@@ -35,11 +30,30 @@ export const clearCart = () => ({type: CLEAR_CART})
 export const setCartThunk = email => {
   return async dispatch => {
     try {
+      console.log('test')
+      console.log(userState)
       const {data} = await axios.get(`/api/cart/${email}`)
       if (data) {
         window.localStorage.setItem('cart', JSON.stringify(data))
         dispatch(setCart(data))
         dispatch(getCart())
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+export const updateCartThunk = (action, item, user) => {
+  return async dispatch => {
+    try {
+      if (!user.id) {
+        dispatch(action(item))
+      } else if (user) {
+        await axios.put('/api/cart/update', {
+          action: String(action().type),
+          item: item
+        })
+        dispatch(action(item))
       }
     } catch (error) {
       console.error(error)
@@ -68,19 +82,15 @@ export default function(state = currentCart, action) {
       }
       return state
     case ADD_TO_CART:
-      // search state to find if id is already there
       index = state.findIndex(el => el.id === action.bouquet.id)
       if (index > -1) {
-        // if its there
         bouquets = state
-
         if (bouquets[index].quantity + 1 <= bouquets[index].bouquet.quantity) {
           bouquets[index].quantity += 1
         } else if (
           bouquets[index].quantity + 1 >
           bouquets[index].bouquet.quantity
         ) {
-          console.error('Sold Out')
           window.alert(
             'Oops! This product is currently sold out 💸\n But feel free to browse our other lovely bouquets 💐 \n If you have a special request please call us at 1-800-VIOLETV 📞'
           )
@@ -98,16 +108,12 @@ export default function(state = currentCart, action) {
       return [...bouquets]
 
     case DECREMENT_FROM_CART:
-      // search state to find if id is already there
       index = state.findIndex(el => el.id === action.bouquet.id)
       if (index > -1) bouquets = state
-      // if its there decrease by 1 or delete if quantity is already 1
-
       if (bouquets[index].quantity > 1) bouquets[index].quantity -= 1
       else bouquets.splice(index, 1)
-
       localStorage.setItem('cart', JSON.stringify(bouquets))
-      return bouquets
+      return [...bouquets]
 
     case DELETE_FROM_CART:
       index = state.findIndex(el => el.id === action.bouquet.id)
@@ -116,7 +122,7 @@ export default function(state = currentCart, action) {
         bouquets.splice(index, 1)
       }
       localStorage.setItem('cart', JSON.stringify(bouquets))
-      return bouquets
+      return [...bouquets]
     case SET_CART:
       return action.cart
     default:

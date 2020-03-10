@@ -64,7 +64,7 @@ describe('AllBouquets', () => {
     )
   })
 
-  it('renders all the bouquets with the text All Bouquets in an h1 tag', () => {
+  it('renders bouquet for grid component for each bouquet', () => {
     const renderedBouquets = allBouqs.find(BouquetForGrid)
     expect(renderedBouquets.length).to.equal(3)
     expect(renderedBouquets.get(2).props.bouquet.name).to.equal(
