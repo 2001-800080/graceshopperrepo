@@ -1,13 +1,11 @@
 import React from 'react'
-import Payment from './purchaseform'
-import OrderForm from './orderform'
-import {Link} from 'react-router-dom'
+import StripeCheckout from 'react-stripe-checkout'
 import {clearCart, getCart} from '../store/cart'
 import {connect} from 'react-redux'
-
 import {makeOrderCheckoutThunk} from '../store/order'
+import history from '../history'
 
-class Form extends React.Component {
+class Stripe extends React.Component {
   constructor(props) {
     super(props)
     this.handleClear = this.handleClear.bind(this)
@@ -17,6 +15,7 @@ class Form extends React.Component {
     this.props.dispatchMakeOrder(this.props.currentCart)
     this.props.dispatchClearCart()
     this.props.dispatchGetCart()
+    history.push('/confirmation')
   }
   componentDidMount() {
     this.props.dispatchGetCart()
@@ -25,23 +24,13 @@ class Form extends React.Component {
   render() {
     return (
       <div>
-        <h1 className="order">Please Fill in the Following Information:</h1>
-        <center>
-          <img
-            src="https://cdn.clipart.email/04cb6ba67cc9e24be570ccfeb690eab5_library-of-book-divider-clip-art-freeuse-library-png-files-_1925-284.png"
-            height="90px"
-          />
-        </center>
-        <div className="paymentDiv">
-          <Payment />
-          <OrderForm />
-        </div>
-
-        <div className="completebutton">
-          <Link to="/confirmation" onClick={() => this.handleClear()}>
-            <button type="button">Complete Purchase</button>
-          </Link>
-        </div>
+        <StripeCheckout
+          stripeKey="pk_test_Mi3MWtyWC4wVQeSpVdyFpO6C00OCTXEJvG"
+          token={this.handleClear}
+          amount={this.props.total * 100}
+          billingAddress
+          shippingAddress
+        />
       </div>
     )
   }
@@ -58,4 +47,4 @@ const mapDispatch = dispatch => ({
   dispatchMakeOrder: item => dispatch(makeOrderCheckoutThunk(item))
 })
 
-export default connect(mapPropToCart, mapDispatch)(Form)
+export default connect(mapPropToCart, mapDispatch)(Stripe)

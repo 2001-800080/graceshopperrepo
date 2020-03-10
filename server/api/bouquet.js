@@ -15,12 +15,10 @@ function isAdmin(req, res, next) {
 router.get('/', async (req, res, next) => {
   try {
     const getAllBouquets = await Bouquet.findAll({order: [['id', 'ASC']]})
-    const getSomeBouquets = await Bouquet.findAll(
-      {order: [['id', 'ASC']]},
-      {
-        attributes: ['name', 'id', 'description', 'price', 'imageUrl']
-      }
-    )
+    const getSomeBouquets = await Bouquet.findAll({
+      order: [['id', 'ASC']],
+      attributes: ['name', 'id', 'description', 'price', 'imageUrl']
+    })
     if (getSomeBouquets && (!req.user || !req.user.isAdmin)) {
       res.send(getSomeBouquets)
     } else if (getAllBouquets && req.user.isAdmin) {
@@ -67,7 +65,7 @@ router.delete('/:bouquetId', isAdmin, async (req, res, next) => {
   try {
     const bouquet = await Bouquet.findByPk(req.params.bouquetId)
     if (bouquet) {
-      const deletedBouquet = await Bouquet.destroy({
+      await Bouquet.destroy({
         where: {id: req.params.bouquetId}
       })
       res.sendStatus(200)

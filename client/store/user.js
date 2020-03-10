@@ -40,7 +40,11 @@ export const auth = (email, password, method) => async dispatch => {
     }
     history.push('/home')
   } catch (authError) {
-    return dispatch(getUser({error: authError}))
+    if (method === 'login') {
+      return dispatch(getUser({loginError: authError}))
+    } else {
+      return dispatch(getUser({signupError: authError}))
+    }
   }
 }
 

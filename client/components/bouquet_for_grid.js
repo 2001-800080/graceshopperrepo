@@ -1,9 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {addToCart} from '../store/cart'
+import {addToCart, updateCartThunk} from '../store/cart'
 
 export const BouquetForGrid = props => {
-  const {bouquet} = props
+  const {bouquet, user} = props
   return (
     <div className="flower-grid">
       <img className="small-image" src={bouquet.imageUrl} alt="flower image" />
@@ -11,15 +11,22 @@ export const BouquetForGrid = props => {
       <button
         className="all-flowers-cart-button"
         type="submit"
-        onClick={() => props.handleClick(bouquet)}
+        onClick={() => props.handleClick(bouquet, user)}
       >
         Add to Cart
       </button>
     </div>
   )
 }
-const mapDispatchToProps = dispatch => ({
-  handleClick: bouquet => dispatch(addToCart(bouquet))
+
+const mapStateToProps = state => ({
+  currentCart: state.currentCart,
+  user: state.user
 })
 
-export default connect(null, mapDispatchToProps)(BouquetForGrid)
+const mapDispatchToProps = dispatch => ({
+  handleClick: (bouquet, user) =>
+    dispatch(updateCartThunk(addToCart, bouquet, user))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(BouquetForGrid)

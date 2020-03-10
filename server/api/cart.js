@@ -1,67 +1,98 @@
 const router = require('express').Router()
 const {User, Order, Bouquet, BouquetOrder} = require('../db/models')
 
-router.post('/checkout', async (req, res, next) => {
+router.put('/checkout', async (req, res, next) => {
   try {
     const newOrder = req.body
     let order
     if (req.user) {
-      order = await Order.create({
+      order = await Order.findOne({
+        where: {userId: req.user.id, isCart: 'pending'},
+        include: [{model: Bouquet}]
+      })
+      await order.update({
         isCart: 'complete',
-        purchaseDate: new Date(),
-        userId: req.user.id
+        purchaseDate: new Date()
+      })
+
+      order.bouquets.forEach(async bouquet => {
+        const bouquetOrder = await BouquetOrder.findOne({
+          where: {bouquetId: bouquet.id, orderId: order.id}
+        })
+        const foundBouquet = await Bouquet.findByPk(bouquet.id)
+        foundBouquet.quantity -= bouquetOrder.quantity
+        await foundBouquet.save()
       })
     } else {
       order = await Order.create({
         isCart: 'complete',
         purchaseDate: new Date()
       })
-    }
-    newOrder.forEach(async bouquet => {
-      const bouquetToFind = await Bouquet.findByPk(bouquet.id)
-      await bouquetToFind.addOrder(order)
-      let bouquetOrder = await BouquetOrder.findOne({
-        where: {orderId: order.id, bouquetId: bouquet.id}
+      newOrder.order.forEach(async bouquet => {
+        const bouquetToFind = await Bouquet.findByPk(bouquet.id)
+        await bouquetToFind.addOrder(order)
+        let bouquetOrder = await BouquetOrder.findOne({
+          where: {orderId: order.id, bouquetId: bouquet.id}
+        })
+        bouquetOrder.quantity = bouquet.quantity
+        bouquetOrder.cost = bouquet.bouquet.price * 100 * bouquet.quantity
+        await bouquetOrder.save()
+        bouquetToFind.quantity -= bouquet.quantity
+        await bouquetToFind.save()
       })
-      bouquetOrder.quantity = bouquet.quantity
-      bouquetOrder.cost = bouquet.bouquet.price * 100 * bouquet.quantity
-      await bouquetOrder.save()
-      console.log('bouquetToFind, bouq', bouquetToFind, bouquet)
-      bouquetToFind.quantity -= bouquet.quantity
-      await bouquetToFind.save()
-    })
+    }
     res.json(order)
   } catch (error) {
     next(error)
   }
 })
 
-router.post('/logout', async (req, res, next) => {
+router.put('/update', async (req, res, next) => {
   try {
-    const newOrder = req.body
-    let order
-    const foundOrder = await Order.findOne({
-      where: {isCart: 'pending', userId: req.user.id}
+    const action = req.body.action
+    const bouquet = req.body.item
+    const pendingOrder = await Order.findOrCreate({
+      where: {
+        userId: req.user.id,
+        isCart: 'pending'
+      },
+      include: [{model: Bouquet}]
     })
-    if (foundOrder) {
-      foundOrder.destroy()
-    }
-    order = await Order.create({
-      isCart: 'pending',
-      purchaseDate: new Date(),
-      userId: req.user.id
+    const foundBouquet = await Bouquet.findOne({
+      where: {id: bouquet.id},
+      include: [{model: Order}]
     })
-    newOrder.forEach(async bouquet => {
-      const bouquetToFind = await Bouquet.findByPk(bouquet.id)
-      await bouquetToFind.addOrder(order)
+    if (action === 'ADD_TO_CART') {
+      await pendingOrder[0].addBouquet(foundBouquet)
       let bouquetOrder = await BouquetOrder.findOne({
-        where: {orderId: order.id, bouquetId: bouquet.id}
+        where: {orderId: pendingOrder[0].id, bouquetId: bouquet.id}
       })
-      bouquetOrder.quantity = bouquet.quantity
-      bouquetOrder.cost = bouquet.bouquet.price * 100 * bouquet.quantity
-      bouquetOrder.save()
-    })
-    res.json(order)
+      if (bouquetOrder.quantity > 0) {
+        bouquetOrder.quantity = bouquetOrder.quantity + 1
+      } else {
+        bouquetOrder.quantity = 1
+      }
+      bouquetOrder.cost = foundBouquet.price * 100 * bouquetOrder.quantity
+      await bouquetOrder.save()
+    } else if (action === 'DECREMENT_FROM_CART') {
+      let bouquetOrder = await BouquetOrder.findOne({
+        where: {orderId: pendingOrder[0].id, bouquetId: bouquet.id}
+      })
+      if (bouquetOrder.quantity > 1) {
+        bouquetOrder.quantity = bouquetOrder.quantity - 1
+      } else {
+        bouquetOrder.destroy()
+      }
+      bouquetOrder.cost = foundBouquet.price * 100 * bouquetOrder.quantity
+      await bouquetOrder.save()
+    } else if (action === 'DELETE_FROM_CART') {
+      let bouquetOrder = await BouquetOrder.findOne({
+        where: {orderId: pendingOrder[0].id, bouquetId: bouquet.id}
+      })
+      bouquetOrder.destroy()
+      await bouquetOrder.save()
+    }
+    res.sendStatus(200)
   } catch (error) {
     next(error)
   }

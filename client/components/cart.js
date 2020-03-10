@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+
 import {
+  updateCartThunk,
   getCart,
   addToCart,
   decrementFromCart,
@@ -11,6 +12,7 @@ import {
 import {makeOrderCheckoutThunk} from '../store/order'
 import {CartRender} from './index'
 import EmptyCart from './emptycart'
+import Stripe from './stripe'
 
 class Cart extends Component {
   constructor(props) {
@@ -20,16 +22,13 @@ class Cart extends Component {
     this.handleIncrease = this.handleIncrease.bind(this)
   }
   handleDecrease(item) {
-    this.props.dispatchDecrementFromCart(item)
-    this.props.dispatchGetCart()
+    this.props.dispatchDecrementFromCart(item, this.props.user)
   }
   handleDelete(item) {
-    this.props.dispatchDeleteFromCart(item)
-    this.props.dispatchGetCart()
+    this.props.dispatchDeleteFromCart(item, this.props.user)
   }
   handleIncrease(item) {
-    this.props.dispatchAddToCart(item)
-    this.props.dispatchGetCart()
+    this.props.dispatchAddToCart(item, this.props.user)
   }
   componentDidMount() {
     this.props.dispatchGetCart()
@@ -71,10 +70,13 @@ class Cart extends Component {
                   .reduce((a, b) => a + b, 0)
                   .toFixed(2)}
               </p>
-
-              <Link to="/forms">
-                <button type="button">Checkout</button>
-              </Link>
+              <div>
+                <Stripe
+                  total={this.props.currentCart.map(item =>
+                    (item.bouquet.price * item.quantity).toFixed(2)
+                  )}
+                />
+              </div>
             </div>
           </div>
         )}
@@ -84,14 +86,19 @@ class Cart extends Component {
 }
 const mapPropToCart = state => ({
   currentCart: state.currentCart,
-  order: state.order
+  order: state.order,
+  isLoggedIn: !!state.user.id,
+  user: state.user
 })
 
 const mapDispatch = dispatch => ({
   dispatchGetCart: () => dispatch(getCart()),
-  dispatchAddToCart: bouquet => dispatch(addToCart(bouquet)),
-  dispatchDecrementFromCart: bouquet => dispatch(decrementFromCart(bouquet)),
-  dispatchDeleteFromCart: bouquet => dispatch(deleteFromCart(bouquet)),
+  dispatchAddToCart: (item, user) =>
+    dispatch(updateCartThunk(addToCart, item, user)),
+  dispatchDecrementFromCart: (item, user) =>
+    dispatch(updateCartThunk(decrementFromCart, item, user)),
+  dispatchDeleteFromCart: (item, user) =>
+    dispatch(updateCartThunk(deleteFromCart, item, user)),
   dispatchClearCart: () => dispatch(clearCart()),
   dispatchMakeOrder: item => dispatch(makeOrderCheckoutThunk(item))
 })
