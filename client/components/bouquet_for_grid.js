@@ -11,7 +11,7 @@ export const BouquetForGrid = props => {
       <button
         className="all-flowers-cart-button"
         type="submit"
-        onClick={() => props.handleClick(bouquet, bouquet.quantity)}
+        onClick={() => props.handleClick(bouquet)}
       >
         Add to Cart
       </button>
@@ -19,8 +19,7 @@ export const BouquetForGrid = props => {
   )
 }
 const mapDispatchToProps = dispatch => ({
-  handleClick: (bouquet, quantity) =>
-    dispatch(updateCartThunk(addToCart, bouquet, quantity))
+  handleClick: bouquet => dispatch(updateCartThunk(addToCart, bouquet))
 })
 
 export default connect(null, mapDispatchToProps)(BouquetForGrid)

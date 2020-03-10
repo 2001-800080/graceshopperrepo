@@ -75,7 +75,6 @@ router.put('/update', async (req, res, next) => {
     //quantity: quantity of bouquet in line
     const action = req.body.action
     const bouquet = req.body.item
-    const quantity = req.body.quantity
     console.log(req.body.item, 'bouquet in req.body')
     const pendingOrder = await Order.findOrCreate({
       where: {
@@ -99,8 +98,8 @@ router.put('/update', async (req, res, next) => {
       } else {
         bouquetOrder.quantity = 1
       }
-      console.log(bouquet.bouquet.price, 'price in req')
-      bouquetOrder.cost = bouquet.bouquet.price * 100 * bouquet.quantity
+      console.log(foundBouquet.price, 'FoundBouquet price')
+      bouquetOrder.cost = foundBouquet.price * 100 * bouquetOrder.quantity
       await bouquetOrder.save()
     } else if (action === 'DECREMENT_FROM_CART') {
       console.log('getshere')
@@ -117,7 +116,9 @@ router.put('/update', async (req, res, next) => {
       } else {
         bouquetOrder.destroy()
       }
-      bouquetOrder.cost = bouquet.bouquet.price * 100 * bouquet.quantity
+      bouquetOrder.cost = Number(
+        (bouquetOrder.cost / bouquetOrder.quantity) * bouquetOrder.quantity
+      )
       await bouquetOrder.save()
     } else if (action === 'DELETE_FROM_CART') {
       console.log('getshere')

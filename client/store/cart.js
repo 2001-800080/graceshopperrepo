@@ -50,9 +50,6 @@ export const setCartThunk = email => {
 export const updateCartThunk = (action, item, quantity) => {
   return async dispatch => {
     try {
-      console.log(item, 'item in thunk')
-      console.log('action', String(action().type))
-      console.log('quantity', quantity)
       const {data} = await axios.put('/api/cart/update', {
         action: String(action().type),
         item: item,
