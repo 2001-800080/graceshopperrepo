@@ -46,6 +46,7 @@ export const setCartThunk = email => {
 export const updateCartThunk = (action, item, user) => {
   return async dispatch => {
     try {
+      console.log('in thunk bouq', item)
       if (!user.id) {
         dispatch(action(item))
       } else if (user) {
@@ -84,18 +85,23 @@ export default function(state = currentCart, action) {
     case ADD_TO_CART:
       index = state.findIndex(el => el.id === action.bouquet.id)
       if (index > -1) {
+        console.log('in first if')
         bouquets = state
+        console.log(bouquets[index].bouquet.quantity, 'bouq quant')
         if (bouquets[index].quantity + 1 <= bouquets[index].bouquet.quantity) {
+          console.log('in sedcond if')
           bouquets[index].quantity += 1
         } else if (
           bouquets[index].quantity + 1 >
           bouquets[index].bouquet.quantity
         ) {
+          console.log('in the elseif')
           window.alert(
             'Oops! This product is currently sold out 💸\n But feel free to browse our other lovely bouquets 💐 \n If you have a special request please call us at 1-800-VIOLETV 📞'
           )
         }
       } else {
+        console.log('in the else')
         bouquets = state.concat([
           {
             id: action.bouquet.id,
