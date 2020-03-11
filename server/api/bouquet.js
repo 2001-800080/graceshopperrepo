@@ -47,7 +47,7 @@ router.get('/:bouquetId', async (req, res, next) => {
     // } else if (findBouquetById && req.user.isAdmin) {
     //   res.send(findBouquetById)
     // } else {
-    if (findBouquetById(id)) {
+    if (findBouquetById) {
       res.send(findBouquetById)
     } else {
       res.sendStatus(404)
