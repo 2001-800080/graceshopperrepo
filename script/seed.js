@@ -6929,6 +6929,13 @@ const bouquets = [
 
 const users = [
   {
+    firstName: 'Cody',
+    lastName: 'The Pug',
+    email: 'cody@email.com',
+    password: '1234',
+    isAdmin: true
+  },
+  {
     firstName: 'Bartel',
     lastName: 'Stocken',
     email: 'bstocken0@sitemeter.com',
