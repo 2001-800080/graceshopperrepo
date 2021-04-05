@@ -18,6 +18,10 @@ if (process.env.NODE_ENV === 'test') {
   after('close the session store', () => sessionStore.stopExpiringSessions())
 }
 
+app.use('/', express.static(path.join(__dirname, 'testheroku')));
+
+
+
 /**
  * In your development environment, you can keep all of your
  * app's secret API keys in a file called `secrets.js`, in your project
@@ -80,6 +84,8 @@ const createApp = () => {
       next()
     }
   })
+
+
 
   // sends index.html
   app.use('*', (req, res) => {
