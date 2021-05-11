@@ -4,7 +4,7 @@
   "description": "Some boilerplate code to get you started - get shakin'!",
   "engines": {
     "node": ">= 7.0.0",
-    "start": "node server.js"
+    "start": "node server"
   },
   "main": "index.js",
   "scripts": {
