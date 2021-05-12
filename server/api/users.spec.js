@@ -4,7 +4,7 @@ const db = require('../db')
 const app = require('../index')
 const User = db.model('user')
 
-describe('User routes', (done) => {
+describe('User routes', () => {
   beforeEach(() => {
     return db.sync({force: true})
   })
@@ -21,14 +21,14 @@ describe('User routes', (done) => {
       })
     })
 
-    it('GET /api/users', async () => {
+    it('GET /api/users', async (done) => {
       const res = await request(app)
         .get('/api/users')
         .expect(200)
 
       expect(res.body).to.be.an('array')
       expect(res.body[0].email).to.be.equal(codysEmail)
+      done()
     })
   }) // end describe('/api/users')
-  done()
 }) // end describe('User routes')
