@@ -98,7 +98,7 @@
     "git-url-parse": "^11.4.4",
     "husky": "^6.0.0",
     "lint-staged": "^8.1.5",
-    "mocha": "^6.2.3",
+    "mocha": "^8.4.0",
     "nodemon": "^1.19.4",
     "npm-merge-driver": "^2.3.6",
     "prettier": "^1.19.1",
