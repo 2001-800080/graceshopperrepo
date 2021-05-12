@@ -7,7 +7,7 @@ import {getCart} from '../store/cart'
 
 export class AllBouquets extends Component {
   componentDidMount() {
-
+    // this.props.dispatchGetCart()
     this.props.getAllBouquets()
   }
   render() {
