@@ -7,9 +7,9 @@ const Bouquet = db.model('bouquet')
 describe('Bouquet routes', (done) => {
   before(() => {
     return db.sync({force: true})
-   .then(done,done)
-  })
   
+  })
+
   beforeEach(async () => {
     await Bouquet.create({
       name: 'Hannah Bouquet',
@@ -37,4 +37,5 @@ describe('Bouquet routes', (done) => {
       expect(response.body.name).to.equal('Hannah Bouquet')
     })
   })
+  done()
 }) // end describe('bouquets routes')
