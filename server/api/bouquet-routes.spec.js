@@ -4,11 +4,12 @@ const db = require('../db')
 const app = require('../index')
 const Bouquet = db.model('bouquet')
 
-describe('Bouquet routes', () => {
+describe('Bouquet routes', (done) => {
   before(() => {
     return db.sync({force: true})
+   .then(done,done)
   })
-
+  
   beforeEach(async () => {
     await Bouquet.create({
       name: 'Hannah Bouquet',
