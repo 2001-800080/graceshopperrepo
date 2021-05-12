@@ -17,10 +17,10 @@ before_script:
 script:
   - npm test # test the code
   - npm run build-client # make the bundle
-# before_deploy: # omit node_modules, since we set skip_cleanup below
-#   - rm -rf node_modules
-# deploy: # see README for details on these keys
-#   # prevents travis from deleting the build
+before_deploy: # omit node_modules, since we set skip_cleanup below
+  - rm -rf node_modules
+deploy: # see README for details on these keys
+  # prevents travis from deleting the build
   skip_cleanup: true
   provider: heroku
   # app should be your heroku app name; see README
