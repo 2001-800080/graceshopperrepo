@@ -18,10 +18,6 @@ if (process.env.NODE_ENV === 'test') {
   after('close the session store', () => sessionStore.stopExpiringSessions())
 }
 
-app.use('/', express.static(path.join(__dirname, 'testheroku')));
-
-
-
 /**
  * In your development environment, you can keep all of your
  * app's secret API keys in a file called `secrets.js`, in your project
@@ -31,6 +27,13 @@ app.use('/', express.static(path.join(__dirname, 'testheroku')));
  * Node process on process.env
  */
 if (process.env.NODE_ENV !== 'production') require('../secrets')
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("frontend/dist"));
+  app.get("/", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+  });
+}
 
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id))
