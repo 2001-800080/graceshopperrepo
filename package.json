@@ -48,7 +48,7 @@
     "connect-session-sequelize": "^6.1.1",
     "express": "^4.16.4",
     "express-session": "^1.17.1",
-    "history": "^4.10.1",
+    "history": "^5.0.0",
     "morgan": "^1.10.0",
     "npm-install-missing": "^0.1.4",
     "passport": "^0.4.1",
