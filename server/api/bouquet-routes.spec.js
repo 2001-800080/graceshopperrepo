@@ -36,7 +36,7 @@ describe('Bouquet routes', () => {
 
       expect(response.body.quantity).to.equal(54)
       expect(response.body.name).to.equal('Hannah Bouquet')
+      done()
     })
-    done()
   })
 }) // end describe('bouquets routes')
