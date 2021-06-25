@@ -1,0 +1,20 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: reactstrap
+    versions:
+    - 8.9.0
+  - dependency-name: redux-devtools-extension
+    versions:
+    - 2.13.9
+  - dependency-name: "@babel/core"
+    versions:
+    - 7.13.14
+  - dependency-name: "@babel/register"
+    versions:
+    - 7.13.14
