@@ -99,7 +99,7 @@
     "husky": "^6.0.0",
     "lint-staged": "^8.1.5",
     "mocha": "^6.2.3",
-    "nodemon": "^1.19.4",
+    "nodemon": "^2.0.10",
     "npm-merge-driver": "^2.3.6",
     "prettier": "^1.19.1",
     "react-test-renderer": "^16.14.0",
