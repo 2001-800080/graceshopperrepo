@@ -63,10 +63,10 @@ form div {
   color: #570683;
 }
 
-.single-page img {
+/* .single-page img {
   max-width: 100%;
   height: 100%;
-}
+} */
 .single-page-info {
   font-size: 28px;
   display: flex;
