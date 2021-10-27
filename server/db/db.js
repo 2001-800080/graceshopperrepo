@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize')
 const pkg = require('../../package.json')
+let pg = require('pg')
+pg.defaults.ssl = true;
 
 const databaseName = pkg.name + (process.env.NODE_ENV === 'test' ? '-test' : '')
 
