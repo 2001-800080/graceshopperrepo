@@ -18,7 +18,7 @@ if (process.env.NODE_ENV === 'test') {
   after('close the session store', () => sessionStore.stopExpiringSessions())
 }
 
-app.set("port", PORT)
+
 /**
  * In your development environment, you can keep all of your
  * app's secret API keys in a file called `secrets.js`, in your project
