@@ -44,6 +44,7 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.21.4",
+    "chalk": "^4.1.2",
     "compression": "^1.7.3",
     "connect": "^3.7.0",
     "connect-session-sequelize": "^6.1.1",

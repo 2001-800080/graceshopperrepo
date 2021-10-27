@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize')
 const pkg = require('../../package.json')
-
 let config
 
 if (process.env.DATABASE_URL) {
