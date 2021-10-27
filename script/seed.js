@@ -1,6 +1,6 @@
 'use strict'
 const { green, red } = require("chalk");
-const db = require('../server/db')
+const {db} = require('../server/db')
 const {User, Bouquet, Order, BouquetOrder} = require('../server/db/models')
 
 const bouquets = [
